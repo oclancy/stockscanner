@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/StockService.Core" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/StockService.Core" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="StockQuote">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Ask" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="AverageDailyVolume" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Bid" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="BookValue" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Change" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ChangeFromTwoHundredDayMovingAverage" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ChangeFromYearHigh" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ChangeFromYearLow" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ChangeInPercent" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DailyHigh" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DailyLow" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DividendPayDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DividendShare" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="EarningsShare" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Ebitda" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="EpsEstimateCurrentYear" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="EpsEstimateNextQuarter" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="EpsEstimateNextYear" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ExDividendDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FiftyDayMovingAverage" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="LastTradeDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LastTradePrice" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="LastUpdate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="MarketCapitalization" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OneYearPriceTarget" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Open" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PeRatio" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PegRatio" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PercentChangeFromFiftyDayMovingAverage" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PercentChangeFromTwoHundredDayMovingAverage" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PercentChangeFromYearHigh" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PercentChangeFromYearLow" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PreviousClose" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PriceBook" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PriceEpsEstimateCurrentYear" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PriceEpsEstimateNextYear" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PriceSales" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ShortRatio" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="StockExchange" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Symbol" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TwoHunderedDayMovingAverage" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Volume" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="YearlyHigh" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="YearlyLow" nillable="true" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StockQuote" nillable="true" type="tns:StockQuote" />
+  <xs:complexType name="CompanyStatistics">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Symbol" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CompanyStatistics" nillable="true" type="tns:CompanyStatistics" />
+</xs:schema>
