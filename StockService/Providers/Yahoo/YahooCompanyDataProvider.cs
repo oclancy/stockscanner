@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using StockService.Providers;
 
 namespace StockService.Core
 {
-    public class YahooCompanyDataProvider
+    public class YahooCompanyDataProvider : ICompanyDataProvider
     {
         const string BASE_URL = "http://finance.yahoo.com/q/ks?s={0}+Key+Statistics";
 
-        public async static Task<CompanyStatistics> FetchDataAsync( string symbol )
+        public async Task<CompanyStatistics> FetchDataAsync( string symbol )
         {
             var t =  Task.Run(() =>
             {

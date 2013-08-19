@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NLog;
 using StockService.Core;
+using StockService.Providers;
 
 namespace StockService
 {
@@ -20,31 +21,44 @@ namespace StockService
 
         Logger m_logger = LogManager.GetCurrentClassLogger();
 
+        DataProviderFactory m_dataProviderFactory = new DataProviderFactory();
+
         public StockScannerService()
         {
             m_callback = OperationContext.Current.GetCallbackChannel<IStockScannerClient>();
         }
 
-        public async void GetCompanyData(string symbol)
+        public async void GetCompanyData(int market, string symbol)
         {
             string.Format("Getting company data for: {0}", symbol);
 
-            CompanyStatistics data = await YahooCompanyDataProvider.FetchDataAsync(symbol);
+            CompanyStatistics data = await m_dataProviderFactory.GetDataProvider<ICompanyDataProvider>(market).FetchDataAsync(symbol);
             m_callback.PushCompanyData(data);
         }
 
-        public async void GetStockData(string symbol)
+        public async void GetStockData(int market,string symbol)
         {
             string.Format("Getting stock data for: {0}", symbol);
 
-            StockQuote data = await YahooStockDataProvider.FetchDataAsync(symbol);
+            StockQuote data = await m_dataProviderFactory.GetDataProvider<IStockProvider>(market).FetchDataAsync(symbol);
             m_callback.PushStockData(data);
         }
 
-        public async void GetSetorData()
+        public async void GetSectorData(int market)
         {
-            var data = await SectorIndustryDataProvider.FetchDataAsync();
+            var data = await m_dataProviderFactory.GetDataProvider<ISectorDataProvider>(market).FetchDataAsync();
             m_callback.PushSectors(data);
+        }
+
+        public async void GetCompanies(int market, int industry)
+        {
+            var data = await m_dataProviderFactory.GetDataProvider<ICompanyProvider>(market).FetchDataAsync(industry);
+            m_callback.PushCompanies(data);
+        }
+
+        public List<Market> GetMarketsData()
+        {
+            return m_dataProviderFactory.GetMarketsData();
         }
     }
 }

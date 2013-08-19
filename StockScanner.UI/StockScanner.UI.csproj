@@ -127,6 +127,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Service References\StockScannerService\StockScanner.UI.StockScannerService.Market.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\StockScannerService\StockScannerService.wsdl" />
     <None Include="Service References\StockScannerService\StockScannerService.xsd">
       <SubType>Designer</SubType>

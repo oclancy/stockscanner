@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using StockService.Core;
 
 namespace StockService
 {
@@ -13,19 +14,23 @@ namespace StockService
                      SessionMode=SessionMode.Required)]
     public interface IStockScannerService
     {
-
         [OperationContract]
-        [FaultContract(typeof (string))]
-        void GetCompanyData(string symbol);
+        List<Market> GetMarketsData();
 
+        [OperationContract(IsOneWay = true)]
+        //[FaultContract(typeof (string))]
+        void GetCompanyData(int market, string symbol);
 
-        [OperationContract]
-        [FaultContract(typeof(string))]
-        void GetStockData(string symbol);
+        [OperationContract(IsOneWay = true)]
+        //[FaultContract(typeof(string))]
+        void GetStockData(int market, string symbol);
 
+        [OperationContract(IsOneWay = true)]
+        //[FaultContract(typeof(string))]
+        void GetSectorData(int market);
 
-        [OperationContract]
-        [FaultContract(typeof(string))]
-        void GetSetorData();
+        [OperationContract(IsOneWay=true)]
+        //[FaultContract(typeof(string))]
+        void GetCompanies(int market, int industry);
     }
 }

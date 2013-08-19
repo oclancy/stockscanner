@@ -15,6 +15,67 @@ namespace StockScanner.UI.StockScannerService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Market", Namespace="http://schemas.datacontract.org/2004/07/StockService.Core")]
+    [System.SerializableAttribute()]
+    public partial class Market : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="StockQuote", Namespace="http://schemas.datacontract.org/2004/07/StockService.Core")]
     [System.SerializableAttribute()]
     public partial class StockQuote : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -807,17 +868,207 @@ namespace StockScanner.UI.StockScannerService {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Sector", Namespace="http://schemas.datacontract.org/2004/07/StockService.Core")]
+    [System.SerializableAttribute()]
+    public partial class Sector : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private StockScanner.UI.StockScannerService.Industry[] IndustriesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public StockScanner.UI.StockScannerService.Industry[] Industries {
+            get {
+                return this.IndustriesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IndustriesField, value) != true)) {
+                    this.IndustriesField = value;
+                    this.RaisePropertyChanged("Industries");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Industry", Namespace="http://schemas.datacontract.org/2004/07/StockService.Core")]
+    [System.SerializableAttribute()]
+    public partial class Industry : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Company", Namespace="http://schemas.datacontract.org/2004/07/StockService.Core")]
+    [System.SerializableAttribute()]
+    public partial class Company : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SymbolField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Symbol {
+            get {
+                return this.SymbolField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SymbolField, value) != true)) {
+                    this.SymbolField = value;
+                    this.RaisePropertyChanged("Symbol");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="StockScannerService.IStockScannerService", CallbackContract=typeof(StockScanner.UI.StockScannerService.IStockScannerServiceCallback), SessionMode=System.ServiceModel.SessionMode.Required)]
     public interface IStockScannerService {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockScannerService/GetCompanyData", ReplyAction="http://tempuri.org/IStockScannerService/GetCompanyDataResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(string), Action="http://tempuri.org/IStockScannerService/GetCompanyDataStringFault", Name="string", Namespace="http://schemas.microsoft.com/2003/10/Serialization/")]
-        void GetCompanyData(string symbol);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockScannerService/GetMarketsData", ReplyAction="http://tempuri.org/IStockScannerService/GetMarketsDataResponse")]
+        StockScanner.UI.StockScannerService.Market[] GetMarketsData();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockScannerService/GetStockData", ReplyAction="http://tempuri.org/IStockScannerService/GetStockDataResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(string), Action="http://tempuri.org/IStockScannerService/GetStockDataStringFault", Name="string", Namespace="http://schemas.microsoft.com/2003/10/Serialization/")]
-        void GetStockData(string symbol);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IStockScannerService/GetCompanyData")]
+        void GetCompanyData(int market, string symbol);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IStockScannerService/GetStockData")]
+        void GetStockData(int market, string symbol);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IStockScannerService/GetSectorData")]
+        void GetSectorData(int market);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IStockScannerService/GetCompanies")]
+        void GetCompanies(int market, int industry);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -828,6 +1079,12 @@ namespace StockScanner.UI.StockScannerService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockScannerService/PushCompanyData", ReplyAction="http://tempuri.org/IStockScannerService/PushCompanyDataResponse")]
         void PushCompanyData(StockScanner.UI.StockScannerService.CompanyStatistics result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockScannerService/PushSectors", ReplyAction="http://tempuri.org/IStockScannerService/PushSectorsResponse")]
+        void PushSectors(StockScanner.UI.StockScannerService.Sector[] sectors);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockScannerService/PushCompanies", ReplyAction="http://tempuri.org/IStockScannerService/PushCompaniesResponse")]
+        void PushCompanies(StockScanner.UI.StockScannerService.Company[] data);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -858,12 +1115,24 @@ namespace StockScanner.UI.StockScannerService {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public void GetCompanyData(string symbol) {
-            base.Channel.GetCompanyData(symbol);
+        public StockScanner.UI.StockScannerService.Market[] GetMarketsData() {
+            return base.Channel.GetMarketsData();
         }
         
-        public void GetStockData(string symbol) {
-            base.Channel.GetStockData(symbol);
+        public void GetCompanyData(int market, string symbol) {
+            base.Channel.GetCompanyData(market, symbol);
+        }
+        
+        public void GetStockData(int market, string symbol) {
+            base.Channel.GetStockData(market, symbol);
+        }
+        
+        public void GetSectorData(int market) {
+            base.Channel.GetSectorData(market);
+        }
+        
+        public void GetCompanies(int market, int industry) {
+            base.Channel.GetCompanies(market, industry);
         }
     }
 }

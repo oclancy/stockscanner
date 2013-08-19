@@ -18,5 +18,8 @@ namespace StockService
 
         [OperationContract]
         void PushSectors(List<Sector> sectors);
+
+        [OperationContract]
+        void PushCompanies(List<Company> data);
     }
 }

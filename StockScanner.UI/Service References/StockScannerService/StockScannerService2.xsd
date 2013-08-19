@@ -1,34 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:2500/StockScannerService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/StockService.Core" />
-  <xs:element name="GetCompanyData">
+  <xs:element name="GetMarketsData">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMarketsDataResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="symbol" nillable="true" type="xs:string" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/StockService.Core" minOccurs="0" name="GetMarketsDataResult" nillable="true" type="q1:ArrayOfMarket" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetCompanyDataResponse">
+  <xs:element name="GetCompanyData">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="market" type="xs:int" />
+        <xs:element minOccurs="0" name="symbol" nillable="true" type="xs:string" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetStockData">
     <xs:complexType>
       <xs:sequence>
+        <xs:element minOccurs="0" name="market" type="xs:int" />
         <xs:element minOccurs="0" name="symbol" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetStockDataResponse">
+  <xs:element name="GetSectorData">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="market" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCompanies">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="market" type="xs:int" />
+        <xs:element minOccurs="0" name="industry" type="xs:int" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="PushStockData">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/StockService.Core" minOccurs="0" name="result" nillable="true" type="q1:StockQuote" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/StockService.Core" minOccurs="0" name="result" nillable="true" type="q2:StockQuote" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -40,11 +59,35 @@
   <xs:element name="PushCompanyData">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/StockService.Core" minOccurs="0" name="result" nillable="true" type="q2:CompanyStatistics" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/StockService.Core" minOccurs="0" name="result" nillable="true" type="q3:CompanyStatistics" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="PushCompanyDataResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PushSectors">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/StockService.Core" minOccurs="0" name="sectors" nillable="true" type="q4:ArrayOfSector" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PushSectorsResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PushCompanies">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/StockService.Core" minOccurs="0" name="data" nillable="true" type="q5:ArrayOfCompany" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PushCompaniesResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>

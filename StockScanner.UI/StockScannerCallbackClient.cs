@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
+using StockScanner.UI.StockScannerService;
 
 namespace StockScanner.UI
 {
@@ -25,6 +26,18 @@ namespace StockScanner.UI
         public void PushCompanyData(StockScannerService.CompanyStatistics result)
         {
             m_stockScannerViewModel.CompanyData = result;
+        }
+
+
+        public void PushSectors(StockScannerService.Sector[] sectors)
+        {
+            m_stockScannerViewModel.SectorData  = new List<StockScannerService.Sector>(sectors);
+        }
+
+
+        public void PushCompanies(StockScannerService.Company[] data)
+        {
+            m_stockScannerViewModel.Companies = new List<Company>(data);
         }
     }
 }

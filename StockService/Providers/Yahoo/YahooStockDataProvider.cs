@@ -11,14 +11,15 @@ namespace StockService.Core
     using System.Linq;
     using System.Threading.Tasks;
     using System.Xml.Linq;
+    using StockService.Providers;
 
-    public class YahooStockDataProvider 
+    public class YahooStockDataProvider : IStockProvider
     {
         private const string BASE_URL = "http://query.yahooapis.com/v1/public/yql?q=" +
                                         "select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20({0})" +
                                         "&amp;env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
 
-        public static async Task<StockQuote> FetchDataAsync(string symbol)
+        public async Task<StockQuote> FetchDataAsync(string symbol)
         {
             var t = Task.Run( () =>
             {
