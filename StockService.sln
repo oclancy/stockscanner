@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockScanner.UI", "StockSca
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockService.Core", "StockService.Core\StockService.Core.csproj", "{CA44BCB9-C1FA-48DC-8548-E6A051616571}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.Core.Tests", "Service.Core.Tests\Service.Core.Tests.csproj", "{89DA817E-3A9C-4343-B782-A9F272EE56D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{CA44BCB9-C1FA-48DC-8548-E6A051616571}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA44BCB9-C1FA-48DC-8548-E6A051616571}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA44BCB9-C1FA-48DC-8548-E6A051616571}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89DA817E-3A9C-4343-B782-A9F272EE56D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89DA817E-3A9C-4343-B782-A9F272EE56D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89DA817E-3A9C-4343-B782-A9F272EE56D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89DA817E-3A9C-4343-B782-A9F272EE56D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

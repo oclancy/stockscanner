@@ -6,9 +6,10 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Hosting;
 using NLog;
 using StockService.Core;
-using StockService.Providers;
+using StockService.Core.Providers;
 
 namespace StockService
 {
@@ -21,7 +22,7 @@ namespace StockService
 
         Logger m_logger = LogManager.GetCurrentClassLogger();
 
-        DataProviderFactory m_dataProviderFactory = new DataProviderFactory();
+        DataProviderFactory m_dataProviderFactory = new DataProviderFactory(HostingEnvironment.ApplicationPhysicalPath);
 
         public StockScannerService()
         {

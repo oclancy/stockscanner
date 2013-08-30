@@ -23,9 +23,19 @@ namespace StockScanner.UI.ViewModel
 
         public ICommand MarketChangedCommand { get; private set; }
 
-        public Market SelectedMarket { get; set; }
-
-        public Sector SelectedSector { get; set; }
+        Market m_selectedMarket;
+        public Market SelectedMarket
+        {
+            get
+            {
+                return m_selectedMarket;
+            }
+            set
+            {
+                m_selectedMarket = value;
+                OnPropertyChanged();
+            }
+        }
 
         Company m_selectedCompany;
         public Company SelectedCompany 
@@ -37,6 +47,7 @@ namespace StockScanner.UI.ViewModel
             set
             {
                 m_selectedCompany = value;
+                if (m_selectedCompany == null) return;
                 Client.GetCompanyData(SelectedMarket.Id, m_selectedCompany.Symbol);
             }
         }
@@ -51,12 +62,14 @@ namespace StockScanner.UI.ViewModel
 
             Initialise = new RelayCommand(()=> {
                 MarketData = new List<Market>(Client.GetMarketsData());
-                SelectedMarket = MarketData.FirstOrDefault();
+                Client.GetSectorData(MarketData.First().Id);
             });
 
             IndustryChangedCommand = new RelayCommand<SelectionChangedEventArgs>((e) =>
             {
-                var industry = e.AddedItems.Cast<StockScannerService.Industry>().First();
+                var industry = e.AddedItems.Cast<StockScannerService.Industry>().FirstOrDefault();
+
+                if (industry == null) return;
 
                 Client.GetCompanies( SelectedMarket.Id, industry.Id );
             });

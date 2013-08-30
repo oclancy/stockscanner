@@ -76,18 +76,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataReader\LseDataReader.cs" />
-    <Compile Include="Providers\Lse\LseCompanyProvider.cs" />
-    <Compile Include="Providers\Yahoo\YahooCompanyDataProvider.cs" />
-    <Compile Include="Providers\Yahoo\YahooCompanyProvider.cs" />
-    <Compile Include="Providers\DataProviderFactory.cs" />
-    <Compile Include="Providers\IDataProviders.cs" />
-    <Compile Include="Providers\Lse\LseCompanyDataProvider.cs" />
-    <Compile Include="Providers\Lse\LseSectorIndustryDataProvider.cs" />
-    <Compile Include="Providers\Lse\LseStockDataProvider.cs" />
-    <Compile Include="Providers\MarketProvider.cs" />
-    <Compile Include="Providers\Yahoo\YahooSectorIndustryDataProvider.cs" />
-    <Compile Include="Providers\Yahoo\YahooStockDataProvider.cs" />
     <Compile Include="StockScannerService.svc.cs">
       <DependentUpon>StockScannerService.svc</DependentUpon>
     </Compile>
@@ -100,9 +88,7 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="App_Data\lsedata.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="App_Data\lsedata.csv" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

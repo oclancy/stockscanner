@@ -1,0 +1,661 @@
+﻿<table width="580" id="yfncsumtab" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td colspan="3">
+            <table border="0" cellspacing="0" class="yfnc_modtitle1" style="border-bottom:1px solid #dcdcdc; margin-bottom:10px; width:100%;">
+                <form action="/q/ks" accept-charset="utf-8">
+                    <tr>
+                        <td>
+                            <big>
+                                <b>Key Statistics</b>
+                            </big>
+                        </td>
+                        <td align="right">
+                            <small>
+                                <b>Get Key Statistics for:</b>
+                                <input name="s" id="pageTicker" size="10" />
+                            </small>
+                            <input id="get_quote_logic_opt" name="ql" value="1" type="hidden" autocomplete="off">
+                                <input value="GO" type="submit" style="margin-left:3px;">
+                        </td>
+                    </tr>
+                </form>
+            </table>
+        </td>
+    </tr>
+    <tr valign="top">
+        <td width="270" class="yfnc_modtitlew1">
+            Data provided by <a href="http://us.rd.yahoo.com/finance/capiq/SIG=10r7m9m4m/*http://www.capitaliq.com/">Capital IQ</a>, except where noted.<br>
+                <table width="100%" class="yfnc_mod_table_title1" cellpadding="2" cellspacing="0" border="0">
+                    <tr>
+                        <th align="left">
+                            <b>Valuation Measures</b>
+                        </th>
+                        <th align="right">&nbsp;</th>
+                    </tr>
+                </table>
+                <table class="yfnc_datamodoutline1" width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td>
+                            <table width="100%" cellpadding="2" cellspacing="1" border="0">
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        Market Cap (intraday)<font size="-1">
+                                            <sup>5</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">
+                                        <span id="yfs_j10_goog">283.40B</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        Enterprise Value (Aug 28, 2013)<font size="-1">
+                                            <sup>3</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">243.57B</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">Trailing P/E (ttm, intraday):</td>
+                                    <td class="yfnc_tabledata1">24.64</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        Forward P/E (fye Dec 31, 2014)<font size="-1">
+                                            <sup>1</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">16.59</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        PEG Ratio (5 yr expected)<font size="-1">
+                                            <sup>1</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">1.35</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">Price/Sales (ttm):</td>
+                                    <td class="yfnc_tabledata1">5.07</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">Price/Book (mrq):</td>
+                                    <td class="yfnc_tabledata1">3.59</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        Enterprise Value/Revenue (ttm)<font size="-1">
+                                            <sup>3</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">4.37</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        Enterprise Value/EBITDA (ttm)<font size="-1">
+                                            <sup>6</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">14.32</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <span style="display:block; height:10px"></span>
+                <table width="100%" class="yfnc_mod_table_title1" cellpadding="2" cellspacing="0" border="0">
+                    <tr>
+                        <th align="left">
+                            <b>Financial Highlights</b>
+                        </th>
+                        <th align="right">&nbsp;</th>
+                    </tr>
+                </table>
+                <table class="yfnc_datamodoutline1" width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td>
+                            <table width="100%" cellpadding="2" cellspacing="1" border="0">
+                                <tr>
+                                    <td colspan="2" style="padding: 3px 8px;background-color:#CCC;">
+                                        <b>Fiscal Year</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">Fiscal Year Ends:</td>
+                                    <td class="yfnc_tabledata1">Dec 31</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">Most Recent Quarter (mrq):</td>
+                                    <td class="yfnc_tabledata1">Jun 30, 2013</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <table class="yfnc_datamodoutline1" width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td>
+                            <table width="100%" cellpadding="2" cellspacing="1" border="0">
+                                <tr>
+                                    <td colspan="2" style="padding: 3px 8px;background-color:#CCC;">
+                                        <b>Profitability</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">Profit Margin (ttm):</td>
+                                    <td class="yfnc_tabledata1">20.85%</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">Operating Margin (ttm):</td>
+                                    <td class="yfnc_tabledata1">23.95%</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <table class="yfnc_datamodoutline1" width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td>
+                            <table width="100%" cellpadding="2" cellspacing="1" border="0">
+                                <tr>
+                                    <td colspan="2" style="padding: 3px 8px;background-color:#CCC;">
+                                        <b>Management Effectiveness</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">Return on Assets (ttm):</td>
+                                    <td class="yfnc_tabledata1">8.92%</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">Return on Equity (ttm):</td>
+                                    <td class="yfnc_tabledata1">15.24%</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <table class="yfnc_datamodoutline1" width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td>
+                            <table width="100%" cellpadding="2" cellspacing="1" border="0">
+                                <tr>
+                                    <td colspan="2" style="padding: 3px 8px;background-color:#CCC;">
+                                        <b>Income Statement</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">Revenue (ttm):</td>
+                                    <td class="yfnc_tabledata1">55.80B</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">Revenue Per Share (ttm):</td>
+                                    <td class="yfnc_tabledata1">169.05</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">Qtrly Revenue Growth (yoy):</td>
+                                    <td class="yfnc_tabledata1">19.50%</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">Gross Profit (ttm):</td>
+                                    <td class="yfnc_tabledata1">29.54B</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        EBITDA (ttm)<font size="-1">
+                                            <sup>6</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">17.00B</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">Net Income Avl to Common (ttm):</td>
+                                    <td class="yfnc_tabledata1">10.94B</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">Diluted EPS (ttm):</td>
+                                    <td class="yfnc_tabledata1">34.57</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">Qtrly Earnings Growth (yoy):</td>
+                                    <td class="yfnc_tabledata1">15.90%</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <table class="yfnc_datamodoutline1" width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td>
+                            <table width="100%" cellpadding="2" cellspacing="1" border="0">
+                                <tr>
+                                    <td colspan="2" style="padding: 3px 8px;background-color:#CCC;">
+                                        <b>Balance Sheet</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">Total Cash (mrq):</td>
+                                    <td class="yfnc_tabledata1">54.43B</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">Total Cash Per Share (mrq):</td>
+                                    <td class="yfnc_tabledata1">163.45</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">Total Debt (mrq):</td>
+                                    <td class="yfnc_tabledata1">8.20B</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">Total Debt/Equity (mrq):</td>
+                                    <td class="yfnc_tabledata1">10.40</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">Current Ratio (mrq):</td>
+                                    <td class="yfnc_tabledata1">4.36</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">Book Value Per Share (mrq):</td>
+                                    <td class="yfnc_tabledata1">236.70</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <table class="yfnc_datamodoutline1" width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td>
+                            <table width="100%" cellpadding="2" cellspacing="1" border="0">
+                                <tr>
+                                    <td colspan="2" style="padding: 3px 8px;background-color:#CCC;">
+                                        <b>Cash Flow Statement</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">Operating Cash Flow (ttm):</td>
+                                    <td class="yfnc_tabledata1">17.01B</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">Levered Free Cash Flow (ttm):</td>
+                                    <td class="yfnc_tabledata1">10.16B</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <table cellpadding="2" border="0" width="100%" cellspacing="0">
+                    <tr>
+                        <td height="3">
+                            <spacer height="3" width="1" type="block"></spacer>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            View Financials<br>
+                                <b>
+                                    <a href="/q/is?s=GOOG">Income Statement</a> -
+                                    <a href="/q/bs?s=GOOG">Balance Sheet</a> -
+                                    <a href="/q/cf?s=GOOG">Cash Flow</a>
+                                </b>
+                            </td>
+                    </tr>
+                </table>
+            </td>
+        <td>
+            <span style="display:block; width:15px; height:2px;"></span>
+        </td>
+        <td width="270" class="yfnc_modtitlew2" align="center">
+            <!--ADS:LOCATION=LREC-->
+            <div style="min-height:265px; _height:265px; width:300px;margin:0pt auto;">
+                <script language="JavaScript" type="text/javascript" src="http://uk.adserver.yahoo.com/a?f=1197658239&p=ukcatchall&l=LREC&c=r&site-country=uk&t=1377719148.796468&rs=guid:L_RTLjY5LjEuC9DhT_SJfgBoMTg4LlIeU2z__zeA%3Bspid:95941353%3Bypos:LREC"></script>
+                <!--http://clicks.beap.bc.yahoo.com/yc/YnY9MS4wLjAmYnM9KDE1dTRsYWk5YyhnaWQkTF9SVExqWTVMakV1QzlEaFRfU0pmZ0JvTVRnNExsSWVVMnpfX3plQSxzdCQxMzc3NzE5MTQ4NzUxNzU0LHNpJDQ0NTEwNTEsc3AkOTU5NDEzNTMsY3IkMzQ5ODAzNDA1MSx2JDIuMCxhaWQkdkhPUV8yS0xGLk0tLGN0JDI1LHlieCQ3WW5Cc0kxRTRxUW1pVXdWZUh6RFRnLGJpJDE4MDcxMTMwNTEsciQwLHJkJDE2aTk3NWp0Mykp/0/*http://global.ard.yahoo.com/SIG=15l7gr3r5/M=999999.999999.999999.999999/D=finance/S=95941353:LREC/Y=YAHOO/EXP=1377726348/L=L_RTLjY5LjEuC9DhT_SJfgBoMTg4LlIeU2z__zeA/B=vHOQ_2KLF.M-/J=1377719148796468/K=z5sxLQhPs9MKQ_6WFg7C.A/A=7594423669261004113/R=0/X=6/*-->
+                <!--QYZ 1807113051,3498034051,98.139.230.48;;LREC;95941353;1;-->
+                <script language="javascript">
+                    if(window.xzq_d==null)window.xzq_d=new Object();
+                    window.xzq_d['vHOQ_2KLF.M-']='(as$12re3aeb4,aid$vHOQ_2KLF.M-,bi$1807113051,cr$3498034051,ct$25,at$H,eob$gd1_match_id=-1:ypos=LREC)';
+                </script>
+                <noscript>
+                    <img width="1" height="1" alt="" src="http://csc.beap.bc.yahoo.com/yi?bv=1.0.0&bs=(134e56s5f(gid$L_RTLjY5LjEuC9DhT_SJfgBoMTg4LlIeU2z__zeA,st$1377719148751754,si$4451051,sp$95941353,pv$1,v$2.0))&t=J_3-D_3&al=(as$12re3aeb4,aid$vHOQ_2KLF.M-,bi$1807113051,cr$3498034051,ct$25,at$H,eob$gd1_match_id=-1:ypos=LREC)">
+                </noscript>
+            </div>
+            <span id="yfs_ad_" ></span>
+            <span id="yfs_ad_" ></span>
+            <br>
+                <table width="100%" class="yfnc_mod_table_title1" cellpadding="2" cellspacing="0" border="0">
+                    <tr>
+                        <th align="left">
+                            <b>Trading Information</b>
+                        </th>
+                        <th align="right">&nbsp;</th>
+                    </tr>
+                </table>
+                <table class="yfnc_datamodoutline1" width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td>
+                            <table width="100%" cellpadding="2" cellspacing="1" border="0">
+                                <tr>
+                                    <td colspan="2" style="padding: 3px 8px;background-color:#CCC;">
+                                        <b>Stock Price History</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">Beta:</td>
+                                    <td class="yfnc_tabledata1">1.10</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        52-Week Change<font size="-1">
+                                            <sup>3</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">23.57%</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        S&amp;P500 52-Week Change<font size="-1">
+                                            <sup>3</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">15.60%</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        52-Week High (Jul 15, 2013)<font size="-1">
+                                            <sup>3</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">928.00</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        52-Week Low (Nov 16, 2012)<font size="-1">
+                                            <sup>3</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">636.00</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        50-Day Moving Average<font size="-1">
+                                            <sup>3</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">891.00</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        200-Day Moving Average<font size="-1">
+                                            <sup>3</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">851.78</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <table class="yfnc_datamodoutline1" width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td>
+                            <table width="100%" cellpadding="2" cellspacing="1" border="0">
+                                <tr>
+                                    <td colspan="2" style="padding: 3px 8px;background-color:#CCC;">
+                                        <b>Share Statistics</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        Avg Vol (3 month)<font size="-1">
+                                            <sup>3</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">2,107,550</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        Avg Vol (10 day)<font size="-1">
+                                            <sup>3</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">1,360,210</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        Shares Outstanding<font size="-1">
+                                            <sup>5</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">333.02M</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">Float:</td>
+                                    <td class="yfnc_tabledata1">273.56M</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        % Held by Insiders<font size="-1">
+                                            <sup>1</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">0.19%</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        % Held by Institutions<font size="-1">
+                                            <sup>1</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">86.70%</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        Shares Short (as of Jul 31, 2013)<font size="-1">
+                                            <sup>3</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">4.06M</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        Short Ratio (as of Jul 31, 2013)<font size="-1">
+                                            <sup>3</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">1.70</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        Short % of Float (as of Jul 31, 2013)<font size="-1">
+                                            <sup>3</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">1.50%</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        Shares Short (prior month)<font size="-1">
+                                            <sup>3</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">4.38M</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <table class="yfnc_datamodoutline1" width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td>
+                            <table width="100%" cellpadding="2" cellspacing="1" border="0">
+                                <tr>
+                                    <td colspan="2" style="padding: 3px 8px;background-color:#CCC;">
+                                        <b>Dividends &amp; Splits</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        Forward Annual Dividend Rate<font size="-1">
+                                            <sup>4</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">N/A</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        Forward Annual Dividend Yield<font size="-1">
+                                            <sup>4</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">N/A</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        Trailing Annual Dividend Yield<font size="-1">
+                                            <sup>3</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">N/A</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        Trailing Annual Dividend Yield<font size="-1">
+                                            <sup>3</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">N/A</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        5 Year Average Dividend Yield<font size="-1">
+                                            <sup>4</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">N/A</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        Payout Ratio<font size="-1">
+                                            <sup>4</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">N/A</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        Dividend Date<font size="-1">
+                                            <sup>3</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">N/A</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        Ex-Dividend Date<font size="-1">
+                                            <sup>4</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">N/A</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        Last Split Factor (new per old)<font size="-1">
+                                            <sup>2</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">N/A</td>
+                                </tr>
+                                <tr>
+                                    <td class="yfnc_tablehead1" width="74%">
+                                        Last Split Date<font size="-1">
+                                            <sup>3</sup>
+                                        </font>:
+                                    </td>
+                                    <td class="yfnc_tabledata1">N/A</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <br>
+                    <span id="yfs_ad_" ></span>
+                    <span id="yfs_ad_" ></span>
+                    <span id="yfs_ad_" ></span>
+                </td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <table cellpadding="2" border="0" cellspacing="0" width="100%">
+                <tr>
+                    <td align="left">
+                        See <a href="http://help.yahoo.com/l/us/yahoo/finance/tools/fitakeystats.html">Key Statistics Help</a> for definitions of terms used.
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">
+                        <small>
+                            <strong>Abbreviation Guide:</strong> <strong>K</strong> = Thousands;
+                            <strong>M</strong> = Millions;
+                            <strong>B</strong> = Billions
+                        </small>
+                        <br>
+                            <small>
+                                <strong>mrq</strong> = Most Recent Quarter
+                                (as of Jun 30, 2013)
+                            </small>
+                            <br>
+                                <small>
+                                    <strong>ttm</strong> = Trailing Twelve Months
+                                    (as of Jun 30, 2013)
+                                </small>
+                                <br>
+                                    <small>
+                                        <strong>yoy</strong> = Year Over Year
+                                        (as of Jun 30, 2013)
+                                    </small>
+                                    <br>
+                                        <small>
+                                            <strong>lfy</strong> = Last Fiscal Year
+                                            (as of Dec 31, 2012)
+                                        </small>
+                                        <br>
+                                            <small>
+                                                <strong>fye</strong> = Fiscal Year Ending
+                                            </small>
+                                            <br>
+                                                <font size="-1">
+                                                    <sup>1</sup>
+                                                </font>
+                                                <small> Data provided by Thomson Reuters</small>
+                                                <br>
+                                                    <font size="-1">
+                                                        <sup>2</sup>
+                                                    </font>
+                                                    <small> Data provided by EDGAR Online</small>
+                                                    <br>
+                                                        <font size="-1">
+                                                            <sup>3</sup>
+                                                        </font>
+                                                        <small> Data derived from multiple sources or calculated by Yahoo! Finance</small>
+                                                        <br>
+                                                            <font size="-1">
+                                                                <sup>4</sup>
+                                                            </font>
+                                                            <small> Data provided by Morningstar, Inc.</small>
+                                                            <br>
+                                                                <font size="-1">
+                                                                    <sup>5</sup>
+                                                                </font>
+                                                                <small> Shares outstanding is taken from the most recently filed quarterly or annual report and Market Cap is calculated using shares outstanding.</small>
+                                                                <br>
+                                                                    <font size="-1">
+                                                                        <sup>6</sup>
+                                                                    </font>
+                                                                    <small> EBITDA is calculated by Capital IQ using methodology that may differ from that used by a company in its reporting</small>
+                                                                    <br>
+                                                                        <br>
+                                                                            <small>Currency in USD.</small>
+                                                                        </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
