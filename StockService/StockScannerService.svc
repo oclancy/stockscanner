@@ -1,1 +1,1 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="StockService.StockScannerService" CodeBehind="StockScannerService.svc.cs" %>
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="StockService.StockScannerService" Factory="StockService.DependencyInjectionServiceHostFactory"CodeBehind="StockScannerService.svc.cs" %>

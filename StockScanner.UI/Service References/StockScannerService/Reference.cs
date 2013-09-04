@@ -833,6 +833,9 @@ namespace StockScanner.UI.StockScannerService {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.Dictionary<string, string> StatisticsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SymbolField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -842,6 +845,19 @@ namespace StockScanner.UI.StockScannerService {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.Dictionary<string, string> Statistics {
+            get {
+                return this.StatisticsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StatisticsField, value) != true)) {
+                    this.StatisticsField = value;
+                    this.RaisePropertyChanged("Statistics");
+                }
             }
         }
         

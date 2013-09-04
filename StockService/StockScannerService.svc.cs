@@ -7,6 +7,7 @@ using System.ServiceModel.Web;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Hosting;
+using Microsoft.Practices.Unity;
 using NLog;
 using StockService.Core;
 using StockService.Core.Providers;
@@ -22,7 +23,11 @@ namespace StockService
 
         Logger m_logger = LogManager.GetCurrentClassLogger();
 
-        DataProviderFactory m_dataProviderFactory = new DataProviderFactory(HostingEnvironment.ApplicationPhysicalPath);
+        [Dependency("CompanyDataCache")]
+        public IDictionary<string, CompanyStatistics> CompanyDataCache { get; set; }
+
+        [Dependency("DataProviderFactory")]
+        public DataProviderFactory DataProviderFactory { get; set; }
 
         public StockScannerService()
         {
@@ -33,7 +38,12 @@ namespace StockService
         {
             string.Format("Getting company data for: {0}", symbol);
 
-            CompanyStatistics data = await m_dataProviderFactory.GetDataProvider<ICompanyDataProvider>(market).FetchDataAsync(symbol);
+            CompanyStatistics data;
+            if( CompanyDataCache.ContainsKey(symbol) )
+                data = CompanyDataCache[symbol];
+            else
+                data = await DataProviderFactory.GetDataProvider<ICompanyDataProvider>(market).FetchDataAsync(symbol);
+
             m_callback.PushCompanyData(data);
         }
 
@@ -41,25 +51,25 @@ namespace StockService
         {
             string.Format("Getting stock data for: {0}", symbol);
 
-            StockQuote data = await m_dataProviderFactory.GetDataProvider<IStockProvider>(market).FetchDataAsync(symbol);
+            StockQuote data = await DataProviderFactory.GetDataProvider<IStockProvider>(market).FetchDataAsync(symbol);
             m_callback.PushStockData(data);
         }
 
         public async void GetSectorData(int market)
         {
-            var data = await m_dataProviderFactory.GetDataProvider<ISectorDataProvider>(market).FetchDataAsync();
+            var data = await DataProviderFactory.GetDataProvider<ISectorDataProvider>(market).FetchDataAsync();
             m_callback.PushSectors(data);
         }
 
         public async void GetCompanies(int market, int industry)
         {
-            var data = await m_dataProviderFactory.GetDataProvider<ICompanyProvider>(market).FetchDataAsync(industry);
+            var data = await DataProviderFactory.GetDataProvider<ICompanyProvider>(market).FetchDataAsync(industry);
             m_callback.PushCompanies(data);
         }
 
         public List<Market> GetMarketsData()
         {
-            return m_dataProviderFactory.GetMarketsData();
+            return DataProviderFactory.GetMarketsData();
         }
     }
 }

@@ -10,12 +10,12 @@ namespace StockService.Core
     public class CompanyStatistics
     {
         [DataMember]
-        public Dictionary<string, string> Values;
+        public Dictionary<string, string> Statistics;
 
         public CompanyStatistics(Dictionary<string, string> values)
         {
             // TODO: Complete member initialization
-            this.Values = values;
+            this.Statistics = values;
         }
 
         [DataMember]

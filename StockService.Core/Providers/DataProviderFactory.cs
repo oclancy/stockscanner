@@ -15,8 +15,10 @@ namespace StockService.Core.Providers
         static IList<Market> m_markets;
         static IUnityContainer m_container;
 
-        public  DataProviderFactory( string localPath )
+        public  DataProviderFactory( IUnityContainer container, string localPath )
         {
+            m_container = container;
+
             m_markets = MarketDataProvider.FetchData();
 
             var aim = m_markets.First(m => m.Name == "AIM");
@@ -28,8 +30,6 @@ namespace StockService.Core.Providers
             LseDataReader.Read(m_markets.First(m => m.Name == "AIM"),
                                 Path.Combine(localPath, "App_Data", "lsedata.csv"));
 
-
-            m_container = new UnityContainer();
 
             var stockDataProvider = new YahooStockDataProvider();
             var companyDataProvider = new YahooCompanyDataProvider();

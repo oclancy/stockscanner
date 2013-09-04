@@ -44,7 +44,7 @@ namespace StockService.Core
 
                         var company = industry.Companies.FirstOrDefault(c => c.Name == parts[CompanyName]);
                         if (company == null)
-                            industry.Companies.Add(new Company(parts[CompanyName], parts[Symbol]));
+                            industry.Companies.Add(new Company(parts[CompanyName], parts[Symbol] + ".L"));
                     }
                 }
             //}).ContinueWith( t=> 

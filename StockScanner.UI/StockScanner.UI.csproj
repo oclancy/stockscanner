@@ -114,6 +114,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="Service References\StockScannerService\StockScannerService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <Resource Include="MVVMLight.Nuget.Readme.txt" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

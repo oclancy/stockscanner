@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using HtmlAgilityPack;
+using StockService.Core.Extension;
 
 namespace StockService.Core.Providers
 {
@@ -29,34 +30,39 @@ namespace StockService.Core.Providers
 
         private static CompanyStatistics Parse(HtmlDocument doc)
         {
+            var retVal = new Dictionary<string, string>();
             var root = doc.DocumentNode;
             var tables = root.Descendants("table");
-            var values = tables.Where( table => table.Attributes.FirstOrDefault( a=> a.Name=="class" && a.Value=="yfnc_datamodoutline1") != null )
-                  .SelectMany( table => table.Descendants("table")
-                                           .SelectMany( node => node.Descendants("tr") )
-                  .Select( row =>
+            var values = tables.Where(table => table.Attributes.FirstOrDefault(a => a.Name == "class" && a.Value == "yfnc_datamodoutline1") != null)
+                  .SelectMany(table => table.Descendants("table")
+                                           .SelectMany(node => node.Descendants("tr"))
+                  .Select(row =>
                   {
-                    var nameCell = row.Elements("td")
-                                      .Where( cell => cell.Attributes.FirstOrDefault( a=> a.Name=="class" && a.Value=="yfnc_tablehead1" ) != null )
-                                      .FirstOrDefault();
+                      var nameCell = row.Elements("td")
+                                        .Where(cell => cell.Attributes.FirstOrDefault(a => a.Name == "class" && a.Value == "yfnc_tablehead1") != null)
+                                        .FirstOrDefault();
 
-                    var valueCell = row.Elements("td")
-                                      .Where( cell => cell.Attributes.FirstOrDefault( a=> a.Name=="class" && a.Value=="yfnc_tabledata1" ) != null )
-                                      .FirstOrDefault();
+                      var valueCell = row.Elements("td")
+                                        .Where(cell => cell.Attributes.FirstOrDefault(a => a.Name == "class" && a.Value == "yfnc_tabledata1") != null)
+                                        .FirstOrDefault();
 
-                    if (valueCell == null || nameCell == null)
-                        return null;
+                      if (valueCell == null || nameCell == null)
+                          return null;
 
-                    if(valueCell.HasChildNodes)
-                        valueCell = valueCell.FirstChild;
+                      if (valueCell.HasChildNodes)
+                          valueCell = valueCell.FirstChild;
 
-                    return new Tuple<string,string>(nameCell.InnerText, valueCell.InnerText);
+                      return new Tuple<string, string>(nameCell.InnerText.FormatStatistic(), valueCell.InnerText);
                   }))
-                  .Where( t => t!=null)
-                  .Distinct()
-                  .ToDictionary( kvp => kvp.Item1, kvp => kvp.Item2);
+                  .Where(t => t != null);
 
-            return new CompanyStatistics(values);
+            values.ForEach( v =>
+            {
+                if(!retVal.ContainsKey(v.Item1)) 
+                    retVal.Add(v.Item1, v.Item2);
+            });
+
+            return new CompanyStatistics(retVal);
         }
 
     }

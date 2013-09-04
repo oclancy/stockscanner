@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF4"        
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="725">
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -20,7 +20,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <ComboBox ItemsSource="{Binding MarketData}" 
@@ -42,13 +42,17 @@
                   Name="Sectors"
                   Grid.Column="1"
                   IsSynchronizedWithCurrentItem="True" 
-                  SelectedIndex="0"/>
+                  SelectedIndex="0"
+                  Padding="2"
+                  Margin="2"/>
 
         <ComboBox ItemsSource="{Binding ElementName=Sectors,  Path=SelectedItem.Industries }" 
                   DisplayMemberPath="Name" 
                   IsSynchronizedWithCurrentItem="True" 
                   Grid.Column="2"
-                  SelectedIndex="0">
+                  SelectedIndex="0"
+                  Padding="2"
+                  Margin="2">
 
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
@@ -59,11 +63,58 @@
 
         </ComboBox>
 
-        <ListView Grid.Row="1" 
+        <ScrollViewer Grid.Row="1" 
+                      Grid.RowSpan="2"
+                      Height="auto">
+            <ListView 
                   ItemsSource="{Binding Companies}" 
                   SelectedItem="{Binding SelectedCompany}"
-                  DisplayMemberPath="Name"
-                  Grid.RowSpan="2"/>
+                  Padding="2"
+                  Margin="2">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock ToolTip="{Binding Symbol}" Text="{Binding Name}"></TextBlock>
+                    </DataTemplate>
+                </ListView.ItemTemplate>    
+            </ListView>
+            
+        </ScrollViewer>
+
+        <ScrollViewer Grid.Row="1"
+                      Grid.Column="1"
+                      Grid.ColumnSpan="2"
+                      Height="auto">
+            
+        <ListView ItemsSource="{Binding CompanyData.Statistics}">
+
+            <ListView.View>
+                <GridView AllowsColumnReorder="true"
+                          ColumnHeaderToolTip="Company Data">
+
+                    <GridViewColumn DisplayMemberBinding=
+                      "{Binding Path=Key}" 
+                      Header="Statistic" Width="auto"/>
+
+                    <GridViewColumn DisplayMemberBinding=
+                      "{Binding Path=Value}" 
+                      Width="auto"
+                      Header="Value">
+                        <!--<GridViewColumnHeader>Last Name
+                            <GridViewColumnHeader.ContextMenu>
+                                <ContextMenu  MenuItem.Click="LastNameCM_Click"  
+                                        Name="LastNameCM">
+                                    <MenuItem Header="Ascending" />
+                                    <MenuItem Header="Descending" />
+                                </ContextMenu>
+                            </GridViewColumnHeader.ContextMenu>
+                        </GridViewColumnHeader>-->
+                    </GridViewColumn>
+
+                </GridView>
+
+            </ListView.View>
+        </ListView>
+        </ScrollViewer>
     </Grid>
     
     
