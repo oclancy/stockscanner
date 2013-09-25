@@ -16,9 +16,10 @@ namespace StockService.Core.Providers
             // TODO: Complete member initialization
             this.m_market = aim;
         }
-        public async Task<List<Sector>> FetchDataAsync()
+
+        public async Task<List<Sector>> FetchDataAsync(Market market)
         {
-            return m_market.Sectors;
+            return await Task.Run(() => m_market.Sectors);
         }
     }
 }

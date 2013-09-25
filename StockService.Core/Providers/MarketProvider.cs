@@ -11,9 +11,9 @@ namespace StockService.Core.Providers
     {
         public static List<Market> FetchData()
         {
-            return new List<Market> { new Market("Main Market",0), 
-                                      new Market("AIM",1), 
-                                      new Market("NASDAQ",2) };
+            return new List<Market> { new Market(){Name="Main Market", Id=0}, 
+                                      new Market(){Name="AIM",Id=1}, 
+                                      new Market(){Name="NASDAQ",Id=2}};
         }
     }
 }

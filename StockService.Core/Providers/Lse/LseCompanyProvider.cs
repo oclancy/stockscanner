@@ -16,13 +16,13 @@ namespace StockService.Core.Providers
             // TODO: Complete member initialization
             this.m_market = aim;
         }
-        public async Task<List<Company>> FetchDataAsync(int industry)
+        public async Task<List<Company>> FetchDataAsync(Industry industry)
         {
-            return m_market.Sectors
-                           .First( s => s.Industries.FirstOrDefault( i => i.Id == industry ) != null )
+            return await Task.Run( () =>m_market.Sectors
+                           .First( s => s.Industries.FirstOrDefault( i => i.Name == industry.Name ) != null )
                            .Industries
-                           .First( i => i.Id == industry )
-                           .Companies;
+                           .First( i => i.Name == industry.Name )
+                           .Companies);
         }
     }
 }

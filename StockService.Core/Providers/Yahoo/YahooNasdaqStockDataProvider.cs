@@ -11,38 +11,44 @@ namespace StockService.Core.Providers
     using System.Linq;
     using System.Threading.Tasks;
     using System.Xml.Linq;
+    using Microsoft.Practices.Unity;
 
-    public class YahooStockDataProvider : IStockProvider
+    public class YahooNasdaqStockDataProvider : IStockProvider
     {
+        [Dependency]
+        public IDictionary<string, StockQuote> Cache{get;set;}
+
         private const string BASE_URL = "http://query.yahooapis.com/v1/public/yql?q=" +
                                         "select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20({0})" +
                                         "&amp;env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
 
-        public async Task<StockQuote> FetchDataAsync(string symbol)
+        public async Task<StockQuote> FetchDataAsync(Company company)
         {
-            var t = Task.Run( () =>
+            if (Cache.ContainsKey(company.Symbol)) return Cache[company.Symbol];
+
+            var t = await Task.Run( () =>
             {
                 //string symbolList = String.Join("%2C", quotes.Select(w => "%22" + w.Symbol + "%22").ToArray());
 
-                string symbolList = "%2C%22" + symbol + "%22";
+                string symbolList = "%2C%22" + company.Symbol + "%22";
                 string url = string.Format(BASE_URL, symbolList);
 
-                return Parse(XDocument.Load(url));
+                return Parse(XDocument.Load(url), company.Symbol);
             });
 
-            await t;
-
-            return t.Result;
+            t.Company = company;
+            Cache.Add(company.Symbol, t);
+            return t;
 
         }
 
-        private static StockQuote Parse(XDocument doc)
+        private static StockQuote Parse(XDocument doc, string symbol)
         {
             XElement results = doc.Root.Element("results");
 
             StockQuote quote = new StockQuote();
             {
-                XElement q = results.Elements("quote").First(w => w.Attribute("symbol").Value == quote.Symbol);
+                XElement q = results.Elements("quote").First(w => w.Attribute("symbol").Value == symbol);
 
                 quote.Ask = GetDecimal(q.Element("Ask").Value);
                 quote.Bid = GetDecimal(q.Element("Bid").Value);

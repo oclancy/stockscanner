@@ -48,7 +48,8 @@ namespace StockScanner.UI.ViewModel
             {
                 m_selectedCompany = value;
                 if (m_selectedCompany == null) return;
-                Client.GetCompanyData(SelectedMarket.Id, m_selectedCompany.Symbol);
+                Client.GetCompanyData(m_selectedCompany);
+                Client.GetStockData(m_selectedCompany);
             }
         }
 
@@ -62,7 +63,7 @@ namespace StockScanner.UI.ViewModel
 
             Initialise = new RelayCommand(()=> {
                 MarketData = new List<Market>(Client.GetMarketsData());
-                Client.GetSectorData(MarketData.First().Id);
+                Client.GetSectorData(MarketData.First());
             });
 
             IndustryChangedCommand = new RelayCommand<SelectionChangedEventArgs>((e) =>
@@ -71,14 +72,14 @@ namespace StockScanner.UI.ViewModel
 
                 if (industry == null) return;
 
-                Client.GetCompanies( SelectedMarket.Id, industry.Id );
+                Client.GetCompanies( industry );
             });
 
             MarketChangedCommand = new RelayCommand<SelectionChangedEventArgs>((e) =>
             {
                 var market = e.AddedItems.Cast<StockScannerService.Market>().First();
 
-                Client.GetSectorData(market.Id);
+                Client.GetSectorData(market);
             });
         }
 

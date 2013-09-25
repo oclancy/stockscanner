@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Providers\CompanyData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\YahooStockData.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StockService.Core\StockService.Core.csproj">

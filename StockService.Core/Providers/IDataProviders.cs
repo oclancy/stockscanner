@@ -9,22 +9,27 @@ namespace StockService.Core.Providers
 {
     public interface ICompanyDataProvider
     {
-        Task<CompanyStatistics> FetchDataAsync(string symbol);
+        Task<CompanyStatistics> FetchDataAsync(Company company);
+    }
+    
+    public interface ICalculatedCompanyDataProvider
+    {
+        CalculatedData FetchData(Company company);
     }
 
     public interface ISectorDataProvider
     {
-        Task<List<Sector>> FetchDataAsync();
+        Task<List<Sector>> FetchDataAsync(Market market);
     }
 
     public interface IStockProvider
     {
-        Task<StockQuote> FetchDataAsync(string symbol);
+        Task<StockQuote> FetchDataAsync(Company company);
     }
 
     public interface ICompanyProvider
     {
-        Task<List<Company>> FetchDataAsync(int industry);
+        Task<List<Company>> FetchDataAsync(Industry company);
     }
 
 }

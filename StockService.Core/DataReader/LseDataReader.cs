@@ -34,17 +34,24 @@ namespace StockService.Core
 
                         if(market.Name != parts[Market])continue;
 
-                        Sector sector = market.Sectors.FirstOrDefault( s => s.Name == parts[Industry] );
+                        Sector sector = market.Sectors.FirstOrDefault(s => s.Name == parts[Industry]);
                         if(sector == null)
-                            market.Sectors.Add( sector = new Sector(parts[Industry]));
+                            market.Sectors.Add(sector = new Sector() { Name=parts[Industry], Market=market });
 
                         var industry = sector.Industries.FirstOrDefault(i => i.Name == parts[Sector]);
                         if (industry == null)
-                            sector.Industries.Add(industry = new Industry(++industryId, parts[Sector]));
+                            sector.Industries.Add(industry = new Industry() { Name=parts[Sector], Sector = sector });
 
                         var company = industry.Companies.FirstOrDefault(c => c.Name == parts[CompanyName]);
-                        if (company == null)
-                            industry.Companies.Add(new Company(parts[CompanyName], parts[Symbol] + ".L"));
+                        if (company == null && !string.IsNullOrEmpty(parts[Symbol]))
+                            industry.Companies.Add(new Company()
+                            {
+                                Name = parts[CompanyName],
+                                Symbol = string.Format("{0}{1}{2}", parts[Symbol], parts[Symbol].Last() == '.' ? string.Empty : ".", "L"),
+                                Industry = industry
+                            });
+                        else
+                            m_log.Error("Could not construct Company with data: {0}", line);
                     }
                 }
             //}).ContinueWith( t=> 

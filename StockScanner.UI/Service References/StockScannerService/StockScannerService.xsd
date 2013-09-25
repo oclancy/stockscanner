@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/StockService.Core" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/StockService.Core" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/StockService.Core" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/StockService.Core" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:2500/StockScannerService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:import schemaLocation="http://localhost:2500/StockScannerService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:complexType name="ArrayOfMarket">
     <xs:sequence>
@@ -14,6 +15,47 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Market" nillable="true" type="tns:Market" />
+  <xs:complexType name="Company">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Industry" nillable="true" type="tns:Industry" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Symbol" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Company" nillable="true" type="tns:Company" />
+  <xs:complexType name="Industry">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Sector" nillable="true" type="tns:Sector" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Industry" nillable="true" type="tns:Industry" />
+  <xs:complexType name="Sector">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Industries" nillable="true" type="tns:ArrayOfIndustry" />
+      <xs:element minOccurs="0" name="Market" nillable="true" type="tns:Market" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
+  </xs:complexType>
+  <xs:element name="Sector" nillable="true" type="tns:Sector" />
+  <xs:complexType name="ArrayOfIndustry">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Industry" nillable="true" type="tns:Industry" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfIndustry" nillable="true" type="tns:ArrayOfIndustry" />
+  <xs:complexType name="CalculatedData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PriceSalesRatio" type="xs:double" />
+      <xs:element minOccurs="0" name="SmartPE" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CalculatedData" nillable="true" type="tns:CalculatedData" />
   <xs:complexType name="StockQuote">
     <xs:sequence>
       <xs:element minOccurs="0" name="Ask" nillable="true" type="xs:decimal" />
@@ -25,6 +67,7 @@
       <xs:element minOccurs="0" name="ChangeFromYearHigh" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="ChangeFromYearLow" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="ChangeInPercent" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Company" nillable="true" type="tns:Company" />
       <xs:element minOccurs="0" name="DailyHigh" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="DailyLow" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="DividendPayDate" nillable="true" type="xs:dateTime" />
@@ -56,7 +99,6 @@
       <xs:element minOccurs="0" name="PriceSales" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="ShortRatio" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="StockExchange" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Symbol" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TwoHunderedDayMovingAverage" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="Volume" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="YearlyHigh" nillable="true" type="xs:decimal" />
@@ -66,8 +108,37 @@
   <xs:element name="StockQuote" nillable="true" type="tns:StockQuote" />
   <xs:complexType name="CompanyStatistics">
     <xs:sequence>
+      <xs:element minOccurs="0" name="BookValuePerShare" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="Company" nillable="true" type="tns:Company" />
+      <xs:element minOccurs="0" name="CurrentRatio" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="DilutedEPS" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="EBITDA" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="EnterpriseValue" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="EnterpriseValueToEBITDARatio" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="EnterpriseValueToRevenueRatio" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="ForwardPE" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="GrossProfit" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="LeveredFreeCashFlow" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="MarketCap" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="NetIncomeAvltoCommon" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="OperatingCashFlow" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="OperatingMargin" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="PEGRatio" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="PriceBookRatio" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="PriceSalesRatio" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="ProfitMargin" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="QtrlyEarningsGrowth" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="QtrlyRevenueGrowth" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="ReturnOnAssets" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="ReturnOnEquity" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="Revenue" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="RevenuePerShare" nillable="true" type="xs:double" />
       <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Statistics" nillable="true" type="q1:ArrayOfKeyValueOfstringstring" />
-      <xs:element minOccurs="0" name="Symbol" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TotalCash" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="TotalCashPerShare" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="TotalDebt" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="TotalDebtToEquityRatio" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="TrailingPE" nillable="true" type="xs:double" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="CompanyStatistics" nillable="true" type="tns:CompanyStatistics" />
@@ -77,37 +148,10 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfSector" nillable="true" type="tns:ArrayOfSector" />
-  <xs:complexType name="Sector">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Industries" nillable="true" type="tns:ArrayOfIndustry" />
-      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="Sector" nillable="true" type="tns:Sector" />
-  <xs:complexType name="ArrayOfIndustry">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="Industry" nillable="true" type="tns:Industry" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfIndustry" nillable="true" type="tns:ArrayOfIndustry" />
-  <xs:complexType name="Industry">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Id" type="xs:int" />
-      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="Industry" nillable="true" type="tns:Industry" />
   <xs:complexType name="ArrayOfCompany">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Company" nillable="true" type="tns:Company" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfCompany" nillable="true" type="tns:ArrayOfCompany" />
-  <xs:complexType name="Company">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Symbol" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="Company" nillable="true" type="tns:Company" />
 </xs:schema>

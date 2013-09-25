@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -9,6 +12,8 @@ namespace StockService.Core
     [DataContract]
     public class StockQuote
     {
+        public DateTime LastUpdated { get; set; }
+
         [DataMember]
         public decimal? Ask { get; set; }
 
@@ -141,7 +146,12 @@ namespace StockService.Core
         [DataMember]
         public DateTime LastUpdate { get; set; }
 
+        public int CompanyId { get; set; }
+
         [DataMember]
-        public string Symbol { get; set; }
+        public virtual Company Company { get; set; }
+
+        [Key]
+        public int Id { get; set; }
     }
 }

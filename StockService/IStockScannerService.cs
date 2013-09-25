@@ -19,18 +19,22 @@ namespace StockService
 
         [OperationContract(IsOneWay = true)]
         //[FaultContract(typeof (string))]
-        void GetCompanyData(int market, string symbol);
+        void GetCompanyData(Company company);
 
         [OperationContract(IsOneWay = true)]
         //[FaultContract(typeof(string))]
-        void GetStockData(int market, string symbol);
+        void GetStockData(Company company);
+
+        [OperationContract]
+        //[FaultContract(typeof(string))]
+        CalculatedData GetCalculatedCompanyData(Company company);
 
         [OperationContract(IsOneWay = true)]
         //[FaultContract(typeof(string))]
-        void GetSectorData(int market);
+        void GetSectorData(Market market);
 
         [OperationContract(IsOneWay=true)]
         //[FaultContract(typeof(string))]
-        void GetCompanies(int market, int industry);
+        void GetCompanies(Industry industry);
     }
 }

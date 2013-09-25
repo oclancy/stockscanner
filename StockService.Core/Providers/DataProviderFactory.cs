@@ -31,29 +31,30 @@ namespace StockService.Core.Providers
                                 Path.Combine(localPath, "App_Data", "lsedata.csv"));
 
 
-            var stockDataProvider = new YahooStockDataProvider();
-            var companyDataProvider = new YahooCompanyDataProvider();
+            var nasdaqStockDataProvider = container.Resolve<YahooNasdaqStockDataProvider>();
+            var yahooFinanceStockDataProvider = container.Resolve <YahooFinanceStockDataProvider>();
+            var companyDataProvider = container.Resolve<YahooCompanyDataProvider>();
 
             m_container.RegisterInstance<ICompanyDataProvider>("NASDAQ", companyDataProvider);
             m_container.RegisterInstance<ICompanyProvider>("NASDAQ", new YahooCompanyProvider());
             m_container.RegisterInstance<ISectorDataProvider>("NASDAQ", new YahooSectorIndustryDataProvider());
-            m_container.RegisterInstance<IStockProvider>("NASDAQ", stockDataProvider);
+            m_container.RegisterInstance<IStockProvider>("NASDAQ", nasdaqStockDataProvider);
 
             m_container.RegisterInstance<ICompanyDataProvider>("AIM", companyDataProvider);
             m_container.RegisterInstance<ICompanyProvider>("AIM", new LseCompanyProvider(aim));
             m_container.RegisterInstance<ISectorDataProvider>("AIM", new LseSectorIndustryDataProvider(aim));
-            m_container.RegisterInstance<IStockProvider>("AIM", stockDataProvider);
+            m_container.RegisterInstance<IStockProvider>("AIM", yahooFinanceStockDataProvider);
 
             m_container.RegisterInstance<ICompanyDataProvider>("Main Market", companyDataProvider);
             m_container.RegisterInstance<ICompanyProvider>("Main Market", new LseCompanyProvider(mm));
             m_container.RegisterInstance<ISectorDataProvider>("Main Market", new LseSectorIndustryDataProvider(mm));
-            m_container.RegisterInstance<IStockProvider>("Main Market", stockDataProvider);
+            m_container.RegisterInstance<IStockProvider>("Main Market", yahooFinanceStockDataProvider);
         }
 
 
-        public T GetDataProvider<T>(int market)
+        public T GetDataProvider<T>(Market market)
         {
-            switch(market)
+            switch(market.Id)
             {
                 case 0: return m_container.Resolve<T>("Main Market");
                 case 1: return m_container.Resolve<T>("AIM");

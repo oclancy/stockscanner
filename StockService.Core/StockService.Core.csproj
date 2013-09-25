@@ -33,6 +33,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
@@ -47,7 +50,9 @@
       <HintPath>..\packages\NLog.2.0.1.2\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
@@ -58,6 +63,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTOs\StockScannerContext.cs" />
+    <Compile Include="Providers\CalculatedStaticticsProvider.cs" />
+    <Compile Include="DTOs\CalculatedData.cs" />
     <Compile Include="DTOs\CompanyStatistics.cs" />
     <Compile Include="DataReader\LseDataReader.cs" />
     <Compile Include="Extension\IEnumerableExtensions.cs" />
@@ -70,26 +78,27 @@
     <Compile Include="Providers\Lse\LseCompanyProvider.cs" />
     <Compile Include="Providers\Lse\LseSectorIndustryDataProvider.cs" />
     <Compile Include="Providers\MarketProvider.cs" />
+    <Compile Include="Providers\Yahoo\YahooFinanceStockDataProvider.cs" />
     <Compile Include="Providers\Yahoo\YahooCompanyDataProvider.cs" />
     <Compile Include="Providers\Yahoo\YahooCompanyProvider.cs" />
     <Compile Include="Providers\Yahoo\YahooSectorIndustryDataProvider.cs" />
-    <Compile Include="Providers\Yahoo\YahooStockDataProvider.cs" />
+    <Compile Include="Providers\Yahoo\YahooNasdaqStockDataProvider.cs" />
     <Compile Include="DTOs\Quote.cs" />
     <Compile Include="DTOs\SectorIndustry.cs" />
     <Compile Include="DTOs\Company.cs" />
+    <Compile Include="Utils\YahooCompanyStatisticValue.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="App.config" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Utils\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

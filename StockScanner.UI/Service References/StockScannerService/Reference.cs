@@ -76,6 +76,330 @@ namespace StockScanner.UI.StockScannerService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Company", Namespace="http://schemas.datacontract.org/2004/07/StockService.Core")]
+    [System.SerializableAttribute()]
+    public partial class Company : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private StockScanner.UI.StockScannerService.Industry IndustryField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SymbolField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public StockScanner.UI.StockScannerService.Industry Industry {
+            get {
+                return this.IndustryField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IndustryField, value) != true)) {
+                    this.IndustryField = value;
+                    this.RaisePropertyChanged("Industry");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Symbol {
+            get {
+                return this.SymbolField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SymbolField, value) != true)) {
+                    this.SymbolField = value;
+                    this.RaisePropertyChanged("Symbol");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Industry", Namespace="http://schemas.datacontract.org/2004/07/StockService.Core")]
+    [System.SerializableAttribute()]
+    public partial class Industry : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private StockScanner.UI.StockScannerService.Sector SectorField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public StockScanner.UI.StockScannerService.Sector Sector {
+            get {
+                return this.SectorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SectorField, value) != true)) {
+                    this.SectorField = value;
+                    this.RaisePropertyChanged("Sector");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Sector", Namespace="http://schemas.datacontract.org/2004/07/StockService.Core", IsReference=true)]
+    [System.SerializableAttribute()]
+    public partial class Sector : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private StockScanner.UI.StockScannerService.Industry[] IndustriesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private StockScanner.UI.StockScannerService.Market MarketField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public StockScanner.UI.StockScannerService.Industry[] Industries {
+            get {
+                return this.IndustriesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IndustriesField, value) != true)) {
+                    this.IndustriesField = value;
+                    this.RaisePropertyChanged("Industries");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public StockScanner.UI.StockScannerService.Market Market {
+            get {
+                return this.MarketField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MarketField, value) != true)) {
+                    this.MarketField = value;
+                    this.RaisePropertyChanged("Market");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CalculatedData", Namespace="http://schemas.datacontract.org/2004/07/StockService.Core")]
+    [System.SerializableAttribute()]
+    public partial class CalculatedData : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double PriceSalesRatioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double SmartPEField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double PriceSalesRatio {
+            get {
+                return this.PriceSalesRatioField;
+            }
+            set {
+                if ((this.PriceSalesRatioField.Equals(value) != true)) {
+                    this.PriceSalesRatioField = value;
+                    this.RaisePropertyChanged("PriceSalesRatio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double SmartPE {
+            get {
+                return this.SmartPEField;
+            }
+            set {
+                if ((this.SmartPEField.Equals(value) != true)) {
+                    this.SmartPEField = value;
+                    this.RaisePropertyChanged("SmartPE");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="StockQuote", Namespace="http://schemas.datacontract.org/2004/07/StockService.Core")]
     [System.SerializableAttribute()]
     public partial class StockQuote : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -109,6 +433,9 @@ namespace StockScanner.UI.StockScannerService {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<decimal> ChangeInPercentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private StockScanner.UI.StockScannerService.Company CompanyField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<decimal> DailyHighField;
@@ -202,9 +529,6 @@ namespace StockScanner.UI.StockScannerService {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string StockExchangeField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string SymbolField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<decimal> TwoHunderedDayMovingAverageField;
@@ -341,6 +665,19 @@ namespace StockScanner.UI.StockScannerService {
                 if ((this.ChangeInPercentField.Equals(value) != true)) {
                     this.ChangeInPercentField = value;
                     this.RaisePropertyChanged("ChangeInPercent");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public StockScanner.UI.StockScannerService.Company Company {
+            get {
+                return this.CompanyField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompanyField, value) != true)) {
+                    this.CompanyField = value;
+                    this.RaisePropertyChanged("Company");
                 }
             }
         }
@@ -749,19 +1086,6 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Symbol {
-            get {
-                return this.SymbolField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.SymbolField, value) != true)) {
-                    this.SymbolField = value;
-                    this.RaisePropertyChanged("Symbol");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Nullable<decimal> TwoHunderedDayMovingAverage {
             get {
                 return this.TwoHunderedDayMovingAverageField;
@@ -833,10 +1157,97 @@ namespace StockScanner.UI.StockScannerService {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> BookValuePerShareField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private StockScanner.UI.StockScannerService.Company CompanyField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> CurrentRatioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> DilutedEPSField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> EBITDAField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> EnterpriseValueField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> EnterpriseValueToEBITDARatioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> EnterpriseValueToRevenueRatioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> ForwardPEField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> GrossProfitField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> LeveredFreeCashFlowField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> MarketCapField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> NetIncomeAvltoCommonField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> OperatingCashFlowField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> OperatingMarginField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> PEGRatioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> PriceBookRatioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> PriceSalesRatioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> ProfitMarginField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> QtrlyEarningsGrowthField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> QtrlyRevenueGrowthField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> ReturnOnAssetsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> ReturnOnEquityField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> RevenueField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> RevenuePerShareField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Collections.Generic.Dictionary<string, string> StatisticsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string SymbolField;
+        private System.Nullable<double> TotalCashField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> TotalCashPerShareField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> TotalDebtField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> TotalDebtToEquityRatioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> TrailingPEField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -845,6 +1256,331 @@ namespace StockScanner.UI.StockScannerService {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<double> BookValuePerShare {
+            get {
+                return this.BookValuePerShareField;
+            }
+            set {
+                if ((this.BookValuePerShareField.Equals(value) != true)) {
+                    this.BookValuePerShareField = value;
+                    this.RaisePropertyChanged("BookValuePerShare");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public StockScanner.UI.StockScannerService.Company Company {
+            get {
+                return this.CompanyField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompanyField, value) != true)) {
+                    this.CompanyField = value;
+                    this.RaisePropertyChanged("Company");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<double> CurrentRatio {
+            get {
+                return this.CurrentRatioField;
+            }
+            set {
+                if ((this.CurrentRatioField.Equals(value) != true)) {
+                    this.CurrentRatioField = value;
+                    this.RaisePropertyChanged("CurrentRatio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<double> DilutedEPS {
+            get {
+                return this.DilutedEPSField;
+            }
+            set {
+                if ((this.DilutedEPSField.Equals(value) != true)) {
+                    this.DilutedEPSField = value;
+                    this.RaisePropertyChanged("DilutedEPS");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<double> EBITDA {
+            get {
+                return this.EBITDAField;
+            }
+            set {
+                if ((this.EBITDAField.Equals(value) != true)) {
+                    this.EBITDAField = value;
+                    this.RaisePropertyChanged("EBITDA");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<double> EnterpriseValue {
+            get {
+                return this.EnterpriseValueField;
+            }
+            set {
+                if ((this.EnterpriseValueField.Equals(value) != true)) {
+                    this.EnterpriseValueField = value;
+                    this.RaisePropertyChanged("EnterpriseValue");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<double> EnterpriseValueToEBITDARatio {
+            get {
+                return this.EnterpriseValueToEBITDARatioField;
+            }
+            set {
+                if ((this.EnterpriseValueToEBITDARatioField.Equals(value) != true)) {
+                    this.EnterpriseValueToEBITDARatioField = value;
+                    this.RaisePropertyChanged("EnterpriseValueToEBITDARatio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<double> EnterpriseValueToRevenueRatio {
+            get {
+                return this.EnterpriseValueToRevenueRatioField;
+            }
+            set {
+                if ((this.EnterpriseValueToRevenueRatioField.Equals(value) != true)) {
+                    this.EnterpriseValueToRevenueRatioField = value;
+                    this.RaisePropertyChanged("EnterpriseValueToRevenueRatio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<double> ForwardPE {
+            get {
+                return this.ForwardPEField;
+            }
+            set {
+                if ((this.ForwardPEField.Equals(value) != true)) {
+                    this.ForwardPEField = value;
+                    this.RaisePropertyChanged("ForwardPE");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<double> GrossProfit {
+            get {
+                return this.GrossProfitField;
+            }
+            set {
+                if ((this.GrossProfitField.Equals(value) != true)) {
+                    this.GrossProfitField = value;
+                    this.RaisePropertyChanged("GrossProfit");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<double> LeveredFreeCashFlow {
+            get {
+                return this.LeveredFreeCashFlowField;
+            }
+            set {
+                if ((this.LeveredFreeCashFlowField.Equals(value) != true)) {
+                    this.LeveredFreeCashFlowField = value;
+                    this.RaisePropertyChanged("LeveredFreeCashFlow");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<double> MarketCap {
+            get {
+                return this.MarketCapField;
+            }
+            set {
+                if ((this.MarketCapField.Equals(value) != true)) {
+                    this.MarketCapField = value;
+                    this.RaisePropertyChanged("MarketCap");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<double> NetIncomeAvltoCommon {
+            get {
+                return this.NetIncomeAvltoCommonField;
+            }
+            set {
+                if ((this.NetIncomeAvltoCommonField.Equals(value) != true)) {
+                    this.NetIncomeAvltoCommonField = value;
+                    this.RaisePropertyChanged("NetIncomeAvltoCommon");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<double> OperatingCashFlow {
+            get {
+                return this.OperatingCashFlowField;
+            }
+            set {
+                if ((this.OperatingCashFlowField.Equals(value) != true)) {
+                    this.OperatingCashFlowField = value;
+                    this.RaisePropertyChanged("OperatingCashFlow");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<double> OperatingMargin {
+            get {
+                return this.OperatingMarginField;
+            }
+            set {
+                if ((this.OperatingMarginField.Equals(value) != true)) {
+                    this.OperatingMarginField = value;
+                    this.RaisePropertyChanged("OperatingMargin");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<double> PEGRatio {
+            get {
+                return this.PEGRatioField;
+            }
+            set {
+                if ((this.PEGRatioField.Equals(value) != true)) {
+                    this.PEGRatioField = value;
+                    this.RaisePropertyChanged("PEGRatio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<double> PriceBookRatio {
+            get {
+                return this.PriceBookRatioField;
+            }
+            set {
+                if ((this.PriceBookRatioField.Equals(value) != true)) {
+                    this.PriceBookRatioField = value;
+                    this.RaisePropertyChanged("PriceBookRatio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<double> PriceSalesRatio {
+            get {
+                return this.PriceSalesRatioField;
+            }
+            set {
+                if ((this.PriceSalesRatioField.Equals(value) != true)) {
+                    this.PriceSalesRatioField = value;
+                    this.RaisePropertyChanged("PriceSalesRatio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<double> ProfitMargin {
+            get {
+                return this.ProfitMarginField;
+            }
+            set {
+                if ((this.ProfitMarginField.Equals(value) != true)) {
+                    this.ProfitMarginField = value;
+                    this.RaisePropertyChanged("ProfitMargin");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<double> QtrlyEarningsGrowth {
+            get {
+                return this.QtrlyEarningsGrowthField;
+            }
+            set {
+                if ((this.QtrlyEarningsGrowthField.Equals(value) != true)) {
+                    this.QtrlyEarningsGrowthField = value;
+                    this.RaisePropertyChanged("QtrlyEarningsGrowth");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<double> QtrlyRevenueGrowth {
+            get {
+                return this.QtrlyRevenueGrowthField;
+            }
+            set {
+                if ((this.QtrlyRevenueGrowthField.Equals(value) != true)) {
+                    this.QtrlyRevenueGrowthField = value;
+                    this.RaisePropertyChanged("QtrlyRevenueGrowth");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<double> ReturnOnAssets {
+            get {
+                return this.ReturnOnAssetsField;
+            }
+            set {
+                if ((this.ReturnOnAssetsField.Equals(value) != true)) {
+                    this.ReturnOnAssetsField = value;
+                    this.RaisePropertyChanged("ReturnOnAssets");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<double> ReturnOnEquity {
+            get {
+                return this.ReturnOnEquityField;
+            }
+            set {
+                if ((this.ReturnOnEquityField.Equals(value) != true)) {
+                    this.ReturnOnEquityField = value;
+                    this.RaisePropertyChanged("ReturnOnEquity");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<double> Revenue {
+            get {
+                return this.RevenueField;
+            }
+            set {
+                if ((this.RevenueField.Equals(value) != true)) {
+                    this.RevenueField = value;
+                    this.RaisePropertyChanged("Revenue");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<double> RevenuePerShare {
+            get {
+                return this.RevenuePerShareField;
+            }
+            set {
+                if ((this.RevenuePerShareField.Equals(value) != true)) {
+                    this.RevenuePerShareField = value;
+                    this.RaisePropertyChanged("RevenuePerShare");
+                }
             }
         }
         
@@ -862,197 +1598,66 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Symbol {
+        public System.Nullable<double> TotalCash {
             get {
-                return this.SymbolField;
+                return this.TotalCashField;
             }
             set {
-                if ((object.ReferenceEquals(this.SymbolField, value) != true)) {
-                    this.SymbolField = value;
-                    this.RaisePropertyChanged("Symbol");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Sector", Namespace="http://schemas.datacontract.org/2004/07/StockService.Core")]
-    [System.SerializableAttribute()]
-    public partial class Sector : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private StockScanner.UI.StockScannerService.Industry[] IndustriesField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NameField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public StockScanner.UI.StockScannerService.Industry[] Industries {
-            get {
-                return this.IndustriesField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.IndustriesField, value) != true)) {
-                    this.IndustriesField = value;
-                    this.RaisePropertyChanged("Industries");
+                if ((this.TotalCashField.Equals(value) != true)) {
+                    this.TotalCashField = value;
+                    this.RaisePropertyChanged("TotalCash");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name {
+        public System.Nullable<double> TotalCashPerShare {
             get {
-                return this.NameField;
+                return this.TotalCashPerShareField;
             }
             set {
-                if ((object.ReferenceEquals(this.NameField, value) != true)) {
-                    this.NameField = value;
-                    this.RaisePropertyChanged("Name");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Industry", Namespace="http://schemas.datacontract.org/2004/07/StockService.Core")]
-    [System.SerializableAttribute()]
-    public partial class Industry : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NameField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Id {
-            get {
-                return this.IdField;
-            }
-            set {
-                if ((this.IdField.Equals(value) != true)) {
-                    this.IdField = value;
-                    this.RaisePropertyChanged("Id");
+                if ((this.TotalCashPerShareField.Equals(value) != true)) {
+                    this.TotalCashPerShareField = value;
+                    this.RaisePropertyChanged("TotalCashPerShare");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name {
+        public System.Nullable<double> TotalDebt {
             get {
-                return this.NameField;
+                return this.TotalDebtField;
             }
             set {
-                if ((object.ReferenceEquals(this.NameField, value) != true)) {
-                    this.NameField = value;
-                    this.RaisePropertyChanged("Name");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Company", Namespace="http://schemas.datacontract.org/2004/07/StockService.Core")]
-    [System.SerializableAttribute()]
-    public partial class Company : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string SymbolField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name {
-            get {
-                return this.NameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NameField, value) != true)) {
-                    this.NameField = value;
-                    this.RaisePropertyChanged("Name");
+                if ((this.TotalDebtField.Equals(value) != true)) {
+                    this.TotalDebtField = value;
+                    this.RaisePropertyChanged("TotalDebt");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Symbol {
+        public System.Nullable<double> TotalDebtToEquityRatio {
             get {
-                return this.SymbolField;
+                return this.TotalDebtToEquityRatioField;
             }
             set {
-                if ((object.ReferenceEquals(this.SymbolField, value) != true)) {
-                    this.SymbolField = value;
-                    this.RaisePropertyChanged("Symbol");
+                if ((this.TotalDebtToEquityRatioField.Equals(value) != true)) {
+                    this.TotalDebtToEquityRatioField = value;
+                    this.RaisePropertyChanged("TotalDebtToEquityRatio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<double> TrailingPE {
+            get {
+                return this.TrailingPEField;
+            }
+            set {
+                if ((this.TrailingPEField.Equals(value) != true)) {
+                    this.TrailingPEField = value;
+                    this.RaisePropertyChanged("TrailingPE");
                 }
             }
         }
@@ -1075,16 +1680,19 @@ namespace StockScanner.UI.StockScannerService {
         StockScanner.UI.StockScannerService.Market[] GetMarketsData();
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IStockScannerService/GetCompanyData")]
-        void GetCompanyData(int market, string symbol);
+        void GetCompanyData(StockScanner.UI.StockScannerService.Company company);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IStockScannerService/GetStockData")]
-        void GetStockData(int market, string symbol);
+        void GetStockData(StockScanner.UI.StockScannerService.Company company);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockScannerService/GetCalculatedCompanyData", ReplyAction="http://tempuri.org/IStockScannerService/GetCalculatedCompanyDataResponse")]
+        StockScanner.UI.StockScannerService.CalculatedData GetCalculatedCompanyData(StockScanner.UI.StockScannerService.Company company);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IStockScannerService/GetSectorData")]
-        void GetSectorData(int market);
+        void GetSectorData(StockScanner.UI.StockScannerService.Market market);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IStockScannerService/GetCompanies")]
-        void GetCompanies(int market, int industry);
+        void GetCompanies(StockScanner.UI.StockScannerService.Industry industry);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1135,20 +1743,24 @@ namespace StockScanner.UI.StockScannerService {
             return base.Channel.GetMarketsData();
         }
         
-        public void GetCompanyData(int market, string symbol) {
-            base.Channel.GetCompanyData(market, symbol);
+        public void GetCompanyData(StockScanner.UI.StockScannerService.Company company) {
+            base.Channel.GetCompanyData(company);
         }
         
-        public void GetStockData(int market, string symbol) {
-            base.Channel.GetStockData(market, symbol);
+        public void GetStockData(StockScanner.UI.StockScannerService.Company company) {
+            base.Channel.GetStockData(company);
         }
         
-        public void GetSectorData(int market) {
+        public StockScanner.UI.StockScannerService.CalculatedData GetCalculatedCompanyData(StockScanner.UI.StockScannerService.Company company) {
+            return base.Channel.GetCalculatedCompanyData(company);
+        }
+        
+        public void GetSectorData(StockScanner.UI.StockScannerService.Market market) {
             base.Channel.GetSectorData(market);
         }
         
-        public void GetCompanies(int market, int industry) {
-            base.Channel.GetCompanies(market, industry);
+        public void GetCompanies(StockScanner.UI.StockScannerService.Industry industry) {
+            base.Channel.GetCompanies(industry);
         }
     }
 }

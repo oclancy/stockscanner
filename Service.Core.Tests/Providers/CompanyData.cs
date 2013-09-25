@@ -8,15 +8,15 @@ using StockService.Core.Providers;
 namespace Service.Core.Tests
 {
     [TestClass]
-    public class CompanyData
+    public class YahooFinanceCompanyData
     {
         YahooCompanyDataProvider m_provider = new YahooCompanyDataProvider();
         
         [TestMethod]
-        public void GetYahoo()
+        public void GetYahooFinanceCompanyData()
         {
             CompanyStatistics cs;
-            var y = m_provider.FetchDataAsync("YHOO");
+            var y = m_provider.FetchDataAsync(new Company() { Name = "Yahoo", Symbol = "YHOO" });
 
             y.Wait();
 

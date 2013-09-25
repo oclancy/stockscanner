@@ -7,24 +7,35 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using HtmlAgilityPack;
+using Microsoft.Practices.Unity;
 using StockService.Core.Extension;
 
 namespace StockService.Core.Providers
 {
     public class YahooCompanyDataProvider : ICompanyDataProvider
     {
+        [Dependency]
+        public IDictionary<string, CompanyStatistics> Cache { get; set; }
+
         const string BASE_URL = "http://finance.yahoo.com/q/ks?s={0}+Key+Statistics";
 
-        public async Task<CompanyStatistics> FetchDataAsync( string symbol )
+        public async Task<CompanyStatistics> FetchDataAsync( Company company )
         {
-            var webReq=WebRequest.CreateHttp(string.Format(BASE_URL, symbol));
+            if (Cache.ContainsKey(company.Symbol) && 
+                Cache[company.Symbol].LastUpdated < DateTime.UtcNow.AddDays(-1) ) return Cache[company.Symbol];
+
+            var webReq = WebRequest.CreateHttp(string.Format(BASE_URL, company.Symbol));
 
             var t = await webReq.GetResponseAsync();
 
             var doc = new HtmlDocument();
             doc.Load(t.GetResponseStream());
             var cs = Parse(doc);
-            cs.Symbol = symbol;
+            cs.Company = company;
+            cs.LastUpdated = DateTime.UtcNow;
+
+            Cache.Add(company.Symbol, cs);
+
             return cs;
         }
 
@@ -62,7 +73,7 @@ namespace StockService.Core.Providers
                     retVal.Add(v.Item1, v.Item2);
             });
 
-            return new CompanyStatistics(retVal);
+            return CompanyStatistics.FromYahooValues(retVal);
         }
 
     }
