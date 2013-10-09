@@ -42,7 +42,7 @@ namespace StockService.Core
                         if (industry == null)
                             sector.Industries.Add(industry = new Industry() { Name=parts[Sector], Sector = sector });
 
-                        var company = industry.Companies.FirstOrDefault(c => c.Name == parts[CompanyName]);
+                        var company = industry.Companies.FirstOrDefault(c => c.Symbol == parts[Symbol]);
                         if (company == null && !string.IsNullOrEmpty(parts[Symbol]))
                             industry.Companies.Add(new Company()
                             {
@@ -51,17 +51,11 @@ namespace StockService.Core
                                 Industry = industry
                             });
                         else
-                            m_log.Error("Could not construct Company with data: {0}", line);
+                        {
+                            m_log.Error("Could not construct Company with data: {0}, because {1}", line, company!=null? "Duplicate company":"No Symbol");
+                        }
                     }
                 }
-            //}).ContinueWith( t=> 
-            //{
-            //    m_log.ErrorException("Exception whilst reading.", t.Exception.Flatten().InnerException);
-            //}, TaskContinuationOptions.OnlyOnFaulted)
-            //.ContinueWith(t =>
-            //{
-            //    m_log.Error("Read task was cancelld.", t.Exception.Flatten().InnerException);
-            //}, TaskContinuationOptions.OnlyOnCanceled);
         }
     }
 }

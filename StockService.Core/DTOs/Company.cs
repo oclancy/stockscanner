@@ -26,16 +26,22 @@ namespace StockService.Core
         [NotMapped]
         public Industry Industry{ get; set; }
 
-        //public virtual StockQuote StockQuote { get; set; }
-        //public virtual CompanyStatistics CompanyStatistic { get; set; }
+        public CompanyStatistics CompanyStatistics { get; set; }
+        
+        [ForeignKey("CompanyStatistics")]
+        public int CompanyStatisticsId { get; set; }
+
+        public StockQuote StockQuote { get; set; }
+
+        [ForeignKey("StockQuote")]
+        public int StockQuoteId { get; set; }
 
         public bool Equals(Company other)
         {
             if (object.ReferenceEquals(other, this)) return true;
             if (object.ReferenceEquals(other, null)) return false;
 
-            return this.Name == other.Name &&
-                    this.Symbol == other.Symbol;
+            return this.Symbol == other.Symbol;
         }
 
         public override int GetHashCode()

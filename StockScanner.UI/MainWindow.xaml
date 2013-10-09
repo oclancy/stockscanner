@@ -8,9 +8,6 @@
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         Title="MainWindow" Height="650" Width="925">
 
-    <Window.Resources>
-        <myconv:FinancialDoubleConverter x:Key="FinancialDoubleConverter"/>
-    </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=Initialise}"
@@ -23,11 +20,11 @@
             <ColumnDefinition MaxWidth="200"/>
             <ColumnDefinition/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <ComboBox ItemsSource="{Binding MarketData}" 
@@ -49,18 +46,14 @@
                   Name="Sectors"
                   Grid.Column="1"
                   IsSynchronizedWithCurrentItem="True" 
-                  SelectedIndex="0"
-                  Padding="2"
-                  Margin="2"/>
+                  SelectedIndex="0"/>
 
         <ComboBox ItemsSource="{Binding ElementName=Sectors,  Path=SelectedItem.Industries }" 
                   DisplayMemberPath="Name" 
                   IsSynchronizedWithCurrentItem="True" 
                   Grid.Column="2"
                   SelectedIndex="0"
-                  Padding="2"
-                  Margin="2">
-
+                  >
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=IndustryChangedCommand}"
@@ -69,78 +62,27 @@
             </i:Interaction.Triggers>
 
         </ComboBox>
+        
+        <ComboBox ItemsSource="{Binding ViewNames}" 
+                  SelectedItem="{Binding SelectedViewName}"
+                Grid.Column="3"
+                SelectedIndex="0"
+                >
 
-        <ScrollViewer Grid.Row="1" 
-                      Grid.RowSpan="2"
-                      Height="auto">
-            <ListView 
-                  ItemsSource="{Binding Companies}" 
-                  SelectedItem="{Binding SelectedCompany}"
-                  Padding="2"
-                  Margin="2">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock ToolTip="{Binding Symbol}" Text="{Binding Name}"></TextBlock>
-                    </DataTemplate>
-                </ListView.ItemTemplate>    
-            </ListView>
-            
-        </ScrollViewer>
+                <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=ViewChangedCommand}"
+                                        PassEventArgsToCommand="True" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
 
-        <ScrollViewer Grid.Row="1"
-                      Grid.Column="1"
-                      Grid.ColumnSpan="2"
-                      Height="auto">
+        </ComboBox>
 
-        <extwpf:PropertyGrid SelectedObject="{Binding CompanyData}"
-                             AutoGenerateProperties="True"
-                             ShowAdvancedOptions="False"
-                             ShowSearchBox="False"
-                             ShowSortOptions="False"
-                             IsReadOnly="True">
-
-                <extwpf:PropertyGrid.EditorDefinitions>
-
-                    <extwpf:EditorDefinition TargetType="{x:Type system:Nullable }">
-                        <extwpf:EditorDefinition.EditorTemplate>
-                            <DataTemplate>
-                                <TextBox IsReadOnly="True" Text="{Binding Value, Converter={StaticResource FinancialDoubleConverter}}" />
-                                <!-- Always bind your editor's value to the bound property's Value -->
-                            </DataTemplate>
-                        </extwpf:EditorDefinition.EditorTemplate>
-                    </extwpf:EditorDefinition>
-
-                </extwpf:PropertyGrid.EditorDefinitions>
-            </extwpf:PropertyGrid>
-
-        </ScrollViewer>
-
-        <ScrollViewer Grid.Row="2"
-                      Grid.Column="1"
-                      Grid.ColumnSpan="2">
-            
-            <Grid DataContext="{Binding StockData}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-
-                <TextBlock Grid.Row="0">Symbol</TextBlock>
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Symbol}"/>
-                <TextBlock Grid.Row="1">Bid</TextBlock>
-                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Bid}"/>
-                <TextBlock Grid.Row="2">Ask</TextBlock>
-                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Ask}"/>
-
-            </Grid>
-            
-        </ScrollViewer>
+        
+        <ContentControl 
+            Grid.Row="1"
+            Grid.ColumnSpan="4"
+            Content="{Binding View}"></ContentControl>
         
     </Grid>
     

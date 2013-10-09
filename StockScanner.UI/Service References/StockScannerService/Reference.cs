@@ -1247,6 +1247,9 @@ namespace StockScanner.UI.StockScannerService {
         private System.Nullable<double> TotalDebtToEquityRatioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<double> TrailingAnnualDividendYieldField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<double> TrailingPEField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -1645,6 +1648,19 @@ namespace StockScanner.UI.StockScannerService {
                 if ((this.TotalDebtToEquityRatioField.Equals(value) != true)) {
                     this.TotalDebtToEquityRatioField = value;
                     this.RaisePropertyChanged("TotalDebtToEquityRatio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<double> TrailingAnnualDividendYield {
+            get {
+                return this.TrailingAnnualDividendYieldField;
+            }
+            set {
+                if ((this.TrailingAnnualDividendYieldField.Equals(value) != true)) {
+                    this.TrailingAnnualDividendYieldField = value;
+                    this.RaisePropertyChanged("TrailingAnnualDividendYield");
                 }
             }
         }

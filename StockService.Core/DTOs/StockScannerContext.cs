@@ -15,6 +15,7 @@ namespace StockService.Core.DTOs
         //public DbSet<Company> Companies{get;set;}
         public DbSet<CompanyStatistics> CompanyStatistics { get; set; }
         public DbSet<StockQuote> StockQuote{ get; set; }
+        public DbSet<Company> Companies { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

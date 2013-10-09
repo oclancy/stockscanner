@@ -20,101 +20,106 @@ namespace StockService.Core
         [DataMember]
         public Dictionary<string, string> Statistics { get; set; }
 
-        public int CompanyId { get; set; }
+        //[ForeignKey("Company")]
+        //public int CompanyId { get; set; }
 
-        [DataMember]
-        public virtual Company Company { get; set; }
+        //[DataMember]
+        //public virtual Company Company { get; set; }
 
         [Key]
         public int Id { get; set; }
 
         [DataMember]
         [YahooCompanyStatisticValue("Enterprise Value")]
-        public double? EnterpriseValue { get; set; }
+        public decimal? EnterpriseValue { get; set; }
         [DataMember]
         [YahooCompanyStatisticValue("Trailing P/E")]
-        public double? TrailingPE { get; set; }
+        public decimal? TrailingPE { get; set; }
         [DataMember]
         [YahooCompanyStatisticValue("Market Cap")]
-        public double? MarketCap { get; set; }
+        public decimal? MarketCap { get; set; }
         [DataMember]
         [YahooCompanyStatisticValue("Forward P/E")]
-        public double? ForwardPE { get; set; }
+        public decimal? ForwardPE { get; set; }
         [DataMember]
         [YahooCompanyStatisticValue("PEG Ratio")]
-        public double? PEGRatio { get; set; }
+        public decimal? PEGRatio { get; set; }
         [DataMember]
         [YahooCompanyStatisticValue("Price/Sales")]
-        public double? PriceSalesRatio { get; set; }
+        public decimal? PriceSalesRatio { get; set; }
         [DataMember]
         [YahooCompanyStatisticValue("Price/Book")]
-        public double? PriceBookRatio { get; set; }
+        public decimal? PriceBookRatio { get; set; }
         [DataMember]
         [YahooCompanyStatisticValue("Enterprise Value/Revenue")]
-        public double? EnterpriseValueToRevenueRatio { get; set; }
+        public decimal? EnterpriseValueToRevenueRatio { get; set; }
         [DataMember]
         [YahooCompanyStatisticValue("Enterprise Value/EBITDA")]
-        public double? EnterpriseValueToEBITDARatio { get; set; }
+        public decimal? EnterpriseValueToEBITDARatio { get; set; }
         [DataMember]
         [YahooCompanyStatisticValue("Profit Margin")]
-        public double? ProfitMargin { get; set; }
+        public decimal? ProfitMargin { get; set; }
         [DataMember]
         [YahooCompanyStatisticValue("Operating Margin")]
-        public double? OperatingMargin { get; set; }
+        public decimal? OperatingMargin { get; set; }
         [DataMember]
         [YahooCompanyStatisticValue("Return on Assets")]
-        public double? ReturnOnAssets { get; set; }
+        public decimal? ReturnOnAssets { get; set; }
         [DataMember]
         [YahooCompanyStatisticValue("Return on Equity")]
-        public double? ReturnOnEquity { get; set; }
+        public decimal? ReturnOnEquity { get; set; }
         [DataMember]
         [YahooCompanyStatisticValue("Revenue")]
-        public double? Revenue { get; set; }
+        public decimal? Revenue { get; set; }
         [DataMember]
         [YahooCompanyStatisticValue("Revenue Per Share")]
-        public double? RevenuePerShare { get; set; }
+        public decimal? RevenuePerShare { get; set; }
         [DataMember]
         [YahooCompanyStatisticValue("Qtrly Revenue Growth")]
-        public double? QtrlyRevenueGrowth { get; set; }
+        public decimal? QtrlyRevenueGrowth { get; set; }
         [DataMember]
         [YahooCompanyStatisticValue("Gross Profit")]
-        public double? GrossProfit { get; set; }
+        public decimal? GrossProfit { get; set; }
         [DataMember]
         [YahooCompanyStatisticValue("EBITDA")]
-        public double? EBITDA { get; set; }
+        public decimal? EBITDA { get; set; }
         [DataMember]
         [YahooCompanyStatisticValue("Net Income Avl to Common")]
-        public double? NetIncomeAvltoCommon { get; set; }
+        public decimal? NetIncomeAvltoCommon { get; set; }
         [DataMember]
         [YahooCompanyStatisticValue("Diluted EPS")]
-        public double? DilutedEPS { get; set; }
+        public decimal? DilutedEPS { get; set; }
         [DataMember]
         [YahooCompanyStatisticValue("Qtrly Earnings Growth")]
-        public double? QtrlyEarningsGrowth { get; set; }
+        public decimal? QtrlyEarningsGrowth { get; set; }
         [DataMember]
         [YahooCompanyStatisticValue("Total Cash")]
-        public double? TotalCash { get; set; }
+        public decimal? TotalCash { get; set; }
         [DataMember]
         [YahooCompanyStatisticValue("Total Cash Per Share")]
-        public double? TotalCashPerShare { get; set; }
+        public decimal? TotalCashPerShare { get; set; }
         [DataMember]
         [YahooCompanyStatisticValue("Total Debt")]
-        public double? TotalDebt { get; set; }
+        public decimal? TotalDebt { get; set; }
         [DataMember]
         [YahooCompanyStatisticValue("Total Debt/Equity")]
-        public double? TotalDebtToEquityRatio { get; set; }
+        public decimal? TotalDebtToEquityRatio { get; set; }
         [DataMember]
         [YahooCompanyStatisticValue("Current Ratio")]
-        public double? CurrentRatio { get; set; }
+        public decimal? CurrentRatio { get; set; }
         [DataMember]
         [YahooCompanyStatisticValue("Book Value Per Share")]
-        public double? BookValuePerShare { get; set; }
+        public decimal? BookValuePerShare { get; set; }
         [DataMember]
         [YahooCompanyStatisticValue("Operating Cash Flow")]
-        public double? OperatingCashFlow { get; set; }
+        public decimal? OperatingCashFlow { get; set; }
         [DataMember]
         [YahooCompanyStatisticValue("Levered Free Cash Flow")]
-        public double? LeveredFreeCashFlow { get; set; }
+        public decimal? LeveredFreeCashFlow { get; set; }
+        [DataMember]
+        [YahooCompanyStatisticValue("Trailing Annual Dividend Yield")]
+        public decimal? TrailingAnnualDividendYield { get; set; }
+
         
         internal static CompanyStatistics FromYahooValues(Dictionary<string, string> values)
         {
@@ -129,10 +134,10 @@ namespace StockService.Core
                     string yahooField = values.Keys.FirstOrDefault( k => k.StartsWith( yahooFieldId.IdString) );
                     if (!string.IsNullOrEmpty(yahooField))
                     {
-                        double tempDble;
-                        double? yahooFieldValue = (double?)null;
+                        decimal tempDble;
+                        decimal? yahooFieldValue = (decimal?)null;
                         string valueAsString = values[yahooField];
-                        if (double.TryParse(valueAsString, out tempDble))
+                        if (decimal.TryParse(valueAsString, out tempDble))
                         {
                             yahooFieldValue = tempDble;
                         }
@@ -151,7 +156,7 @@ namespace StockService.Core
                                     break;
                             }
 
-                            if(double.TryParse(valueAsString.Substring(0, valueAsString.Length-1), out tempDble))
+                            if(decimal.TryParse(valueAsString.Substring(0, valueAsString.Length-1), out tempDble))
                                 yahooFieldValue = tempDble * factor;
 
                         }

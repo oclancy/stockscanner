@@ -14,15 +14,20 @@ namespace StockService.Core.Providers
 {
     public class YahooCompanyDataProvider : ICompanyDataProvider
     {
+        //[Dependency]
+        //public IDictionary<string, CompanyStatistics> Cache { get; set; }
+
         [Dependency]
-        public IDictionary<string, CompanyStatistics> Cache { get; set; }
+        public IDictionary<string, Company> Cache { get; set; }
 
         const string BASE_URL = "http://finance.yahoo.com/q/ks?s={0}+Key+Statistics";
 
         public async Task<CompanyStatistics> FetchDataAsync( Company company )
         {
             if (Cache.ContainsKey(company.Symbol) && 
-                Cache[company.Symbol].LastUpdated < DateTime.UtcNow.AddDays(-1) ) return Cache[company.Symbol];
+                Cache[company.Symbol].CompanyStatistics != null &&
+                Cache[company.Symbol].CompanyStatistics.LastUpdated > DateTime.UtcNow.AddDays(-1) )
+                return Cache[company.Symbol].CompanyStatistics;
 
             var webReq = WebRequest.CreateHttp(string.Format(BASE_URL, company.Symbol));
 
@@ -31,10 +36,9 @@ namespace StockService.Core.Providers
             var doc = new HtmlDocument();
             doc.Load(t.GetResponseStream());
             var cs = Parse(doc);
-            cs.Company = company;
+            //cs.Company = company;
+            //company.CompanyStatistics = cs;
             cs.LastUpdated = DateTime.UtcNow;
-
-            Cache.Add(company.Symbol, cs);
 
             return cs;
         }

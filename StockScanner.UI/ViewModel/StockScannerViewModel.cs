@@ -5,16 +5,21 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.ServiceModel;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
+using StockScanner.UI.Messages;
 using StockScanner.UI.StockScannerService;
 
 namespace StockScanner.UI.ViewModel
 {
-    class StockScannerViewModel : INotifyPropertyChanged
+    class StockScannerViewModel : ViewModelBase
     {
+        IMessenger m_messenger = new Messenger();
+
         Lazy<StockScannerService.StockScannerServiceClient> m_lazyLoadClient;
 
         public ICommand Initialise { get; private set; }
@@ -22,6 +27,12 @@ namespace StockScanner.UI.ViewModel
         public ICommand IndustryChangedCommand { get; private set; }
 
         public ICommand MarketChangedCommand { get; private set; }
+
+        public ICommand ViewChangedCommand { get; private set; }
+
+        public IEnumerable<string> ViewNames { get { return m_views.Keys;  } }
+
+        private IDictionary<string, INotifyPropertyChanged> m_views = new Dictionary<string, INotifyPropertyChanged>();
 
         Market m_selectedMarket;
         public Market SelectedMarket
@@ -37,27 +48,34 @@ namespace StockScanner.UI.ViewModel
             }
         }
 
-        Company m_selectedCompany;
-        public Company SelectedCompany 
+
+        public INotifyPropertyChanged View
+        {
+            get;
+            set;
+        }
+
+        string m_selectedViewName;
+        public string SelectedViewName
         {
             get
             {
-                return m_selectedCompany;
+                return m_selectedViewName;
             }
             set
             {
-                m_selectedCompany = value;
-                if (m_selectedCompany == null) return;
-                Client.GetCompanyData(m_selectedCompany);
-                Client.GetStockData(m_selectedCompany);
+                m_selectedViewName = value;
+                View = m_views[m_selectedViewName];
+                OnPropertyChanged("View");
             }
+
         }
 
         public StockScannerViewModel()
         {
             m_lazyLoadClient = new Lazy<StockScannerService.StockScannerServiceClient>(() =>
             {
-                var instanceContext = new InstanceContext(new StockScannerCallbackClient(this));
+                var instanceContext = new InstanceContext(new StockScannerCallbackClient(m_messenger, this));
                 return new StockScannerService.StockScannerServiceClient(instanceContext);
             });
 
@@ -72,7 +90,7 @@ namespace StockScanner.UI.ViewModel
 
                 if (industry == null) return;
 
-                Client.GetCompanies( industry );
+                m_messenger.Send<Industry>(industry);
             });
 
             MarketChangedCommand = new RelayCommand<SelectionChangedEventArgs>((e) =>
@@ -81,6 +99,10 @@ namespace StockScanner.UI.ViewModel
 
                 Client.GetSectorData(market);
             });
+
+            m_views.Add("Company Details", new DetailsViewModel(m_messenger, Client));
+            m_views.Add("Dividends", new DividendViewModel(m_messenger, Client));
+            SelectedViewName = m_views.First().Key;
         }
 
         public StockScannerService.StockScannerServiceClient Client
@@ -91,42 +113,6 @@ namespace StockScanner.UI.ViewModel
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        void OnPropertyChanged([CallerMemberName] string property ="" )
-        {
-            PropertyChanged(this, new PropertyChangedEventArgs(property));
-        }
-
-
-        StockScannerService.StockQuote m_stockData;
-        public StockScannerService.StockQuote StockData 
-        {
-            get
-            {
-                return m_stockData;
-            }
-            set
-            {
-                m_stockData = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private StockScannerService.CompanyStatistics m_companyData;
-        public StockScannerService.CompanyStatistics CompanyData 
-        {
-            get
-            { 
-                return m_companyData; 
-            }
-            set
-            {
-                m_companyData = value;
-                OnPropertyChanged();
-            }
-        }
-
         private List<StockScannerService.Sector> m_sectorData;
         public List<StockScannerService.Sector> SectorData
         {
@@ -134,17 +120,6 @@ namespace StockScanner.UI.ViewModel
             set 
             {
                 m_sectorData = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private List<StockScannerService.Company> m_companies;
-        public List<StockScannerService.Company> Companies
-        {
-            get { return m_companies; }
-            set
-            {
-                m_companies = value;
                 OnPropertyChanged();
             }
         }

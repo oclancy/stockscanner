@@ -11,17 +11,25 @@ namespace StockService.Core
     {
         IDictionary<string, StockQuote> m_stockQuoteCache;
         IDictionary<string,CompanyStatistics> m_companyDataCache;
+        private IDictionary<string, Company> m_companies;
 
-        public CalculatedStaticticsProvider(IDictionary<string,StockQuote> stockQuoteCache,
-                                            IDictionary<string,CompanyStatistics> companyDataCache)
+        //public CalculatedStaticticsProvider(IDictionary<string,StockQuote> stockQuoteCache,
+        //                                    IDictionary<string,CompanyStatistics> companyDataCache)
+        //{
+        //    m_companyDataCache = companyDataCache;
+        //    m_stockQuoteCache = stockQuoteCache;
+        //}
+
+        public CalculatedStaticticsProvider(IDictionary<string, Company> companies)
         {
-            m_companyDataCache = companyDataCache;
-            m_stockQuoteCache = stockQuoteCache;
+            m_companies = companies;
         }
 
         public CalculatedData FetchData(Company company)
         {
-            if (!m_stockQuoteCache.ContainsKey(company.Symbol) && !m_companyDataCache.ContainsKey(company.Symbol)) 
+            //if (!m_stockQuoteCache.ContainsKey(company.Symbol) && !m_companyDataCache.ContainsKey(company.Symbol)) 
+            //    return null;
+            if (!m_companies.ContainsKey(company.Symbol))
                 return null;
 
             return new CalculatedData();

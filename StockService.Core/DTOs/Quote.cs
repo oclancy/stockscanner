@@ -146,10 +146,11 @@ namespace StockService.Core
         [DataMember]
         public DateTime LastUpdate { get; set; }
 
-        public int CompanyId { get; set; }
+        //[ForeignKey("Company")]
+        //public int CompanyId { get; set; }
 
-        [DataMember]
-        public virtual Company Company { get; set; }
+        //[DataMember]
+        //public virtual Company Company { get; set; }
 
         [Key]
         public int Id { get; set; }

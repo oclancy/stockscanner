@@ -17,15 +17,19 @@ namespace StockService.Core.Providers
 
     public class YahooFinanceStockDataProvider : IStockProvider
     {
+        //[Dependency]
+        //public IDictionary<string, StockQuote> Cache{get;set;}
         [Dependency]
-        public IDictionary<string, StockQuote> Cache{get;set;}
+        public IDictionary<string, Company> Cache { get; set; }
 
         private const string BASE_URL = "http://finance.yahoo.com/q?s={0}&ql=1";
 
         public async Task<StockQuote> FetchDataAsync(Company company)
         {
             if (Cache.ContainsKey(company.Symbol) &&
-                Cache[company.Symbol].LastUpdated < DateTime.UtcNow.AddDays(-1) ) return Cache[company.Symbol];
+                Cache[company.Symbol].StockQuote != null &&
+                Cache[company.Symbol].StockQuote.LastUpdated > DateTime.UtcNow.AddDays(-1) )
+                return Cache[company.Symbol].StockQuote;
 
             var webReq = WebRequest.CreateHttp(string.Format(BASE_URL, company.Symbol));
 
@@ -34,10 +38,10 @@ namespace StockService.Core.Providers
             var doc = new HtmlDocument();
             doc.Load(t.GetResponseStream());
             var cs = Parse(doc.DocumentNode.Descendants("body").First());
-            cs.Company = company;
+            //company.StockQuote = cs;
+            //cs.Company = company;
             cs.LastUpdate = DateTime.UtcNow;
 
-            Cache.Add(company.Symbol, cs);
             return cs;
         }
 

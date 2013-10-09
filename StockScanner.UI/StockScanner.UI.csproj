@@ -84,15 +84,23 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\FinancialDoubleConverter.cs" />
+    <Compile Include="Messages\Messages.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="Service References\StockScannerService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="StockScannerCallbackClient.cs" />
+    <Compile Include="ViewModel\DetailsViewModel.cs" />
+    <Compile Include="ViewModel\DividendViewModel.cs" />
     <Compile Include="ViewModel\StockScannerViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Page Include="DataTemplates\DataTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -179,6 +187,7 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

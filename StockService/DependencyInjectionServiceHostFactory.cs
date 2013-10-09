@@ -15,6 +15,7 @@ using System.Threading;
 using StockService.Core.DTOs;
 using StockService.Core.Extension;
 using System.Data.Entity;
+using NLog;
 
 namespace StockService
 {
@@ -25,6 +26,7 @@ namespace StockService
     {
         IUnityContainer m_container = new UnityContainer();
         DataProviderFactory m_dataProviderFactory;
+        Logger m_logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// Creates a <see cref="DependencyInjectionServiceHost"/> for a specified type of service with a specific base address. 
@@ -50,61 +52,83 @@ namespace StockService
             InflateFromPersistence();
 
             StartLongRunningTasks();
+
             var serviceHost = new ServiceHost(serviceType, baseAddresses);
 
-            serviceHost.Closed += serviceHost_Closed; ;
+            serviceHost.Closing += SaveData; ;
 
             return serviceHost;
         }
 
         private void InflateFromPersistence()
         {
-            Database.SetInitializer(new DropCreateDatabaseAlways<StockScannerContext>());
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<StockScannerContext>());
 
             using (var dbcontext = new StockScannerContext() )
             {
-                var stocks = m_container.Resolve<IDictionary<string, StockQuote>>();
-                dbcontext.StockQuote.ForEach( s=> stocks.Add(s.Company.Symbol, s));
-
-                var statistics = m_container.Resolve<IDictionary<string, CompanyStatistics>>();
-                dbcontext.CompanyStatistics.ForEach(s => statistics.Add(s.Company.Symbol, s));
+                dbcontext.Configuration.LazyLoadingEnabled = false;
+                dbcontext.Companies.Include( c=> c.StockQuote).Load();
+                dbcontext.Companies.Include(c => c.CompanyStatistics).Load();
+                var companies = m_container.Resolve<IDictionary<string, Company>>();
+                dbcontext.Companies.ForEach(s => companies.Add(s.Symbol, s));
             }
         }
 
-        void serviceHost_Closed(object sender, EventArgs e)
+        private void SaveData(Company company)
         {
             using (var dbcontext = new StockScannerContext())
             {
-                var stocks = m_container.Resolve<IDictionary<string, StockQuote>>();
-                stocks.Where(s => s.Value.LastUpdate > DateTime.UtcNow.AddDays(-1) &&
-                                  s.Value.Company.Id != null)
-                      .ForEach(s =>
-                      {
-                          dbcontext.StockQuote.Attach(s.Value);
-                      });
-                      
-                stocks.Where(s => s.Value.Company.Id == null)
-                      .ForEach(s => dbcontext.StockQuote.Add(s.Value));
+                if (company.Id.HasValue)
+                {
+                    dbcontext.Companies.Attach(company);
+                }
+                else
+                {
+                    dbcontext.Companies.Add(company);
+                }
+                
+                Commit(dbcontext);
+            }
+        }
 
-                var statistics = m_container.Resolve<IDictionary<string, CompanyStatistics>>();
+        void SaveData(object sender, EventArgs e)
+        {
+            using (var dbcontext = new StockScannerContext())
+            {
+                var companies = m_container.Resolve<IDictionary<string, Company>>();
 
-                statistics.Where(s => s.Value.LastUpdated > DateTime.UtcNow.AddDays(-1) &&
-                                      s.Value.Company.Id != null)
-                            .ForEach(s =>
-                            {
-                                dbcontext.CompanyStatistics.Attach(s.Value);
-                            });
+                companies.ForEach(c =>
+                {
+                    if (c.Value.Id.HasValue)
+                    {
+                        dbcontext.Companies.Attach(c.Value);
+                    }
+                    else
+                    {
+                        dbcontext.Companies.Add(c.Value);
+                    }
+                });
 
-                statistics.Where(s => s.Value.Company.Id == null)
-                          .ForEach(s => dbcontext.CompanyStatistics.Add(s.Value));
+                Commit(dbcontext);
+               }
+        }
 
+        private void Commit(StockScannerContext dbcontext)
+        {
+            try
+            {
                 dbcontext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                m_logger.ErrorException("Exception whilst saving", ex);
             }
         }
 
         private async void StartLongRunningTasks()
         {
             CancellationTokenSource sorc = new CancellationTokenSource();
+            var companiesContainer = m_container.Resolve<IDictionary<string, Company>>();
 
             var market = m_dataProviderFactory.GetMarketsData()
                                               .First(m => m.Name == "Main Market");
@@ -116,27 +140,42 @@ namespace StockService
             var companies = companiesTasks.SelectMany(ct => ct.Result)
                                           .ToList();
 
-            companies.ForEach(company =>
+            m_logger.Info("Starting data gathering at {0}", DateTime.Now);
+
+                        
+            companies.ForEach( async company =>
             {
-                Task.Run(() => m_dataProviderFactory.GetDataProvider<ICompanyDataProvider>(market)
-                                                    .FetchDataAsync(company));
-                Task.Run(() => m_dataProviderFactory.GetDataProvider<IStockProvider>(market)
-                                                    .FetchDataAsync(company));
+                if (!companiesContainer.ContainsKey(company.Symbol))
+                    companiesContainer.Add(company.Symbol, company);
+
+                try
+                {
+                    company.CompanyStatistics = await m_dataProviderFactory.GetDataProvider<ICompanyDataProvider>(market)
+                                                                    .FetchDataAsync(company);
+                    company.StockQuote = await m_dataProviderFactory.GetDataProvider<IStockProvider>(market)
+                                                                    .FetchDataAsync(company);
+                    SaveData(company);
+                }
+                catch (Exception ex)
+                {
+                    m_logger.ErrorException(string.Format("Exception whilst getting company details for {0}",company.Name), ex);
+                }
             });
+
         }
 
+        
         /// <summary>
         /// Initialization logic that any derived type would use to set up the ServiceLocator provider.  Look to UnityServiceHostFactory to see how this is done, if implementing for 
         /// another IoC engine.
         /// </summary>
         protected void RegisterDependencies()
         {
-            IDictionary<string, CompanyStatistics> cache = new ConcurrentDictionary<string, CompanyStatistics>();
-            IDictionary<string, StockQuote> cache2 = new ConcurrentDictionary<string, StockQuote>();
+            IDictionary<string, Company> companies = new ConcurrentDictionary<string, Company>();
 
-            m_container.RegisterInstance(cache);
-            m_container.RegisterInstance(cache2);
-            m_container.RegisterInstance< ICalculatedCompanyDataProvider>(new CalculatedStaticticsProvider(cache2, cache));
+            m_container.RegisterInstance(companies);
+            
+            m_container.RegisterInstance< ICalculatedCompanyDataProvider>(new CalculatedStaticticsProvider(companies));
 
             m_dataProviderFactory = new DataProviderFactory(m_container, HostingEnvironment.ApplicationPhysicalPath);
             m_container.RegisterInstance(m_dataProviderFactory);

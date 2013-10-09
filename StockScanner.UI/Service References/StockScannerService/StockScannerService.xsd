@@ -138,6 +138,7 @@
       <xs:element minOccurs="0" name="TotalCashPerShare" nillable="true" type="xs:double" />
       <xs:element minOccurs="0" name="TotalDebt" nillable="true" type="xs:double" />
       <xs:element minOccurs="0" name="TotalDebtToEquityRatio" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="TrailingAnnualDividendYield" nillable="true" type="xs:double" />
       <xs:element minOccurs="0" name="TrailingPE" nillable="true" type="xs:double" />
     </xs:sequence>
   </xs:complexType>

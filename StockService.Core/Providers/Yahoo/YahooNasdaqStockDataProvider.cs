@@ -15,8 +15,11 @@ namespace StockService.Core.Providers
 
     public class YahooNasdaqStockDataProvider : IStockProvider
     {
+        //[Dependency]
+        //public IDictionary<string, StockQuote> Cache{get;set;}
+
         [Dependency]
-        public IDictionary<string, StockQuote> Cache{get;set;}
+        public IDictionary<string, Company> Cache { get; set; }
 
         private const string BASE_URL = "http://query.yahooapis.com/v1/public/yql?q=" +
                                         "select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20({0})" +
@@ -24,7 +27,9 @@ namespace StockService.Core.Providers
 
         public async Task<StockQuote> FetchDataAsync(Company company)
         {
-            if (Cache.ContainsKey(company.Symbol)) return Cache[company.Symbol];
+            if (Cache.ContainsKey(company.Symbol) &&
+                Cache[company.Symbol].StockQuote != null &&
+                Cache[company.Symbol].StockQuote != null) return Cache[company.Symbol].StockQuote;
 
             var t = await Task.Run( () =>
             {
@@ -36,8 +41,8 @@ namespace StockService.Core.Providers
                 return Parse(XDocument.Load(url), company.Symbol);
             });
 
-            t.Company = company;
-            Cache.Add(company.Symbol, t);
+            //t.Company = company;
+            company.StockQuote = t;
             return t;
 
         }
