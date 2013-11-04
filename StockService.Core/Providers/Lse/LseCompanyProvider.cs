@@ -11,12 +11,12 @@ namespace StockService.Core.Providers
     {
         private Market m_market;
 
-        public LseCompanyProvider(Market aim)
+        public LseCompanyProvider(Market market)
         {
-            // TODO: Complete member initialization
-            this.m_market = aim;
+            this.m_market = market;
         }
-        public async Task<List<Company>> FetchDataAsync(Industry industry)
+
+        public async Task<IList<Company>> FetchDataAsync(Industry industry)
         {
             return await Task.Run( () =>m_market.Sectors
                            .First( s => s.Industries.FirstOrDefault( i => i.Name == industry.Name ) != null )

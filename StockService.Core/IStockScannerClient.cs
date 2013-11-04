@@ -11,15 +11,19 @@ namespace StockService
     public interface IStockScannerClient
     {
         [OperationContract]
+        [ApplyDataContractResolver]
         void PushStockData(StockQuote result);
 
         [OperationContract]
+        [ApplyDataContractResolver]
         void PushCompanyData(CompanyStatistics result);
 
         [OperationContract]
-        void PushSectors(List<Sector> sectors);
+        [ApplyDataContractResolver]
+        void PushSectors(IList<Sector> sectors);
 
         [OperationContract]
-        void PushCompanies(List<Company> data);
+        [ApplyDataContractResolver]
+        void PushCompanies(IList<Company> data);
     }
 }

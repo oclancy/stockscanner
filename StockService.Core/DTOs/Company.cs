@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace StockService.Core
 {
     [DataContract]
-    public class Company : IEquatable<Company>
+    public class Company //: IEquatable<Company>
     {
         [DataMember]
         public string Name { get; set; }
@@ -19,51 +19,46 @@ namespace StockService.Core
         public string Symbol { get; set; }
 
         [DataMember]
-        [Key]
-        public int? Id { get; set; }
+        public int CompanyId { get; set; }
         
         [DataMember]
-        [NotMapped]
-        public Industry Industry{ get; set; }
+        public virtual Industry Industry{ get; set; }
+        public int IndustryId { get; set; }
 
-        public CompanyStatistics CompanyStatistics { get; set; }
-        
-        [ForeignKey("CompanyStatistics")]
-        public int CompanyStatisticsId { get; set; }
+        public virtual CompanyStatistics CompanyStatistics { get; set; }
+        public int? CompanyStatisticsId { get; set; }
 
-        public StockQuote StockQuote { get; set; }
+        public virtual StockQuote StockQuote { get; set; }
+        public int? StockQuoteId { get; set; }
 
-        [ForeignKey("StockQuote")]
-        public int StockQuoteId { get; set; }
+        //public bool Equals(Company other)
+        //{
+        //    if (object.ReferenceEquals(other, this)) return true;
+        //    if (object.ReferenceEquals(other, null)) return false;
 
-        public bool Equals(Company other)
-        {
-            if (object.ReferenceEquals(other, this)) return true;
-            if (object.ReferenceEquals(other, null)) return false;
+        //    return this.CompanyId == other.CompanyId;
+        //}
 
-            return this.Symbol == other.Symbol;
-        }
+        //public override int GetHashCode()
+        //{
+        //    return CompanyId;
+        //}
 
-        public override int GetHashCode()
-        {
-            return (Name+Symbol).GetHashCode();
-        }
+        //public override bool Equals(object obj)
+        //{
+        //    return this.Equals(obj as Company);
+        //}
 
-        public override bool Equals(object obj)
-        {
-            return this.Equals(obj as Company);
-        }
+        //public static bool operator ==(Company leftOperand, Company rightOperand)
+        //{
+        //    if (ReferenceEquals(null, leftOperand)) return ReferenceEquals(null, rightOperand);
+        //    return leftOperand.Equals(rightOperand);
+        //}
 
-        public static bool operator ==(Company leftOperand, Company rightOperand)
-        {
-            if (ReferenceEquals(null, leftOperand)) return ReferenceEquals(null, rightOperand);
-            return leftOperand.Equals(rightOperand);
-        }
-
-        public static bool operator !=(Company leftOperand, Company rightOperand)
-        {
-            return !(leftOperand == rightOperand);
-        }
+        //public static bool operator !=(Company leftOperand, Company rightOperand)
+        //{
+        //    return !(leftOperand == rightOperand);
+        //}
 
     }
 }

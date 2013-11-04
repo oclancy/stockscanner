@@ -20,14 +20,14 @@ namespace StockService
             : base(serviceType, baseAddresses)
         { }
 
-        ///// <summary>
-        ///// Opens the channel dispatchers.
-        ///// </summary>
-        ///// <param name="timeout">The <see cref="T:System.Timespan"/> that specifies how long the on-open operation has to complete before timing out.</param>
-        //protected override void OnOpen(TimeSpan timeout)
-        //{
-        //    Description.Behaviors.Add(new DependencyInjectionServiceBehavior());
-        //    base.OnOpen(timeout);
-        //}
+        /// <summary>
+        /// Opens the channel dispatchers.
+        /// </summary>
+        /// <param name="timeout">The <see cref="T:System.Timespan"/> that specifies how long the on-open operation has to complete before timing out.</param>
+        protected override void OnOpen(TimeSpan timeout)
+        {
+            Description.Behaviors.Add(new DependencyInjectionServiceBehavior());
+            base.OnOpen(timeout);
+        }
     }
 }

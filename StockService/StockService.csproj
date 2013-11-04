@@ -81,9 +81,10 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DependencyInjectionServiceHostFactory.cs" />
-    <Compile Include="DependencyInjectionInstanceProvider.cs" />
-    <Compile Include="DependencyInjectionServiceHost.cs" />
+    <Compile Include="DIWCF\DependencyInjectionServiceBehaviour.cs" />
+    <Compile Include="DIWCF\DependencyInjectionServiceHostFactory.cs" />
+    <Compile Include="DIWCF\DependencyInjectionInstanceProvider.cs" />
+    <Compile Include="DIWCF\DependencyInjectionServiceHost.cs" />
     <Compile Include="IStockScannerService.cs" />
     <Compile Include="StockScannerService.svc.cs">
       <DependentUpon>StockScannerService.svc</DependentUpon>

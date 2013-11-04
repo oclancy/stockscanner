@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,30 +7,44 @@ using System.ServiceModel;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.Practices.Unity;
+using NLog;
 using StockService.Core;
+using StockService.Core.DTOs;
+using StockService.Core.Extension;
 
 namespace StockService.Core.Providers
 {
     public class DataProviderFactory
     {
-        static IList<Market> m_markets;
         static IUnityContainer m_container;
+        Logger m_logger = LogManager.GetCurrentClassLogger();
 
-        public  DataProviderFactory( IUnityContainer container, string localPath )
+        IDictionary<string, Market> m_markets;
+
+        public DataProviderFactory( IUnityContainer container, 
+                                    string localPath,
+                                    IDictionary<string, Market> markets,
+                                    IDictionary<string, Company> companies)
         {
             m_container = container;
 
-            m_markets = MarketDataProvider.FetchData();
+            MarketDataProvider.FetchData()
+                              .ForEach(m => markets.Add(m.Name, m));
 
-            var aim = m_markets.First(m => m.Name == "AIM");
-            var mm = m_markets.First(m => m.Name == "Main Market");
+            m_markets = markets;
 
-            LseDataReader.Read( m_markets.First(m=> m.Name =="Main Market"),
-                                Path.Combine(localPath, "App_Data", "lsedata.csv"));
-            
-            LseDataReader.Read(m_markets.First(m => m.Name == "AIM"),
-                                Path.Combine(localPath, "App_Data", "lsedata.csv"));
+            var aim = markets["AIM"];
+            var mm = markets["Main Market"];
 
+            LseDataReader.Read( mm, Path.Combine(localPath, "App_Data", "lsedata.csv"));
+            LseDataReader.Read( aim, Path.Combine(localPath, "App_Data", "lsedata.csv"));
+
+            markets.ForEach(m => m.Value.Sectors.SelectMany(s => s.Industries.SelectMany(i => i.Companies))
+                                    .ForEach(c =>
+                                    {
+                                        if (!companies.ContainsKey(c.Symbol))
+                                            companies.Add(c.Symbol, c);
+                                    }));
 
             var nasdaqStockDataProvider = container.Resolve<YahooNasdaqStockDataProvider>();
             var yahooFinanceStockDataProvider = container.Resolve <YahooFinanceStockDataProvider>();
@@ -54,18 +69,18 @@ namespace StockService.Core.Providers
 
         public T GetDataProvider<T>(Market market)
         {
-            switch(market.Id)
+            switch(market.MarketId)
             {
-                case 0: return m_container.Resolve<T>("Main Market");
-                case 1: return m_container.Resolve<T>("AIM");
-                case 2: return m_container.Resolve<T>("NASDAQ");
+                case 1: return m_container.Resolve<T>("Main Market");
+                case 2: return m_container.Resolve<T>("AIM");
+                case 3: return m_container.Resolve<T>("NASDAQ");
                 default: throw new FaultException("Unknown market");
             }
         }
 
         public List<Market> GetMarketsData()
         {
-            return MarketDataProvider.FetchData();
+            return m_markets.Values.ToList();
         }
     }
 }

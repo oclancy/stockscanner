@@ -23,7 +23,7 @@ namespace StockScanner.UI.StockScannerService {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IdField;
+        private int MarketIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NameField;
@@ -39,14 +39,14 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Id {
+        public int MarketId {
             get {
-                return this.IdField;
+                return this.MarketIdField;
             }
             set {
-                if ((this.IdField.Equals(value) != true)) {
-                    this.IdField = value;
-                    this.RaisePropertyChanged("Id");
+                if ((this.MarketIdField.Equals(value) != true)) {
+                    this.MarketIdField = value;
+                    this.RaisePropertyChanged("MarketId");
                 }
             }
         }
@@ -84,7 +84,7 @@ namespace StockScanner.UI.StockScannerService {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<int> IdField;
+        private int CompanyIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private StockScanner.UI.StockScannerService.Industry IndustryField;
@@ -106,14 +106,14 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<int> Id {
+        public int CompanyId {
             get {
-                return this.IdField;
+                return this.CompanyIdField;
             }
             set {
-                if ((this.IdField.Equals(value) != true)) {
-                    this.IdField = value;
-                    this.RaisePropertyChanged("Id");
+                if ((this.CompanyIdField.Equals(value) != true)) {
+                    this.CompanyIdField = value;
+                    this.RaisePropertyChanged("CompanyId");
                 }
             }
         }
@@ -177,7 +177,7 @@ namespace StockScanner.UI.StockScannerService {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IdField;
+        private int IndustryIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NameField;
@@ -196,14 +196,14 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Id {
+        public int IndustryId {
             get {
-                return this.IdField;
+                return this.IndustryIdField;
             }
             set {
-                if ((this.IdField.Equals(value) != true)) {
-                    this.IdField = value;
-                    this.RaisePropertyChanged("Id");
+                if ((this.IndustryIdField.Equals(value) != true)) {
+                    this.IndustryIdField = value;
+                    this.RaisePropertyChanged("IndustryId");
                 }
             }
         }
@@ -254,9 +254,6 @@ namespace StockScanner.UI.StockScannerService {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private StockScanner.UI.StockScannerService.Industry[] IndustriesField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -265,6 +262,9 @@ namespace StockScanner.UI.StockScannerService {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NameField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int SectorIdField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -272,19 +272,6 @@ namespace StockScanner.UI.StockScannerService {
             }
             set {
                 this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Id {
-            get {
-                return this.IdField;
-            }
-            set {
-                if ((this.IdField.Equals(value) != true)) {
-                    this.IdField = value;
-                    this.RaisePropertyChanged("Id");
-                }
             }
         }
         
@@ -323,6 +310,19 @@ namespace StockScanner.UI.StockScannerService {
                 if ((object.ReferenceEquals(this.NameField, value) != true)) {
                     this.NameField = value;
                     this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int SectorId {
+            get {
+                return this.SectorIdField;
+            }
+            set {
+                if ((this.SectorIdField.Equals(value) != true)) {
+                    this.SectorIdField = value;
+                    this.RaisePropertyChanged("SectorId");
                 }
             }
         }
@@ -433,9 +433,6 @@ namespace StockScanner.UI.StockScannerService {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<decimal> ChangeInPercentField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private StockScanner.UI.StockScannerService.Company CompanyField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<decimal> DailyHighField;
@@ -665,19 +662,6 @@ namespace StockScanner.UI.StockScannerService {
                 if ((this.ChangeInPercentField.Equals(value) != true)) {
                     this.ChangeInPercentField = value;
                     this.RaisePropertyChanged("ChangeInPercent");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public StockScanner.UI.StockScannerService.Company Company {
-            get {
-                return this.CompanyField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CompanyField, value) != true)) {
-                    this.CompanyField = value;
-                    this.RaisePropertyChanged("Company");
                 }
             }
         }
@@ -1157,100 +1141,97 @@ namespace StockScanner.UI.StockScannerService {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> BookValuePerShareField;
+        private System.Nullable<decimal> BookValuePerShareField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private StockScanner.UI.StockScannerService.Company CompanyField;
+        private System.Nullable<decimal> CurrentRatioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> CurrentRatioField;
+        private System.Nullable<decimal> DilutedEPSField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> DilutedEPSField;
+        private System.Nullable<decimal> EBITDAField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> EBITDAField;
+        private System.Nullable<decimal> EnterpriseValueField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> EnterpriseValueField;
+        private System.Nullable<decimal> EnterpriseValueToEBITDARatioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> EnterpriseValueToEBITDARatioField;
+        private System.Nullable<decimal> EnterpriseValueToRevenueRatioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> EnterpriseValueToRevenueRatioField;
+        private System.Nullable<decimal> ForwardPEField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> ForwardPEField;
+        private System.Nullable<decimal> GrossProfitField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> GrossProfitField;
+        private System.Nullable<decimal> LeveredFreeCashFlowField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> LeveredFreeCashFlowField;
+        private System.Nullable<decimal> MarketCapField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> MarketCapField;
+        private System.Nullable<decimal> NetIncomeAvltoCommonField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> NetIncomeAvltoCommonField;
+        private System.Nullable<decimal> OperatingCashFlowField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> OperatingCashFlowField;
+        private System.Nullable<decimal> OperatingMarginField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> OperatingMarginField;
+        private System.Nullable<decimal> PEGRatioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> PEGRatioField;
+        private System.Nullable<decimal> PriceBookRatioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> PriceBookRatioField;
+        private System.Nullable<decimal> PriceSalesRatioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> PriceSalesRatioField;
+        private System.Nullable<decimal> ProfitMarginField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> ProfitMarginField;
+        private System.Nullable<decimal> QtrlyEarningsGrowthField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> QtrlyEarningsGrowthField;
+        private System.Nullable<decimal> QtrlyRevenueGrowthField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> QtrlyRevenueGrowthField;
+        private System.Nullable<decimal> ReturnOnAssetsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> ReturnOnAssetsField;
+        private System.Nullable<decimal> ReturnOnEquityField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> ReturnOnEquityField;
+        private System.Nullable<decimal> RevenueField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> RevenueField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> RevenuePerShareField;
+        private System.Nullable<decimal> RevenuePerShareField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Collections.Generic.Dictionary<string, string> StatisticsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> TotalCashField;
+        private System.Nullable<decimal> TotalCashField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> TotalCashPerShareField;
+        private System.Nullable<decimal> TotalCashPerShareField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> TotalDebtField;
+        private System.Nullable<decimal> TotalDebtField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> TotalDebtToEquityRatioField;
+        private System.Nullable<decimal> TotalDebtToEquityRatioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> TrailingAnnualDividendYieldField;
+        private System.Nullable<decimal> TrailingAnnualDividendYieldField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<double> TrailingPEField;
+        private System.Nullable<decimal> TrailingPEField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -1263,7 +1244,7 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> BookValuePerShare {
+        public System.Nullable<decimal> BookValuePerShare {
             get {
                 return this.BookValuePerShareField;
             }
@@ -1276,20 +1257,7 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public StockScanner.UI.StockScannerService.Company Company {
-            get {
-                return this.CompanyField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CompanyField, value) != true)) {
-                    this.CompanyField = value;
-                    this.RaisePropertyChanged("Company");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> CurrentRatio {
+        public System.Nullable<decimal> CurrentRatio {
             get {
                 return this.CurrentRatioField;
             }
@@ -1302,7 +1270,7 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> DilutedEPS {
+        public System.Nullable<decimal> DilutedEPS {
             get {
                 return this.DilutedEPSField;
             }
@@ -1315,7 +1283,7 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> EBITDA {
+        public System.Nullable<decimal> EBITDA {
             get {
                 return this.EBITDAField;
             }
@@ -1328,7 +1296,7 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> EnterpriseValue {
+        public System.Nullable<decimal> EnterpriseValue {
             get {
                 return this.EnterpriseValueField;
             }
@@ -1341,7 +1309,7 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> EnterpriseValueToEBITDARatio {
+        public System.Nullable<decimal> EnterpriseValueToEBITDARatio {
             get {
                 return this.EnterpriseValueToEBITDARatioField;
             }
@@ -1354,7 +1322,7 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> EnterpriseValueToRevenueRatio {
+        public System.Nullable<decimal> EnterpriseValueToRevenueRatio {
             get {
                 return this.EnterpriseValueToRevenueRatioField;
             }
@@ -1367,7 +1335,7 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> ForwardPE {
+        public System.Nullable<decimal> ForwardPE {
             get {
                 return this.ForwardPEField;
             }
@@ -1380,7 +1348,7 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> GrossProfit {
+        public System.Nullable<decimal> GrossProfit {
             get {
                 return this.GrossProfitField;
             }
@@ -1393,7 +1361,7 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> LeveredFreeCashFlow {
+        public System.Nullable<decimal> LeveredFreeCashFlow {
             get {
                 return this.LeveredFreeCashFlowField;
             }
@@ -1406,7 +1374,7 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> MarketCap {
+        public System.Nullable<decimal> MarketCap {
             get {
                 return this.MarketCapField;
             }
@@ -1419,7 +1387,7 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> NetIncomeAvltoCommon {
+        public System.Nullable<decimal> NetIncomeAvltoCommon {
             get {
                 return this.NetIncomeAvltoCommonField;
             }
@@ -1432,7 +1400,7 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> OperatingCashFlow {
+        public System.Nullable<decimal> OperatingCashFlow {
             get {
                 return this.OperatingCashFlowField;
             }
@@ -1445,7 +1413,7 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> OperatingMargin {
+        public System.Nullable<decimal> OperatingMargin {
             get {
                 return this.OperatingMarginField;
             }
@@ -1458,7 +1426,7 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> PEGRatio {
+        public System.Nullable<decimal> PEGRatio {
             get {
                 return this.PEGRatioField;
             }
@@ -1471,7 +1439,7 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> PriceBookRatio {
+        public System.Nullable<decimal> PriceBookRatio {
             get {
                 return this.PriceBookRatioField;
             }
@@ -1484,7 +1452,7 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> PriceSalesRatio {
+        public System.Nullable<decimal> PriceSalesRatio {
             get {
                 return this.PriceSalesRatioField;
             }
@@ -1497,7 +1465,7 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> ProfitMargin {
+        public System.Nullable<decimal> ProfitMargin {
             get {
                 return this.ProfitMarginField;
             }
@@ -1510,7 +1478,7 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> QtrlyEarningsGrowth {
+        public System.Nullable<decimal> QtrlyEarningsGrowth {
             get {
                 return this.QtrlyEarningsGrowthField;
             }
@@ -1523,7 +1491,7 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> QtrlyRevenueGrowth {
+        public System.Nullable<decimal> QtrlyRevenueGrowth {
             get {
                 return this.QtrlyRevenueGrowthField;
             }
@@ -1536,7 +1504,7 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> ReturnOnAssets {
+        public System.Nullable<decimal> ReturnOnAssets {
             get {
                 return this.ReturnOnAssetsField;
             }
@@ -1549,7 +1517,7 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> ReturnOnEquity {
+        public System.Nullable<decimal> ReturnOnEquity {
             get {
                 return this.ReturnOnEquityField;
             }
@@ -1562,7 +1530,7 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> Revenue {
+        public System.Nullable<decimal> Revenue {
             get {
                 return this.RevenueField;
             }
@@ -1575,7 +1543,7 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> RevenuePerShare {
+        public System.Nullable<decimal> RevenuePerShare {
             get {
                 return this.RevenuePerShareField;
             }
@@ -1601,7 +1569,7 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> TotalCash {
+        public System.Nullable<decimal> TotalCash {
             get {
                 return this.TotalCashField;
             }
@@ -1614,7 +1582,7 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> TotalCashPerShare {
+        public System.Nullable<decimal> TotalCashPerShare {
             get {
                 return this.TotalCashPerShareField;
             }
@@ -1627,7 +1595,7 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> TotalDebt {
+        public System.Nullable<decimal> TotalDebt {
             get {
                 return this.TotalDebtField;
             }
@@ -1640,7 +1608,7 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> TotalDebtToEquityRatio {
+        public System.Nullable<decimal> TotalDebtToEquityRatio {
             get {
                 return this.TotalDebtToEquityRatioField;
             }
@@ -1653,7 +1621,7 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> TrailingAnnualDividendYield {
+        public System.Nullable<decimal> TrailingAnnualDividendYield {
             get {
                 return this.TrailingAnnualDividendYieldField;
             }
@@ -1666,7 +1634,7 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<double> TrailingPE {
+        public System.Nullable<decimal> TrailingPE {
             get {
                 return this.TrailingPEField;
             }

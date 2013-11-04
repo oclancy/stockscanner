@@ -15,26 +15,32 @@ namespace StockService
     public interface IStockScannerService
     {
         [OperationContract]
+        [ApplyDataContractResolver]
         List<Market> GetMarketsData();
 
         [OperationContract(IsOneWay = true)]
         //[FaultContract(typeof (string))]
+        [ApplyDataContractResolver]
         void GetCompanyData(Company company);
 
         [OperationContract(IsOneWay = true)]
         //[FaultContract(typeof(string))]
+        [ApplyDataContractResolver]
         void GetStockData(Company company);
 
         [OperationContract]
         //[FaultContract(typeof(string))]
+        [ApplyDataContractResolver]
         CalculatedData GetCalculatedCompanyData(Company company);
 
         [OperationContract(IsOneWay = true)]
         //[FaultContract(typeof(string))]
+        [ApplyDataContractResolver]
         void GetSectorData(Market market);
 
         [OperationContract(IsOneWay=true)]
         //[FaultContract(typeof(string))]
+        [ApplyDataContractResolver]
         void GetCompanies(Industry industry);
     }
 }

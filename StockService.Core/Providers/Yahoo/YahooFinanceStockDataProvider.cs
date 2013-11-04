@@ -38,8 +38,6 @@ namespace StockService.Core.Providers
             var doc = new HtmlDocument();
             doc.Load(t.GetResponseStream());
             var cs = Parse(doc.DocumentNode.Descendants("body").First());
-            //company.StockQuote = cs;
-            //cs.Company = company;
             cs.LastUpdate = DateTime.UtcNow;
 
             return cs;

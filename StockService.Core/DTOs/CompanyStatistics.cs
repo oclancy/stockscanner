@@ -26,8 +26,7 @@ namespace StockService.Core
         //[DataMember]
         //public virtual Company Company { get; set; }
 
-        [Key]
-        public int Id { get; set; }
+        public int CompanyStatisticsId { get; set; }
 
         [DataMember]
         [YahooCompanyStatisticValue("Enterprise Value")]

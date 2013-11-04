@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplyDataContractResolverAttribute.cs" />
     <Compile Include="DTOs\StockScannerContext.cs" />
     <Compile Include="Providers\CalculatedStaticticsProvider.cs" />
     <Compile Include="DTOs\CalculatedData.cs" />

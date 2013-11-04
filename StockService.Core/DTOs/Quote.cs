@@ -152,7 +152,6 @@ namespace StockService.Core
         //[DataMember]
         //public virtual Company Company { get; set; }
 
-        [Key]
-        public int Id { get; set; }
+        public int StockQuoteId { get; set; }
     }
 }

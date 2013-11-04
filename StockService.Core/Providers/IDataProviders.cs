@@ -19,7 +19,7 @@ namespace StockService.Core.Providers
 
     public interface ISectorDataProvider
     {
-        Task<List<Sector>> FetchDataAsync(Market market);
+        Task<IList<Sector>> FetchDataAsync(Market market);
     }
 
     public interface IStockProvider
@@ -29,7 +29,7 @@ namespace StockService.Core.Providers
 
     public interface ICompanyProvider
     {
-        Task<List<Company>> FetchDataAsync(Industry company);
+        Task<IList<Company>> FetchDataAsync(Industry company);
     }
 
 }

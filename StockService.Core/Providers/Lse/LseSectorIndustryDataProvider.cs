@@ -17,7 +17,7 @@ namespace StockService.Core.Providers
             this.m_market = aim;
         }
 
-        public async Task<List<Sector>> FetchDataAsync(Market market)
+        public async Task<IList<Sector>> FetchDataAsync(Market market)
         {
             return await Task.Run(() => m_market.Sectors);
         }

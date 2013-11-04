@@ -36,8 +36,6 @@ namespace StockService.Core.Providers
             var doc = new HtmlDocument();
             doc.Load(t.GetResponseStream());
             var cs = Parse(doc);
-            //cs.Company = company;
-            //company.CompanyStatistics = cs;
             cs.LastUpdated = DateTime.UtcNow;
 
             return cs;

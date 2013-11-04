@@ -11,14 +11,14 @@ namespace StockService.Core.Providers
     {
         const string BASE_URL = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.sectors&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
 
-        public async Task<List<Sector>>FetchDataAsync(Market market)
+        public async Task<IList<Sector>>FetchDataAsync(Market market)
         {
             return  await Task.Run(() =>
                 Parse(XDocument.Load(BASE_URL),market)
             );
         }
 
-        private static List<Sector> Parse(XDocument doc, Market market)
+        private static IList<Sector> Parse(XDocument doc, Market market)
         {
             var retVal = doc.Descendants(@"sector")
                             .Select(sector => 
@@ -30,7 +30,7 @@ namespace StockService.Core.Providers
                                     };
                                     s.Industries = new List<Industry>(sector.Elements()
                                                                                .Select(ind => new Industry(){
-                                                                                                            Id = int.Parse(ind.Attribute("id").Value),
+                                                                                                            IndustryId = int.Parse(ind.Attribute("id").Value),
                                                                                                             Name=ind.Attribute("name").Value, 
                                                                                                             Sector = s }));
                                     return s;
