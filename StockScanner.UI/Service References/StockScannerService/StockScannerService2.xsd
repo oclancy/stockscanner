@@ -55,10 +55,36 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetDividends">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/StockService.Core" minOccurs="0" name="sector" nillable="true" type="q8:Sector" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDividendsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetDividendsResult" nillable="true">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:appinfo>
+                <ActualType Name="DataTable" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+              <xs:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="PushStockData">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/StockService.Core" minOccurs="0" name="result" nillable="true" type="q8:StockQuote" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/StockService.Core" minOccurs="0" name="result" nillable="true" type="q9:StockQuote" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -70,7 +96,7 @@
   <xs:element name="PushCompanyData">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/StockService.Core" minOccurs="0" name="result" nillable="true" type="q9:CompanyStatistics" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/StockService.Core" minOccurs="0" name="result" nillable="true" type="q10:CompanyStatistics" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -82,7 +108,7 @@
   <xs:element name="PushSectors">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/StockService.Core" minOccurs="0" name="sectors" nillable="true" type="q10:ArrayOfSector" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/StockService.Core" minOccurs="0" name="sectors" nillable="true" type="q11:ArrayOfSector" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -94,7 +120,7 @@
   <xs:element name="PushCompanies">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/StockService.Core" minOccurs="0" name="data" nillable="true" type="q11:ArrayOfCompany" />
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/StockService.Core" minOccurs="0" name="data" nillable="true" type="q12:ArrayOfCompany" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

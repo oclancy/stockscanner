@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,6 +9,8 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using HtmlAgilityPack;
 using Microsoft.Practices.Unity;
+using NLog;
+using StockService.Core.DTOs;
 using StockService.Core.Extension;
 
 namespace StockService.Core.Providers
@@ -17,31 +20,46 @@ namespace StockService.Core.Providers
         //[Dependency]
         //public IDictionary<string, CompanyStatistics> Cache { get; set; }
 
-        [Dependency]
-        public IDictionary<string, Company> Cache { get; set; }
-
         const string BASE_URL = "http://finance.yahoo.com/q/ks?s={0}+Key+Statistics";
+        private Logger m_logger = LogManager.GetCurrentClassLogger();
 
         public async Task<CompanyStatistics> FetchDataAsync( Company company )
         {
-            if (Cache.ContainsKey(company.Symbol) && 
-                Cache[company.Symbol].CompanyStatistics != null &&
-                Cache[company.Symbol].CompanyStatistics.LastUpdated > DateTime.UtcNow.AddDays(-1) )
-                return Cache[company.Symbol].CompanyStatistics;
+            using (var cxt = new StockScannerContext())
+            {
+                company = cxt.Companies.FirstOrDefault(c => c.CompanyId == company.CompanyId);
+                if (company.CompanyStatistics != null &&
+                    company.CompanyStatistics.LastUpdated > DateTime.UtcNow.AddDays(-1)) return company.CompanyStatistics;
+            }
 
-            var webReq = WebRequest.CreateHttp(string.Format(BASE_URL, company.Symbol));
-
-            var t = await webReq.GetResponseAsync();
-
+            HttpWebRequest webReq = null;
             var doc = new HtmlDocument();
-            doc.Load(t.GetResponseStream());
-            var cs = Parse(doc);
-            cs.LastUpdated = DateTime.UtcNow;
+            var cs =  company.CompanyStatistics ?? new CompanyStatistics() ;
+            try
+            {
+                webReq = WebRequest.CreateHttp(string.Format(BASE_URL, company.Symbol));
+                var t = await webReq.GetResponseAsync();
+                using (var stream = t.GetResponseStream())
+                {
+                    doc.Load(stream);
+                }
 
+                Parse(doc, cs);
+            }
+            catch (WebException ex)
+            {
+                m_logger.ErrorException(string.Format("Exception whilst retrieving url data: {0}", webReq.RequestUri), ex);
+            }
+            catch (Exception ex)
+            {
+                m_logger.ErrorException(string.Format("Unknown Exception whilst getting data: {0}", webReq.RequestUri), ex);
+            }
+
+            cs.LastUpdated = DateTime.UtcNow;
             return cs;
         }
 
-        private static CompanyStatistics Parse(HtmlDocument doc)
+        private static void Parse(HtmlDocument doc, CompanyStatistics cs)
         {
             var retVal = new Dictionary<string, string>();
             var root = doc.DocumentNode;
@@ -75,7 +93,7 @@ namespace StockService.Core.Providers
                     retVal.Add(v.Item1, v.Item2);
             });
 
-            return CompanyStatistics.FromYahooValues(retVal);
+            cs = CompanyStatistics.FromYahooValues(retVal);
         }
 
     }

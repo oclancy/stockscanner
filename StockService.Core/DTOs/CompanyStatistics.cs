@@ -20,13 +20,12 @@ namespace StockService.Core
         [DataMember]
         public Dictionary<string, string> Statistics { get; set; }
 
-        //[ForeignKey("Company")]
-        //public int CompanyId { get; set; }
+        [DataMember]
+        public virtual Company Company { get; set; }
+        [Key,ForeignKey("Company")]
+        public int CompanyId { get; set; }
 
-        //[DataMember]
-        //public virtual Company Company { get; set; }
-
-        public int CompanyStatisticsId { get; set; }
+        //public int CompanyStatisticsId { get; set; }
 
         [DataMember]
         [YahooCompanyStatisticValue("Enterprise Value")]

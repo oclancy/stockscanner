@@ -19,14 +19,14 @@ namespace StockService.Core.Providers
                 //dbcontext.Markets.Include(c => c.Sectors).Load();
                 //dbcontext.Sectors.Include(c => c.Industries).Load();
                 //dbcontext.Industries.Include(c => c.Companies).Load();
-                dbcontext.Companies.Include(c => c.StockQuote).Load();
-                dbcontext.Companies.Include(c => c.CompanyStatistics).Load();
+                //dbcontext.Companies.Include(c => c.StockQuote).Load();
+                //dbcontext.Companies.Include(c => c.CompanyStatistics).Load();
 
                 markets = dbcontext.Markets.ToList();
 
                 if (markets.Any())
                 {
-                    var companies = markets.SelectMany(m=>m.Sectors.SelectMany(s=> s.Industries.SelectMany(i=>i.Companies))).ToList();
+                    var @throw = markets.SelectMany(m=>m.Sectors.SelectMany(s=> s.Industries.SelectMany(i=>i.Companies))).ToList();
                     return markets;
                 }
 

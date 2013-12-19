@@ -20,7 +20,7 @@ namespace StockService.Core
         const int Sector = 20;
         const int CompanyName = 1;
 
-        internal static void Read(Core.Market market, string file)
+        public static void Read(Core.Market market, string file)
         {
             using (var cxt = new StockScannerContext())
             {
@@ -32,9 +32,9 @@ namespace StockService.Core
              
                     while ((line = reader.ReadLine()) != null)
                     {
-                        var parts = line.Split(new[] { ',' });
+                        var parts = ReadCsvLine(line);
 
-                        if (market.Name != parts[Market]) continue;
+                        if (market.Name.ToUpper() != parts[Market].ToUpper()) continue;
 
                         Sector sector = market.Sectors.FirstOrDefault(s => s.Name == parts[Industry]);
                         if (sector == null)
@@ -65,6 +65,33 @@ namespace StockService.Core
                 }
                 cxt.SaveChanges();
             }
+        }
+
+        public static List<string> ReadCsvLine(string line)
+        {
+            var parts = new List<string>();
+            bool inquote=false;
+            var posStart = 0;
+            var posEnd = 0;
+            var trim = new char[] { '"' };
+
+            var length = line.Length;
+            for (; posEnd < length; ++posEnd)
+            {
+                var c = line[posEnd];
+                if (c == '"') inquote = !inquote;
+
+                if (c == ',' && !inquote)
+                {
+                    var entry = line.Substring(posStart, posEnd - posStart);
+                    entry.Trim(trim);
+                    parts.Add(line.Substring(posStart, posEnd - posStart));
+                    posStart = posEnd + 1;
+                }
+            }
+            parts.Add(line.Substring(posStart, posEnd - posStart));
+
+            return parts;
         }
     }
 }

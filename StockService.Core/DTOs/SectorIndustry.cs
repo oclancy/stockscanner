@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace StockService.Core
 {
     [DataContract]
-    public class Industry //: IEquatable<Industry>
+    public class Industry 
     {
         public Industry()
         {
@@ -33,38 +33,10 @@ namespace StockService.Core
             set;
         }
 
-        //public bool Equals(Industry other)
-        //{
-        //    if (object.ReferenceEquals(other, this)) return true;
-        //    if (object.ReferenceEquals(other, null)) return false;
-
-        //    return this.Id == other.Id;
-        //}
-
-        //public override int GetHashCode()
-        //{
-        //    return Id;
-        //}
-
-        //public override bool Equals(object obj)
-        //{
-        //    return this.Equals(obj as Industry);
-        //}
-
-        //public static bool operator ==(Industry leftOperand, Industry rightOperand)
-        //{
-        //    if (ReferenceEquals(null, leftOperand)) return ReferenceEquals(null, rightOperand);
-        //    return leftOperand.Equals(rightOperand);
-        //}
-
-        //public static bool operator !=(Industry leftOperand, Industry rightOperand)
-        //{
-        //    return !(leftOperand == rightOperand);
-        //}
     }
 
     [DataContract(IsReference=true)]
-    public class Sector //: IEquatable<Sector>
+    public class Sector
     {
         public Sector()
         {
@@ -88,33 +60,5 @@ namespace StockService.Core
         public virtual Market Market {get;set;}
         public int MarketId { get; set; }
 
-        //public bool Equals(Sector other)
-        //{
-        //    if (object.ReferenceEquals(other, this)) return true;
-        //    if (object.ReferenceEquals(other, null)) return false;
-
-        //    return this.Id == other.Id;
-        //}
-
-        //public override int GetHashCode()
-        //{
-        //    return Id;
-        //}
-
-        //public override bool Equals(object obj)
-        //{
-        //    return this.Equals(obj as Sector);
-        //}
-
-        //public static bool operator ==(Sector leftOperand, Sector rightOperand)
-        //{
-        //    if (ReferenceEquals(null, leftOperand)) return ReferenceEquals(null, rightOperand);
-        //    return leftOperand.Equals(rightOperand);
-        //}
-
-        //public static bool operator !=(Sector leftOperand, Sector rightOperand)
-        //{
-        //    return !(leftOperand == rightOperand);
-        //}
     }
 }

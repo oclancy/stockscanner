@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="StockService.StockServiceAdmin" CodeBehind="StockServiceAdmin.svc.cs" Factory="StockService.DependencyInjectionServiceHostFactory"%>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="i6oGvKzEN7NV+J7c9xk9WU+5F0o=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="X6HuV8JxIUV5vAV/M4S7HwBpQsY=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="wsDualHttpBinding" name="WSDualHttpBinding_IStockScannerService">
       <properties>
@@ -97,10 +97,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="WSDualHttpBinding_IStockScannerService" contract="StockScannerService.IStockScannerService" bindingType="wsDualHttpBinding" address="http://localhost:2500/StockScannerService.svc/StockScannerService.svc" bindingConfiguration="WSDualHttpBinding_IStockScannerService">
+    <endpoint name="WSDualHttpBinding_IStockScannerService" contract="StockScannerService.IStockScannerService" bindingType="wsDualHttpBinding" address="http://localhost:2500/StockScannerService.svc/StockScannerService" bindingConfiguration="WSDualHttpBinding_IStockScannerService">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://localhost:2500/StockScannerService.svc/StockScannerService.svc</serializedValue>
+          <serializedValue>http://localhost:2500/StockScannerService.svc/StockScannerService</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

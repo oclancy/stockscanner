@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using System.Threading.Tasks;
 using StockService.Core;
 
 namespace StockService
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IService1" in both code and config file together.
-    [ServiceContract(CallbackContract=typeof(IStockScannerClient), 
-                     SessionMode=SessionMode.Required)]
+    [ServiceContract(CallbackContract=typeof(IStockScannerClient))]
     public interface IStockScannerService
     {
         [OperationContract]
@@ -42,5 +43,10 @@ namespace StockService
         //[FaultContract(typeof(string))]
         [ApplyDataContractResolver]
         void GetCompanies(Industry industry);
+
+        [OperationContract]
+        Task<DataTable> GetDividends(Sector sector);
+
+
     }
 }

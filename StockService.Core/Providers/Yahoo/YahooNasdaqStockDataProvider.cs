@@ -7,16 +7,17 @@ using StockService.Core;
 namespace StockService.Core.Providers
 {
     using System;
-    using System.Collections.ObjectModel;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using System.Xml.Linq;
-    using Microsoft.Practices.Unity;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+using Microsoft.Practices.Unity;
+    using NLog;
 
     public class YahooNasdaqStockDataProvider : IStockProvider
     {
-        //[Dependency]
-        //public IDictionary<string, StockQuote> Cache{get;set;}
+        private static Logger Logger = LogManager.GetCurrentClassLogger();
 
         [Dependency]
         public IDictionary<string, Company> Cache { get; set; }
@@ -29,22 +30,32 @@ namespace StockService.Core.Providers
         {
             if (Cache.ContainsKey(company.Symbol) &&
                 Cache[company.Symbol].StockQuote != null &&
-                Cache[company.Symbol].StockQuote != null) return Cache[company.Symbol].StockQuote;
+                Cache[company.Symbol].StockQuote.LastUpdated > DateTime.UtcNow.AddDays(-1)) return Cache[company.Symbol].StockQuote;
 
-            var t = await Task.Run( () =>
+            string symbolList = "%2C%22" + company.Symbol + "%22";
+            string url = string.Format(BASE_URL, symbolList);
+
+            var sq = new StockQuote();
+            try
             {
-                //string symbolList = String.Join("%2C", quotes.Select(w => "%22" + w.Symbol + "%22").ToArray());
+                sq = await Task.Run(() =>
+                {
+                    return Parse(XDocument.Load(url), company.Symbol);
+                });
+            }
+            catch (WebException ex)
+            {
+                Logger.ErrorException(string.Format("Exception whilst retrieving url data: {0}", url), ex);
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorException(string.Format("Unknown Exception whilst getting data: {0}", url), ex);
+            }           
 
-                string symbolList = "%2C%22" + company.Symbol + "%22";
-                string url = string.Format(BASE_URL, symbolList);
-
-                return Parse(XDocument.Load(url), company.Symbol);
-            });
-
-            //t.Company = company;
-            company.StockQuote = t;
-            return t;
-
+            sq.LastUpdated = DateTime.UtcNow;
+            company.StockQuote = sq;
+            
+            return sq;
         }
 
         private static StockQuote Parse(XDocument doc, string symbol)
@@ -98,8 +109,6 @@ namespace StockService.Core.Providers
                 quote.OneYearPriceTarget = GetDecimal(q.Element("OneyrTargetPrice").Value);
                 quote.Volume = GetDecimal(q.Element("Volume").Value);
                 quote.StockExchange = q.Element("StockExchange").Value;
-
-                quote.LastUpdate = DateTime.Now;
             }
             return quote;
         }

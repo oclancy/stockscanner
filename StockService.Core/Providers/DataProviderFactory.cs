@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
@@ -21,30 +22,11 @@ namespace StockService.Core.Providers
 
         IDictionary<string, Market> m_markets;
 
-        public DataProviderFactory( IUnityContainer container, 
-                                    string localPath,
-                                    IDictionary<string, Market> markets,
-                                    IDictionary<string, Company> companies)
+        public DataProviderFactory( IUnityContainer container)
         {
             m_container = container;
 
-            MarketDataProvider.FetchData()
-                              .ForEach(m => markets.Add(m.Name, m));
-
-            m_markets = markets;
-
-            var aim = markets["AIM"];
-            var mm = markets["Main Market"];
-
-            LseDataReader.Read( mm, Path.Combine(localPath, "App_Data", "lsedata.csv"));
-            LseDataReader.Read( aim, Path.Combine(localPath, "App_Data", "lsedata.csv"));
-
-            markets.ForEach(m => m.Value.Sectors.SelectMany(s => s.Industries.SelectMany(i => i.Companies))
-                                    .ForEach(c =>
-                                    {
-                                        if (!companies.ContainsKey(c.Symbol))
-                                            companies.Add(c.Symbol, c);
-                                    }));
+            LoadCaches();
 
             var nasdaqStockDataProvider = container.Resolve<YahooNasdaqStockDataProvider>();
             var yahooFinanceStockDataProvider = container.Resolve <YahooFinanceStockDataProvider>();
@@ -56,16 +38,34 @@ namespace StockService.Core.Providers
             m_container.RegisterInstance<IStockProvider>("NASDAQ", nasdaqStockDataProvider);
 
             m_container.RegisterInstance<ICompanyDataProvider>("AIM", companyDataProvider);
-            m_container.RegisterInstance<ICompanyProvider>("AIM", new LseCompanyProvider(aim));
-            m_container.RegisterInstance<ISectorDataProvider>("AIM", new LseSectorIndustryDataProvider(aim));
+            m_container.RegisterInstance<ICompanyProvider>("AIM", new LseCompanyProvider("AIM"));
+            m_container.RegisterInstance<ISectorDataProvider>("AIM", new LseSectorIndustryDataProvider("AIM"));
             m_container.RegisterInstance<IStockProvider>("AIM", yahooFinanceStockDataProvider);
 
             m_container.RegisterInstance<ICompanyDataProvider>("Main Market", companyDataProvider);
-            m_container.RegisterInstance<ICompanyProvider>("Main Market", new LseCompanyProvider(mm));
-            m_container.RegisterInstance<ISectorDataProvider>("Main Market", new LseSectorIndustryDataProvider(mm));
+            m_container.RegisterInstance<ICompanyProvider>("Main Market", new LseCompanyProvider("Main Market"));
+            m_container.RegisterInstance<ISectorDataProvider>("Main Market", new LseSectorIndustryDataProvider("Main Market"));
             m_container.RegisterInstance<IStockProvider>("Main Market", yahooFinanceStockDataProvider);
         }
 
+        public void LoadCaches()
+        {
+            IDictionary<string, Market> tmpMarkets = new Dictionary<string, Market>();
+            IDictionary<string, Company> tmpCompanies = new Dictionary<string, Company>();
+
+            MarketDataProvider.FetchData()
+                              .ForEach(m => tmpMarkets.Add(m.Name, m));
+
+            tmpMarkets.ForEach(m => m.Value.Sectors.SelectMany(s => s.Industries.SelectMany(i => i.Companies))
+                                    .ForEach(c =>
+                                    {
+                                        if (!tmpCompanies.ContainsKey(c.Symbol))
+                                            tmpCompanies.Add(c.Symbol, c);
+                                    }));
+
+            m_container.RegisterInstance(tmpMarkets);
+            m_container.RegisterInstance(tmpCompanies);
+        }
 
         public T GetDataProvider<T>(Market market)
         {
@@ -81,6 +81,17 @@ namespace StockService.Core.Providers
         public List<Market> GetMarketsData()
         {
             return m_markets.Values.ToList();
+        }
+
+        public IEnumerable<Company> GetCompanies()
+        {
+            using (var cxt = new StockScannerContext())
+            {
+                
+                return  cxt.Companies
+                           .Include("Industry.Sector.Market")
+                           .ToList();
+            }
         }
     }
 }

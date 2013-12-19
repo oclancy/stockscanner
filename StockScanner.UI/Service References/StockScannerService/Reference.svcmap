@@ -25,6 +25,7 @@
     <MetadataFile FileName="StockScannerService.xsd" MetadataType="Schema" ID="cf270709-5734-4c95-ab68-fd88800d61ae" SourceId="1" SourceUrl="http://localhost:2500/StockScannerService.svc?xsd=xsd2" />
     <MetadataFile FileName="StockScannerService1.xsd" MetadataType="Schema" ID="2631f91c-8381-4fc5-808d-ed24c5d6947c" SourceId="1" SourceUrl="http://localhost:2500/StockScannerService.svc?xsd=xsd1" />
     <MetadataFile FileName="StockScannerService2.xsd" MetadataType="Schema" ID="05cf0049-dfcc-4c59-89bc-50e4d13b4483" SourceId="1" SourceUrl="http://localhost:2500/StockScannerService.svc?xsd=xsd0" />
+    <MetadataFile FileName="StockScannerService4.xsd" MetadataType="Schema" ID="f361fbfc-6294-4fbc-aecf-c12f749608a0" SourceId="1" SourceUrl="http://localhost:2500/StockScannerService.svc?xsd=xsd4" />
     <MetadataFile FileName="StockScannerService.disco" MetadataType="Disco" ID="2c632509-20f1-462c-9233-dfc99ae312c3" SourceId="1" SourceUrl="http://localhost:2500/StockScannerService.svc?disco" />
     <MetadataFile FileName="StockScannerService.wsdl" MetadataType="Wsdl" ID="f55e30d1-6641-425b-bc39-9ac5de89dbb7" SourceId="1" SourceUrl="http://localhost:2500/StockScannerService.svc?wsdl" />
   </Metadata>

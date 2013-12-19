@@ -17,6 +17,7 @@ using StockService.Core.Extension;
 using System.Data.Entity;
 using NLog;
 
+
 namespace StockService
 {
     /// <summary>
@@ -24,12 +25,17 @@ namespace StockService
     /// </summary>
     public class DependencyInjectionServiceHostFactory : ServiceHostFactory
     {
-        IUnityContainer m_container = new UnityContainer();
-        DataProviderFactory m_dataProviderFactory;
-        Logger m_logger = LogManager.GetCurrentClassLogger();
-        IDictionary<string,Market> m_markets = new ConcurrentDictionary<string,Market>();
-        IDictionary<string, Company> m_companies = new ConcurrentDictionary<string, Company>();
-            
+        static IUnityContainer m_container = new UnityContainer();
+
+        static Lazy<DataProviderFactory> m_lazyDataProviderFactory = new Lazy<DataProviderFactory>(() => new DataProviderFactory(m_container));
+
+        static Logger m_logger = LogManager.GetCurrentClassLogger();
+
+        //static IDictionary<string, Market> m_markets = new ConcurrentDictionary<string, Market>();
+        //static IDictionary<string, Company> m_companies = new ConcurrentDictionary<string, Company>();
+
+        DataProviderFactory DataProviderFactory { get { return m_lazyDataProviderFactory.Value; } }
+
         /// <summary>
         /// Creates a <see cref="DependencyInjectionServiceHost"/> for a specified type of service with a specific base address. 
         /// </summary>
@@ -51,87 +57,21 @@ namespace StockService
 
             RegisterDependencies();
 
-            m_dataProviderFactory = new DataProviderFactory(m_container, 
-                                                            HostingEnvironment.ApplicationPhysicalPath, 
-                                                            m_markets, 
-                                                            m_companies);
-
-            m_container.RegisterInstance(m_dataProviderFactory);
-
-            GetCompanyData();
-
-            var serviceHost = new DependencyInjectionServiceHost(serviceType, baseAddresses);
-
-            return serviceHost;
-        }
-
-        private void SaveCompany(Company company)
-        {
-            using (var dbcontext = new StockScannerContext())
-            {
-                if (company.CompanyId != 0)
-                {
-                    dbcontext.Companies.Attach(company);
-                }
-                else
-                {
-                    dbcontext.Companies.Add(company);
-                }
-
-                dbcontext.SaveChanges();
-            }
-        }
-
-        private void GetCompanyData()
-        {
-            CancellationTokenSource sorc = new CancellationTokenSource();
-                        
-            m_logger.Info("Starting data gathering at {0}", DateTime.Now);
-
-            Task.Run(() =>
-            {
-                m_companies.Values.ForEach( company =>
-                {
-                    try
-                    {
-                        var cs = m_dataProviderFactory.GetDataProvider<ICompanyDataProvider>(company.Industry.Sector.Market)
-                                                                            .FetchDataAsync(company).Result;
-                        var sq = m_dataProviderFactory.GetDataProvider<IStockProvider>(company.Industry.Sector.Market)
-                                                                            .FetchDataAsync(company).Result;
-
-                        using (var cxt = new StockScannerContext())
-                        {
-                            try
-                            {
-                                cxt.Companies.Attach(company);
-                                company.StockQuote = sq;
-                                company.CompanyStatistics = cs;
-                                cxt.SaveChanges();
-                            }
-                            catch (Exception ex)
-                            {
-                                m_logger.ErrorException(string.Format("Exception whilst getting company details for {0}", company.Name), ex);
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        m_logger.ErrorException(string.Format("Exception whilst getting company details for {0}", company.Name), ex);
-                    }
-                });
-            });
-
+            return new DependencyInjectionServiceHost(serviceType, baseAddresses);
         }
 
         /// <summary>
         /// Initialization logic that any derived type would use to set up the ServiceLocator provider.  Look to UnityServiceHostFactory to see how this is done, if implementing for 
         /// another IoC engine.
         /// </summary>
-        protected void RegisterDependencies()
+        private void RegisterDependencies()
         {
-            m_container.RegisterInstance<IDictionary<string, Company>>(m_companies);
-            m_container.RegisterInstance<IDictionary<string, Market>>(m_markets);
-            m_container.RegisterInstance< ICalculatedCompanyDataProvider>(new CalculatedStaticticsProvider(m_companies));
+            if (m_container.IsRegistered<DataProviderFactory>()) return;
+
+            //m_container.RegisterInstance<IDictionary<string, Company>>(m_companies);
+            //m_container.RegisterInstance<IDictionary<string, Market>>(m_markets);
+            m_container.RegisterInstance< ICalculatedCompanyDataProvider>(new CalculatedStaticticsProvider());
+            m_container.RegisterInstance<DataProviderFactory>(DataProviderFactory);
          }
     }
 }

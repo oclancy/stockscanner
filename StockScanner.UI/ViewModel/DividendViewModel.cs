@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GalaSoft.MvvmLight.Messaging;
+using StockScanner.UI.StockScannerService;
 
 namespace StockScanner.UI.ViewModel
 {
@@ -11,17 +13,19 @@ namespace StockScanner.UI.ViewModel
         private GalaSoft.MvvmLight.Messaging.IMessenger m_messenger;
         private StockScannerService.StockScannerServiceClient Client;
 
-        public DividendViewModel(GalaSoft.MvvmLight.Messaging.IMessenger m_messenger)
+        private void OnSector(Sector obj)
         {
-            // TODO: Complete member initialization
-            this.m_messenger = m_messenger;
+            Client.GetDividends(obj);
         }
 
-        public DividendViewModel(GalaSoft.MvvmLight.Messaging.IMessenger m_messenger, StockScannerService.StockScannerServiceClient Client)
+        public DividendViewModel(IMessenger m_messenger, StockScannerService.StockScannerServiceClient Client)
         {
-            // TODO: Complete member initialization
             this.m_messenger = m_messenger;
             this.Client = Client;
+
+            this.m_messenger = m_messenger;
+
+            m_messenger.Register<Sector>(this, OnSector);
         }
     }
 }

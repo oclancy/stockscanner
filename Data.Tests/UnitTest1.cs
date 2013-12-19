@@ -9,12 +9,24 @@ using System.Reactive.Linq;
 using Microsoft.Practices.Unity;
 using System.Collections.Generic;
 using StockService.Core.Extension;
+using System.IO;
+using System.Reflection;
 
 namespace Data.Tests
 {
     [TestClass]
     public class DbContext
     {
+        /// <summary>
+        ///Gets or sets the test context which provides
+        ///information about and functionality for the current test run.
+        ///</summary>
+        public TestContext TestContext
+        {
+            get;
+            set;
+        }
+
         [TestInitialize]
         public void Initialise()
         {
@@ -150,28 +162,7 @@ namespace Data.Tests
             }
         }
 
-        [TestMethod]
-        public void LoadFromFile()
-        {
-            var markets = new Dictionary<string,Market>();
-            var companies = new Dictionary<string, Company>();
-            var container = new UnityContainer();
-
-            container.RegisterInstance<IDictionary<string,Company>>( new Dictionary<string,Company>() );
-
-            var m_dataProviderFactory = new DataProviderFactory(container, Environment.CurrentDirectory, markets, companies);
-
-            Assert.AreEqual(3, markets.Count);
-            Assert.AreEqual(23, markets.SelectMany(m=>m.Value.Sectors).Count());
-
-            markets.Clear();
-            companies.Clear();
-            m_dataProviderFactory = new DataProviderFactory(container, Environment.CurrentDirectory, markets, companies);
-
-            Assert.AreEqual(3, markets.Count);
-            Assert.AreEqual(23, markets.SelectMany(m => m.Value.Sectors).Count());
-        }
-
+        
         [TestMethod]
         public void SaveStatistics()
         {

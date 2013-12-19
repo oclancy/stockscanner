@@ -25,6 +25,11 @@ namespace StockService.Core
             m_companies = companies;
         }
 
+        public CalculatedStaticticsProvider()
+        {
+            // TODO: Complete member initialization
+        }
+
         public CalculatedData FetchData(Company company)
         {
             //if (!m_stockQuoteCache.ContainsKey(company.Symbol) && !m_companyDataCache.ContainsKey(company.Symbol)) 

@@ -287,6 +287,52 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IStockScannerService_GetDividends_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IStockScannerService_GetDividends_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsp:Policy wsu:Id="WSDualHttpBinding_IStockScannerService_PushStockData_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -476,7 +522,8 @@
       <xsd:import schemaLocation="http://localhost:2500/StockScannerService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:2500/StockScannerService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:2500/StockScannerService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/StockService.Core" />
-      <xsd:import schemaLocation="http://localhost:2500/StockScannerService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:2500/StockScannerService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import schemaLocation="http://localhost:2500/StockScannerService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IStockScannerService_GetMarketsData_InputMessage">
@@ -503,6 +550,12 @@
   <wsdl:message name="IStockScannerService_GetCompanies_InputMessage">
     <wsdl:part name="parameters" element="tns:GetCompanies" />
   </wsdl:message>
+  <wsdl:message name="IStockScannerService_GetDividends_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDividends" />
+  </wsdl:message>
+  <wsdl:message name="IStockScannerService_GetDividends_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDividendsResponse" />
+  </wsdl:message>
   <wsdl:message name="IStockScannerService_PushStockData_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:PushStockData" />
   </wsdl:message>
@@ -527,40 +580,44 @@
   <wsdl:message name="IStockScannerService_PushCompanies_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:PushCompaniesResponse" />
   </wsdl:message>
-  <wsdl:portType msc:usingSession="true" name="IStockScannerService">
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetMarketsData">
+  <wsdl:portType name="IStockScannerService">
+    <wsdl:operation name="GetMarketsData">
       <wsdl:input wsaw:Action="http://tempuri.org/IStockScannerService/GetMarketsData" message="tns:IStockScannerService_GetMarketsData_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IStockScannerService/GetMarketsDataResponse" message="tns:IStockScannerService_GetMarketsData_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetCompanyData">
+    <wsdl:operation name="GetCompanyData">
       <wsdl:input wsaw:Action="http://tempuri.org/IStockScannerService/GetCompanyData" message="tns:IStockScannerService_GetCompanyData_InputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetStockData">
+    <wsdl:operation name="GetStockData">
       <wsdl:input wsaw:Action="http://tempuri.org/IStockScannerService/GetStockData" message="tns:IStockScannerService_GetStockData_InputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetCalculatedCompanyData">
+    <wsdl:operation name="GetCalculatedCompanyData">
       <wsdl:input wsaw:Action="http://tempuri.org/IStockScannerService/GetCalculatedCompanyData" message="tns:IStockScannerService_GetCalculatedCompanyData_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IStockScannerService/GetCalculatedCompanyDataResponse" message="tns:IStockScannerService_GetCalculatedCompanyData_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetSectorData">
+    <wsdl:operation name="GetSectorData">
       <wsdl:input wsaw:Action="http://tempuri.org/IStockScannerService/GetSectorData" message="tns:IStockScannerService_GetSectorData_InputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="GetCompanies">
+    <wsdl:operation name="GetCompanies">
       <wsdl:input wsaw:Action="http://tempuri.org/IStockScannerService/GetCompanies" message="tns:IStockScannerService_GetCompanies_InputMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="PushStockData">
+    <wsdl:operation name="GetDividends">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStockScannerService/GetDividends" message="tns:IStockScannerService_GetDividends_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStockScannerService/GetDividendsResponse" message="tns:IStockScannerService_GetDividends_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PushStockData">
       <wsdl:output wsaw:Action="http://tempuri.org/IStockScannerService/PushStockData" message="tns:IStockScannerService_PushStockData_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/IStockScannerService/PushStockDataResponse" message="tns:IStockScannerService_PushStockData_InputCallbackMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="PushCompanyData">
+    <wsdl:operation name="PushCompanyData">
       <wsdl:output wsaw:Action="http://tempuri.org/IStockScannerService/PushCompanyData" message="tns:IStockScannerService_PushCompanyData_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/IStockScannerService/PushCompanyDataResponse" message="tns:IStockScannerService_PushCompanyData_InputCallbackMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="PushSectors">
+    <wsdl:operation name="PushSectors">
       <wsdl:output wsaw:Action="http://tempuri.org/IStockScannerService/PushSectors" message="tns:IStockScannerService_PushSectors_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/IStockScannerService/PushSectorsResponse" message="tns:IStockScannerService_PushSectors_InputCallbackMessage" />
     </wsdl:operation>
-    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="PushCompanies">
+    <wsdl:operation name="PushCompanies">
       <wsdl:output wsaw:Action="http://tempuri.org/IStockScannerService/PushCompanies" message="tns:IStockScannerService_PushCompanies_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/IStockScannerService/PushCompaniesResponse" message="tns:IStockScannerService_PushCompanies_InputCallbackMessage" />
     </wsdl:operation>
@@ -618,6 +675,17 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
+    <wsdl:operation name="GetDividends">
+      <soap12:operation soapAction="http://tempuri.org/IStockScannerService/GetDividends" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IStockScannerService_GetDividends_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IStockScannerService_GetDividends_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="PushStockData">
       <soap12:operation soapAction="http://tempuri.org/IStockScannerService/PushStockData" style="document" />
       <wsdl:input>
@@ -665,9 +733,9 @@
   </wsdl:binding>
   <wsdl:service name="StockScannerService">
     <wsdl:port name="WSDualHttpBinding_IStockScannerService" binding="tns:WSDualHttpBinding_IStockScannerService">
-      <soap12:address location="http://localhost:2500/StockScannerService.svc/StockScannerService.svc" />
+      <soap12:address location="http://localhost:2500/StockScannerService.svc/StockScannerService" />
       <wsa10:EndpointReference>
-        <wsa10:Address>http://localhost:2500/StockScannerService.svc/StockScannerService.svc</wsa10:Address>
+        <wsa10:Address>http://localhost:2500/StockScannerService.svc/StockScannerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
           <Upn>OLLIE-LAPTOP\Admin</Upn>
         </Identity>

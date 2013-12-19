@@ -144,14 +144,14 @@ namespace StockService.Core
         public string StockExchange { get; set; }
 
         [DataMember]
-        public DateTime LastUpdate { get; set; }
+        public virtual Company Company { get; set; }
+        [Key,ForeignKey("Company")]
+        public int CompanyId { get; set; }
 
-        //[ForeignKey("Company")]
-        //public int CompanyId { get; set; }
+        //public int StockQuoteId { get; set; }
 
-        //[DataMember]
-        //public virtual Company Company { get; set; }
+        public decimal? Yield { get; set; }
 
-        public int StockQuoteId { get; set; }
+        public decimal? Dividend { get; set; }
     }
 }

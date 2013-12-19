@@ -435,6 +435,9 @@ namespace StockScanner.UI.StockScannerService {
         private System.Nullable<decimal> ChangeInPercentField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private StockScanner.UI.StockScannerService.Company CompanyField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<decimal> DailyHighField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -472,9 +475,6 @@ namespace StockScanner.UI.StockScannerService {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<decimal> LastTradePriceField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime LastUpdateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<decimal> MarketCapitalizationField;
@@ -667,6 +667,19 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public StockScanner.UI.StockScannerService.Company Company {
+            get {
+                return this.CompanyField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompanyField, value) != true)) {
+                    this.CompanyField = value;
+                    this.RaisePropertyChanged("Company");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Nullable<decimal> DailyHigh {
             get {
                 return this.DailyHighField;
@@ -831,19 +844,6 @@ namespace StockScanner.UI.StockScannerService {
                 if ((this.LastTradePriceField.Equals(value) != true)) {
                     this.LastTradePriceField = value;
                     this.RaisePropertyChanged("LastTradePrice");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime LastUpdate {
-            get {
-                return this.LastUpdateField;
-            }
-            set {
-                if ((this.LastUpdateField.Equals(value) != true)) {
-                    this.LastUpdateField = value;
-                    this.RaisePropertyChanged("LastUpdate");
                 }
             }
         }
@@ -1144,6 +1144,9 @@ namespace StockScanner.UI.StockScannerService {
         private System.Nullable<decimal> BookValuePerShareField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private StockScanner.UI.StockScannerService.Company CompanyField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<decimal> CurrentRatioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1252,6 +1255,19 @@ namespace StockScanner.UI.StockScannerService {
                 if ((this.BookValuePerShareField.Equals(value) != true)) {
                     this.BookValuePerShareField = value;
                     this.RaisePropertyChanged("BookValuePerShare");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public StockScanner.UI.StockScannerService.Company Company {
+            get {
+                return this.CompanyField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompanyField, value) != true)) {
+                    this.CompanyField = value;
+                    this.RaisePropertyChanged("Company");
                 }
             }
         }
@@ -1657,7 +1673,7 @@ namespace StockScanner.UI.StockScannerService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="StockScannerService.IStockScannerService", CallbackContract=typeof(StockScanner.UI.StockScannerService.IStockScannerServiceCallback), SessionMode=System.ServiceModel.SessionMode.Required)]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="StockScannerService.IStockScannerService", CallbackContract=typeof(StockScanner.UI.StockScannerService.IStockScannerServiceCallback))]
     public interface IStockScannerService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockScannerService/GetMarketsData", ReplyAction="http://tempuri.org/IStockScannerService/GetMarketsDataResponse")]
@@ -1677,6 +1693,9 @@ namespace StockScanner.UI.StockScannerService {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IStockScannerService/GetCompanies")]
         void GetCompanies(StockScanner.UI.StockScannerService.Industry industry);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockScannerService/GetDividends", ReplyAction="http://tempuri.org/IStockScannerService/GetDividendsResponse")]
+        System.Data.DataTable GetDividends(StockScanner.UI.StockScannerService.Sector sector);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1745,6 +1764,10 @@ namespace StockScanner.UI.StockScannerService {
         
         public void GetCompanies(StockScanner.UI.StockScannerService.Industry industry) {
             base.Channel.GetCompanies(industry);
+        }
+        
+        public System.Data.DataTable GetDividends(StockScanner.UI.StockScannerService.Sector sector) {
+            return base.Channel.GetDividends(sector);
         }
     }
 }
