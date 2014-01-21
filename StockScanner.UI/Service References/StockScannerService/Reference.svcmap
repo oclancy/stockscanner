@@ -2,6 +2,7 @@
 <ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="c728b82b-ff64-4e6c-a963-00381372b6f8" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
     <EnableDataBinding>true</EnableDataBinding>
     <ExcludedTypes />
     <ImportXmlTypes>false</ImportXmlTypes>
@@ -18,16 +19,16 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:2500/stockscannerservice.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost/stockservice/stockscannerservice.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="StockScannerService3.xsd" MetadataType="Schema" ID="92b1ad8b-5a9c-41c7-b593-15d9860f3f93" SourceId="1" SourceUrl="http://localhost:2500/StockScannerService.svc?xsd=xsd3" />
-    <MetadataFile FileName="StockScannerService.xsd" MetadataType="Schema" ID="cf270709-5734-4c95-ab68-fd88800d61ae" SourceId="1" SourceUrl="http://localhost:2500/StockScannerService.svc?xsd=xsd2" />
-    <MetadataFile FileName="StockScannerService1.xsd" MetadataType="Schema" ID="2631f91c-8381-4fc5-808d-ed24c5d6947c" SourceId="1" SourceUrl="http://localhost:2500/StockScannerService.svc?xsd=xsd1" />
-    <MetadataFile FileName="StockScannerService2.xsd" MetadataType="Schema" ID="05cf0049-dfcc-4c59-89bc-50e4d13b4483" SourceId="1" SourceUrl="http://localhost:2500/StockScannerService.svc?xsd=xsd0" />
-    <MetadataFile FileName="StockScannerService4.xsd" MetadataType="Schema" ID="f361fbfc-6294-4fbc-aecf-c12f749608a0" SourceId="1" SourceUrl="http://localhost:2500/StockScannerService.svc?xsd=xsd4" />
-    <MetadataFile FileName="StockScannerService.disco" MetadataType="Disco" ID="2c632509-20f1-462c-9233-dfc99ae312c3" SourceId="1" SourceUrl="http://localhost:2500/StockScannerService.svc?disco" />
-    <MetadataFile FileName="StockScannerService.wsdl" MetadataType="Wsdl" ID="f55e30d1-6641-425b-bc39-9ac5de89dbb7" SourceId="1" SourceUrl="http://localhost:2500/StockScannerService.svc?wsdl" />
+    <MetadataFile FileName="StockScannerService5.xsd" MetadataType="Schema" ID="e70abeb5-b503-4aa9-97c2-08fa14d4da3e" SourceId="1" SourceUrl="http://localhost/StockService/StockScannerService.svc?xsd=xsd3" />
+    <MetadataFile FileName="StockScannerService51.xsd" MetadataType="Schema" ID="b7661f9d-c5d5-449d-9d32-4333158ba2fe" SourceId="1" SourceUrl="http://localhost/StockService/StockScannerService.svc?xsd=xsd4" />
+    <MetadataFile FileName="StockScannerService52.xsd" MetadataType="Schema" ID="bb179c62-3af3-4579-bc0e-74637615033d" SourceId="1" SourceUrl="http://localhost/StockService/StockScannerService.svc?xsd=xsd2" />
+    <MetadataFile FileName="StockScannerService1.disco" MetadataType="Disco" ID="6f5b97dd-2f94-484b-87e0-0f493b99280f" SourceId="1" SourceUrl="http://localhost/StockService/StockScannerService.svc?disco" />
+    <MetadataFile FileName="StockScannerService53.xsd" MetadataType="Schema" ID="6755e36a-0348-493e-b729-d3e195d6bfd1" SourceId="1" SourceUrl="http://localhost/StockService/StockScannerService.svc?xsd=xsd0" />
+    <MetadataFile FileName="StockScannerService54.xsd" MetadataType="Schema" ID="92169dd0-8f70-4bb3-a95e-731e5215f918" SourceId="1" SourceUrl="http://localhost/StockService/StockScannerService.svc?xsd=xsd1" />
+    <MetadataFile FileName="StockScannerService1.wsdl" MetadataType="Wsdl" ID="edad7f86-f641-4811-bd76-d91aae08e811" SourceId="1" SourceUrl="http://localhost/StockService/StockScannerService.svc?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

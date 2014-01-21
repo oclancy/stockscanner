@@ -15,7 +15,7 @@ using StockService.Core.Extension;
 
 namespace StockService.Core.Providers
 {
-    public class DataProviderFactory
+    public class DataProviderFactory : IDataProviderFactory
     {
         static IUnityContainer m_container;
         Logger m_logger = LogManager.GetCurrentClassLogger();
@@ -87,10 +87,13 @@ namespace StockService.Core.Providers
         {
             using (var cxt = new StockScannerContext())
             {
-                
+                cxt.Configuration.ProxyCreationEnabled = false;
                 return  cxt.Companies
-                           .Include("Industry.Sector.Market")
-                           .ToList();
+                    .AsNoTracking()
+                    .Include("Industry.Sector.Market")
+                    .Include("StockQuote")
+                    .Include("CompanyStatistics")
+                    .ToList();
             }
         }
     }

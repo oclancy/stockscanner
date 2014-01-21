@@ -28,10 +28,7 @@ namespace StockService
         IStockScannerClient m_callback = null;
 
         Logger m_logger = LogManager.GetCurrentClassLogger();
-        ConcurrentQueue<Tuple<Company, CompanyStatistics, StockQuote>> m_dataToSave = new ConcurrentQueue<Tuple<Company, CompanyStatistics, StockQuote>>();
-        IDisposable m_saveSubscriber;
-        CancellationTokenSource m_src = new CancellationTokenSource();
-
+        
         [Dependency]
         public ICalculatedCompanyDataProvider CalculatedStaticticsProvider { get; set; }
 
@@ -47,51 +44,53 @@ namespace StockService
         {
             string.Format("Getting company data for: {0}", company.Symbol);
 
-            CompanyStatistics data = await DataProviderFactory.GetDataProvider<ICompanyDataProvider>(company.Industry.Sector.Market).FetchDataAsync(company);
-
-            m_callback.PushCompanyData(data);
+            using (var cxt = new StockScannerContext())
+            {
+                var data = cxt.Companies.FirstOrDefault(c => c.CompanyId == company.CompanyId);
+                if(data!=null)
+                    m_callback.PushCompanyData(data.CompanyStatistics);
+            }
         }
 
         public async void GetStockData(Company company)
         {
             string.Format("Getting stock data for: {0}", company.Symbol);
 
-            StockQuote data = await DataProviderFactory.GetDataProvider<IStockProvider>(company.Industry.Sector.Market).FetchDataAsync(company);
-            
-            m_callback.PushStockData(data);
+            using (var cxt = new StockScannerContext())
+            {
+                var data = cxt.Companies.FirstOrDefault(c => c.CompanyId == company.CompanyId);
+                if (data != null)
+                    m_callback.PushStockData(data.StockQuote);
+            }
         }
 
         public async void GetSectorData(Market market)
         {
-            var data = await DataProviderFactory.GetDataProvider<ISectorDataProvider>(market).FetchDataAsync(market);
-            m_callback.PushSectors(data);
+            using (var cxt = new StockScannerContext())
+            {
+                var market2 = cxt.Markets.FirstOrDefault(m => m.MarketId == market.MarketId);
+                m_callback.PushSectors(market2.Sectors);
+            }
         }
 
         public async void GetCompanies(Industry industry)
         {
-            var data = await DataProviderFactory.GetDataProvider<ICompanyProvider>(industry.Sector.Market).FetchDataAsync(industry);
-            try
+            using (var cxt = new StockScannerContext())
             {
-                m_callback.PushCompanies(data);
+                var market = cxt.Markets.FirstOrDefault(m => m.MarketId == industry.Sector.Market.MarketId);
+                var sector = market.Sectors.FirstOrDefault(s => s.SectorId == industry.SectorId);
+                var ind = sector.Industries.FirstOrDefault(i => i.IndustryId == industry.IndustryId);
+                if(ind != null)
+                   m_callback.PushCompanies(ind.Companies);
             }
-            catch (FaultException fe)
-            {
-                throw fe;
-            }
-            catch (CommunicationException ce)
-            {
-                throw ce;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
         }
 
         public List<Market> GetMarketsData()
         {
-            return DataProviderFactory.GetMarketsData();
+            using (var cxt = new StockScannerContext())
+            {
+                return cxt.Markets.ToList();
+            }
         }
 
         public CalculatedData GetCalculatedCompanyData(Company company)

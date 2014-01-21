@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using StockService.Core.Extension;
 using System.IO;
 using System.Reflection;
+using System.Data;
 
 namespace Data.Tests
 {
@@ -185,6 +186,107 @@ namespace Data.Tests
             {
                 cxt.Companies.Attach(company);
             }
+
+        }
+
+        [TestMethod]
+        public void UpdateStatistics()
+        {
+            const string CompanyName = "Test1";
+            var company = new Company() { Name = CompanyName  };
+
+            using (var cxt = new StockScannerContext())
+            {
+                var market = new Market();
+                var ind = new Industry();
+                var sec = new Sector();
+                ind.Companies.Add(company);
+                sec.Industries.Add(ind);
+                market.Sectors.Add(sec);
+                cxt.Markets.Add(market);
+
+                cxt.SaveChanges();
+            }
+
+            CompanyStatistics compStats = new CompanyStatistics();
+            using (var cxt = new StockScannerContext())
+            {
+                var comp = cxt.Companies.First(c => c.Name == CompanyName);
+                comp.CompanyStatistics = compStats;
+                comp.CompanyStatistics.LastUpdated = new DateTime(2014, 1, 1);
+                cxt.SaveChanges();
+            }
+
+            Company comp2;            
+            using (var cxt = new StockScannerContext())
+            {
+                compStats = cxt.Companies.First(c => c.Name == CompanyName).CompanyStatistics;
+                Assert.AreEqual(new DateTime(2014, 1, 1), compStats.LastUpdated);
+                comp2 = compStats.Company;
+                Assert.IsNotNull(comp2);
+            }
+            
+            comp2.CompanyStatistics.LastUpdated = new DateTime(2014, 1, 2);
+
+            using (var cxt = new StockScannerContext())
+            {
+                cxt.Companies.Attach(comp2);
+                cxt.Entry(comp2.CompanyStatistics).State = EntityState.Modified;
+                cxt.SaveChanges();
+            }
+
+            using (var cxt = new StockScannerContext())
+            {
+                compStats = cxt.Companies.First(c => c.Name == CompanyName).CompanyStatistics;
+                Assert.AreEqual(new DateTime(2014, 1, 2), compStats.LastUpdated);
+                comp2 = compStats.Company;
+                Assert.IsNotNull(comp2);
+            }
+        }
+
+        [TestMethod]
+        public void UpdatePropertyOfDetachedObject()
+        {
+            const string CompanyName = "Test1";
+            var company = new Company() { Name = CompanyName };
+
+            using (var cxt = new StockScannerContext())
+            {
+                var market = new Market();
+                var ind = new Industry();
+                var sec = new Sector();
+                ind.Companies.Add(company);
+                sec.Industries.Add(ind);
+                market.Sectors.Add(sec);
+                cxt.Markets.Add(market);
+
+                cxt.SaveChanges();
+            }
+
+            CompanyStatistics compStats = new CompanyStatistics();
+            Company comp;
+            using (var cxt = new StockScannerContext())
+            {
+                cxt.Configuration.ProxyCreationEnabled = false;
+                comp = cxt.Companies.First(c => c.Name == CompanyName);
+            }
+
+            comp.CompanyStatistics = compStats;
+            comp.CompanyStatistics.CompanyId = comp.CompanyId;
+
+            using (var cxt = new StockScannerContext())
+            {
+                //cxt.Companies.Attach(comp); // can attach but not neccesary
+                cxt.Entry(comp.CompanyStatistics).State = EntityState.Added;
+                cxt.SaveChanges();
+            }
+
+            using (var cxt = new StockScannerContext())
+            {
+                comp = cxt.Companies.First(c => c.Name == CompanyName);
+                Assert.IsNotNull(comp.CompanyStatistics);
+            }
+
 
         }
     }

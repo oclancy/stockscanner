@@ -25,16 +25,13 @@ namespace StockService.Core.Providers
 
         public async Task<CompanyStatistics> FetchDataAsync( Company company )
         {
-            using (var cxt = new StockScannerContext())
-            {
-                company = cxt.Companies.FirstOrDefault(c => c.CompanyId == company.CompanyId);
-                if (company.CompanyStatistics != null &&
-                    company.CompanyStatistics.LastUpdated > DateTime.UtcNow.AddDays(-1)) return company.CompanyStatistics;
-            }
+            if (company.CompanyStatistics != null &&
+                company.CompanyStatistics.LastUpdated > DateTime.UtcNow.AddDays(-1)) return company.CompanyStatistics;
 
             HttpWebRequest webReq = null;
             var doc = new HtmlDocument();
-            var cs =  company.CompanyStatistics ?? new CompanyStatistics() ;
+            if (company.CompanyStatistics == null) company.CompanyStatistics = new CompanyStatistics() { CompanyId = company.CompanyId }; 
+
             try
             {
                 webReq = WebRequest.CreateHttp(string.Format(BASE_URL, company.Symbol));
@@ -44,7 +41,7 @@ namespace StockService.Core.Providers
                     doc.Load(stream);
                 }
 
-                Parse(doc, cs);
+                Parse(doc, company.CompanyStatistics);
             }
             catch (WebException ex)
             {
@@ -55,8 +52,7 @@ namespace StockService.Core.Providers
                 m_logger.ErrorException(string.Format("Unknown Exception whilst getting data: {0}", webReq.RequestUri), ex);
             }
 
-            cs.LastUpdated = DateTime.UtcNow;
-            return cs;
+            return company.CompanyStatistics;
         }
 
         private static void Parse(HtmlDocument doc, CompanyStatistics cs)
@@ -93,7 +89,8 @@ namespace StockService.Core.Providers
                     retVal.Add(v.Item1, v.Item2);
             });
 
-            cs = CompanyStatistics.FromYahooValues(retVal);
+            CompanyStatistics.FromYahooValues(retVal, ref cs);
+            cs.LastUpdated = DateTime.UtcNow;
         }
 
     }

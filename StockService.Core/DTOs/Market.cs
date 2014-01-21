@@ -16,6 +16,9 @@ namespace StockService.Core
         }
 
         [DataMember]
+        public string Symbol { get; set; }
+
+        [DataMember]
         public string Name{get;set;}
 
         [DataMember]

@@ -75,6 +75,7 @@
     <Compile Include="DTOs\Market.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\DataProviderFactory.cs" />
+    <Compile Include="Providers\IDataProviderFactory.cs" />
     <Compile Include="Providers\IDataProviders.cs" />
     <Compile Include="Providers\Lse\LseCompanyProvider.cs" />
     <Compile Include="Providers\Lse\LseSectorIndustryDataProvider.cs" />

@@ -46,7 +46,7 @@ namespace StockService.Core
 
                         if (!string.IsNullOrEmpty(parts[Symbol]))
                         {
-                            var symbol = string.Format("{0}{1}{2}", parts[Symbol], parts[Symbol].Last() == '.' ? string.Empty : ".", "L");
+                            var symbol = parts[Symbol];
                             var company = industry.Companies.FirstOrDefault(c => c.Symbol == symbol);
                             if (company == null)
                                 industry.Companies.Add(new Company()

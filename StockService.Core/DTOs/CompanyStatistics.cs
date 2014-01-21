@@ -119,10 +119,8 @@ namespace StockService.Core
         public decimal? TrailingAnnualDividendYield { get; set; }
 
         
-        internal static CompanyStatistics FromYahooValues(Dictionary<string, string> values)
+        internal static void FromYahooValues(Dictionary<string, string> values, ref CompanyStatistics cs)
         {
-            var cs = new CompanyStatistics();
-
             foreach (var pi in cs.GetType().GetProperties())
             {
                 var attr = pi.GetCustomAttributes(typeof(YahooCompanyStatisticValueAttribute),false).FirstOrDefault();
@@ -163,7 +161,6 @@ namespace StockService.Core
                     }
                 }
             }
-            return cs;
         }
     }
 }

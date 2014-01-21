@@ -1679,23 +1679,44 @@ namespace StockScanner.UI.StockScannerService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockScannerService/GetMarketsData", ReplyAction="http://tempuri.org/IStockScannerService/GetMarketsDataResponse")]
         StockScanner.UI.StockScannerService.Market[] GetMarketsData();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockScannerService/GetMarketsData", ReplyAction="http://tempuri.org/IStockScannerService/GetMarketsDataResponse")]
+        System.Threading.Tasks.Task<StockScanner.UI.StockScannerService.Market[]> GetMarketsDataAsync();
+        
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IStockScannerService/GetCompanyData")]
         void GetCompanyData(StockScanner.UI.StockScannerService.Company company);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IStockScannerService/GetCompanyData")]
+        System.Threading.Tasks.Task GetCompanyDataAsync(StockScanner.UI.StockScannerService.Company company);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IStockScannerService/GetStockData")]
         void GetStockData(StockScanner.UI.StockScannerService.Company company);
         
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IStockScannerService/GetStockData")]
+        System.Threading.Tasks.Task GetStockDataAsync(StockScanner.UI.StockScannerService.Company company);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockScannerService/GetCalculatedCompanyData", ReplyAction="http://tempuri.org/IStockScannerService/GetCalculatedCompanyDataResponse")]
         StockScanner.UI.StockScannerService.CalculatedData GetCalculatedCompanyData(StockScanner.UI.StockScannerService.Company company);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockScannerService/GetCalculatedCompanyData", ReplyAction="http://tempuri.org/IStockScannerService/GetCalculatedCompanyDataResponse")]
+        System.Threading.Tasks.Task<StockScanner.UI.StockScannerService.CalculatedData> GetCalculatedCompanyDataAsync(StockScanner.UI.StockScannerService.Company company);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IStockScannerService/GetSectorData")]
         void GetSectorData(StockScanner.UI.StockScannerService.Market market);
         
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IStockScannerService/GetSectorData")]
+        System.Threading.Tasks.Task GetSectorDataAsync(StockScanner.UI.StockScannerService.Market market);
+        
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IStockScannerService/GetCompanies")]
         void GetCompanies(StockScanner.UI.StockScannerService.Industry industry);
         
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IStockScannerService/GetCompanies")]
+        System.Threading.Tasks.Task GetCompaniesAsync(StockScanner.UI.StockScannerService.Industry industry);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockScannerService/GetDividends", ReplyAction="http://tempuri.org/IStockScannerService/GetDividendsResponse")]
         System.Data.DataTable GetDividends(StockScanner.UI.StockScannerService.Sector sector);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockScannerService/GetDividends", ReplyAction="http://tempuri.org/IStockScannerService/GetDividendsResponse")]
+        System.Threading.Tasks.Task<System.Data.DataTable> GetDividendsAsync(StockScanner.UI.StockScannerService.Sector sector);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1746,28 +1767,56 @@ namespace StockScanner.UI.StockScannerService {
             return base.Channel.GetMarketsData();
         }
         
+        public System.Threading.Tasks.Task<StockScanner.UI.StockScannerService.Market[]> GetMarketsDataAsync() {
+            return base.Channel.GetMarketsDataAsync();
+        }
+        
         public void GetCompanyData(StockScanner.UI.StockScannerService.Company company) {
             base.Channel.GetCompanyData(company);
+        }
+        
+        public System.Threading.Tasks.Task GetCompanyDataAsync(StockScanner.UI.StockScannerService.Company company) {
+            return base.Channel.GetCompanyDataAsync(company);
         }
         
         public void GetStockData(StockScanner.UI.StockScannerService.Company company) {
             base.Channel.GetStockData(company);
         }
         
+        public System.Threading.Tasks.Task GetStockDataAsync(StockScanner.UI.StockScannerService.Company company) {
+            return base.Channel.GetStockDataAsync(company);
+        }
+        
         public StockScanner.UI.StockScannerService.CalculatedData GetCalculatedCompanyData(StockScanner.UI.StockScannerService.Company company) {
             return base.Channel.GetCalculatedCompanyData(company);
+        }
+        
+        public System.Threading.Tasks.Task<StockScanner.UI.StockScannerService.CalculatedData> GetCalculatedCompanyDataAsync(StockScanner.UI.StockScannerService.Company company) {
+            return base.Channel.GetCalculatedCompanyDataAsync(company);
         }
         
         public void GetSectorData(StockScanner.UI.StockScannerService.Market market) {
             base.Channel.GetSectorData(market);
         }
         
+        public System.Threading.Tasks.Task GetSectorDataAsync(StockScanner.UI.StockScannerService.Market market) {
+            return base.Channel.GetSectorDataAsync(market);
+        }
+        
         public void GetCompanies(StockScanner.UI.StockScannerService.Industry industry) {
             base.Channel.GetCompanies(industry);
         }
         
+        public System.Threading.Tasks.Task GetCompaniesAsync(StockScanner.UI.StockScannerService.Industry industry) {
+            return base.Channel.GetCompaniesAsync(industry);
+        }
+        
         public System.Data.DataTable GetDividends(StockScanner.UI.StockScannerService.Sector sector) {
             return base.Channel.GetDividends(sector);
+        }
+        
+        public System.Threading.Tasks.Task<System.Data.DataTable> GetDividendsAsync(StockScanner.UI.StockScannerService.Sector sector) {
+            return base.Channel.GetDividendsAsync(sector);
         }
     }
 }

@@ -2,6 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockScanner.UI", "StockScanner.UI\StockScanner.UI.csproj", "{960BC037-3A50-453C-9F8B-FC25A7842BAE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8CD587F1-85B4-4562-8B1F-206AB0E616F9} = {8CD587F1-85B4-4562-8B1F-206AB0E616F9}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockService.Core", "StockService.Core\StockService.Core.csproj", "{CA44BCB9-C1FA-48DC-8548-E6A051616571}"
 EndProject

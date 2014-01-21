@@ -27,17 +27,12 @@ using NLog;
 
         public async Task<StockQuote> FetchDataAsync(Company company)
         {
-            using (var cxt = new StockScannerContext())
-            {
-                company = cxt.Companies.FirstOrDefault(c => c.CompanyId == company.CompanyId);
-
-                if (company.StockQuote != null &&
-                    company.StockQuote.LastUpdated > DateTime.UtcNow.AddDays(-1)) return company.StockQuote;
-            }
+           if (company.StockQuote != null &&
+               company.StockQuote.LastUpdated > DateTime.UtcNow.AddDays(-1)) return company.StockQuote;
 
             HttpWebRequest webReq = null;
             var doc = new HtmlDocument();
-            var cs = company.StockQuote ?? new StockQuote() { Company = company };
+            if (company.StockQuote == null) company.StockQuote = new StockQuote() { CompanyId=company.CompanyId };
             try
             {
                 webReq = WebRequest.CreateHttp(string.Format(BASE_URL, company.Symbol));
@@ -46,7 +41,7 @@ using NLog;
                 {
                     doc.Load(stream);
                 }
-                Parse(doc.DocumentNode.Descendants("body").First(), cs);
+                Parse(doc.DocumentNode.Descendants("body").First(), company.StockQuote);
             }
             catch (WebException ex)
             {
@@ -57,13 +52,15 @@ using NLog;
                 Logger.ErrorException(string.Format("Unknown Exception whilst getting data: {0}", webReq.RequestUri), ex);
             }
 
-            cs.LastUpdated = DateTime.UtcNow;
-            return cs;
+            
+            return company.StockQuote;
         }
 
         private static void Parse(HtmlNode body, StockQuote quote)
         {
             var infoDiv = body.SelectSingleNode("div[@id='yfi_doc']/div[@id='yfi_bd']/div[@id='yfi_investing_content']");
+
+            if (infoDiv == null) return;
 
             var priceDiv = infoDiv.SelectSingleNode("div[@class='rtq_div']/div[@class='yui-g']/div[@id='yfi_rt_quote_summary']/div[@class='yfi_rt_quote_summary_rt_top']");
 
@@ -130,7 +127,7 @@ using NLog;
                 quote.YearlyHigh = GetDecimal(node.InnerText);
 
             var divAndYield = statistics[1].SelectSingleNode("tr[8]/td");
-            if (!string.IsNullOrEmpty(divAndYield.InnerText) && divAndYield.InnerText.Contains('('))
+            if (divAndYield != null && !string.IsNullOrEmpty(divAndYield.InnerText) && divAndYield.InnerText.Contains('('))
             {
                 var divAndYieldArray = divAndYield.InnerText.Split('(');
                 if (node != null)
@@ -139,12 +136,13 @@ using NLog;
                 node = statistics[1].SelectSingleNode("tr[8]/td/span[1]");
                 if (node != null)
                     quote.Dividend = GetDecimal(divAndYieldArray[1].Substring(0, divAndYieldArray[1].Length-1));
-            }  
+            }
 
-            node = analytics.SelectSingleNode("tr[4]/td");
-            if (node != null)
-                quote.PegRatio = GetDecimal(node.InnerText);
-                
+            if (analytics != null) { 
+                node = analytics.SelectSingleNode("tr[4]/td");
+                if (node != null)
+                    quote.PegRatio = GetDecimal(node.InnerText);
+            }
             //quote.PriceEpsEstimateCurrentYear = GetDecimal(q.Element("PriceEPSEstimateCurrentYear").Value);
             //quote.PriceEpsEstimateNextYear = GetDecimal(q.Element("PriceEPSEstimateNextYear").Value);
 
@@ -179,6 +177,8 @@ using NLog;
             //quote.OneYearPriceTarget = GetDecimal(q.Element("OneyrTargetPrice").Value);
             //quote.StockExchange = q.Element("StockExchange").Value;
             //quote.LastUpdate = DateTime.Now;
+
+            quote.LastUpdated = DateTime.UtcNow;
         }
 
         private static decimal? GetDecimal(string input)

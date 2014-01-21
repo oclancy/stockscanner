@@ -52,6 +52,8 @@ namespace StockService
         {
             ServiceLocator.SetLocatorProvider( ()=> new UnityServiceLocator(m_container) );
 
+            //HibernatingRhinos.Profiler.Appender.EntityFramework.EntityFrameworkProfiler.Initialize();
+
             //Register the service as a type so it can be found from the instance provider
             m_container.RegisterType(serviceType);
 
@@ -66,12 +68,13 @@ namespace StockService
         /// </summary>
         private void RegisterDependencies()
         {
+
             if (m_container.IsRegistered<DataProviderFactory>()) return;
 
             //m_container.RegisterInstance<IDictionary<string, Company>>(m_companies);
             //m_container.RegisterInstance<IDictionary<string, Market>>(m_markets);
             m_container.RegisterInstance< ICalculatedCompanyDataProvider>(new CalculatedStaticticsProvider());
-            m_container.RegisterInstance<DataProviderFactory>(DataProviderFactory);
+            m_container.RegisterInstance<IDataProviderFactory>(DataProviderFactory);
          }
     }
 }

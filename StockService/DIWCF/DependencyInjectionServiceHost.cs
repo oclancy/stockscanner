@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
+using NLog;
 
 namespace StockService
 {
@@ -11,6 +12,8 @@ namespace StockService
     /// </summary>
     public class DependencyInjectionServiceHost : ServiceHost
     {
+        static Logger m_logger = LogManager.GetCurrentClassLogger();
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DependencyInjectionServiceHost"/> class.
         /// </summary>
@@ -28,6 +31,12 @@ namespace StockService
         {
             Description.Behaviors.Add(new DependencyInjectionServiceBehavior());
             base.OnOpen(timeout);
+        }
+
+        protected override IAsyncResult OnBeginClose(TimeSpan timeout, AsyncCallback callback, object state)
+        {
+            m_logger.Info("ServiceHost Closing");
+            return base.OnBeginClose(timeout, callback, state);
         }
     }
 }

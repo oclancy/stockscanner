@@ -19,6 +19,7 @@ using StockService;
 using System.IO;
 using System.Web.Hosting;
 using System.Data;
+using System.Data.Entity.Infrastructure;
 
 namespace StockService
 {
@@ -26,40 +27,38 @@ namespace StockService
     public class StockServiceAdmin : IStockServiceAdmin
     {
         Logger m_logger = LogManager.GetCurrentClassLogger();
-        ConcurrentQueue<Tuple<Company, CompanyStatistics, StockQuote>> m_dataToSave = new ConcurrentQueue<Tuple<Company, CompanyStatistics, StockQuote>>();
+        ConcurrentQueue<Company> m_dataToSave = new ConcurrentQueue<Company>();
         IDisposable m_saveSubscriber;
         CancellationTokenSource m_src = new CancellationTokenSource();
 
         [Dependency]
-        public DataProviderFactory DataProviderFactory { get; set; }
+        public IDataProviderFactory DataProviderFactory { get; set; }
         
         [OperationBehavior]
         public void Scan()
         {
             m_logger.Info("Starting scan at {0}", DateTime.Now);
 
-            SaveCompanies(m_src.Token);
+            Task.Run( () => SaveCompanies(m_src.Token), m_src.Token);
 
             DataProviderFactory.GetCompanies()
                      .ToObservable()
                      .Delay(TimeSpan.FromMilliseconds(400))
-                     .Subscribe(company =>
+                     .Subscribe( async company =>
                        {
                            try
                            {
-                               var cs = DataProviderFactory.GetDataProvider<ICompanyDataProvider>(company.Industry.Sector.Market)
+                               var cs = await DataProviderFactory.GetDataProvider<ICompanyDataProvider>(company.Industry.Sector.Market)
                                                            .FetchDataAsync(company);
-                               var sq = DataProviderFactory.GetDataProvider<IStockProvider>(company.Industry.Sector.Market)
+                               var sq = await DataProviderFactory.GetDataProvider<IStockProvider>(company.Industry.Sector.Market)
                                                            .FetchDataAsync(company);
-
-                               Task.WaitAll(cs, sq);
 
                                var lstTwoMinutes = DateTime.UtcNow.AddMinutes(-2);
 
-                               if (cs.Result.LastUpdated >= lstTwoMinutes || sq.Result.LastUpdated >= lstTwoMinutes)
+                               if (cs.LastUpdated >= lstTwoMinutes || sq.LastUpdated >= lstTwoMinutes)
                                {
-                                   m_dataToSave.Enqueue(new Tuple<Company, CompanyStatistics, StockQuote>(company, cs.Result, sq.Result));
-                                   m_logger.Info("Enqueued {0}", company.Symbol);
+                                   m_dataToSave.Enqueue(company);
+                                   m_logger.Info("Enqueued {0} ({1})", company.Symbol, company.CompanyId);
                                }
                            }
                            catch (AggregateException ex)
@@ -93,49 +92,78 @@ namespace StockService
 
         private void SaveCompanies(CancellationToken token)
         {
-            m_saveSubscriber = Observable.Interval(new TimeSpan(0, 0, 30))
-                      .Subscribe( delegate (long l)
+            m_saveSubscriber = Observable.Interval(new TimeSpan(0, 0, 10))
+                      .Subscribe(delegate(long l)
                       {
-                          Tuple<Company, CompanyStatistics, StockQuote> outTuple;
-                          System.Collections.Generic.List<Tuple<Company, CompanyStatistics, StockQuote>> listToSave = new List<Tuple<Company, CompanyStatistics, StockQuote>>();
+                          Company cmpny;
+                          System.Collections.Generic.List<Company> listToSave = new List<Company>();
 
-                          while (m_dataToSave.TryDequeue(out outTuple))
-                              listToSave.Add(outTuple);
+                          while (m_dataToSave.TryDequeue(out cmpny))
+                              listToSave.Add(cmpny);
 
                           listToSave.ToObservable()
                                     .Buffer(20)
-                                    .ForEachAsync(dataTupleList =>
+                                    .ForEachAsync(dataList =>
                                     {
-                                        using (var cxt = new StockScannerContext())
-                                        {
-                                            foreach( var tuple in dataTupleList)
+                                        dataList.ForEach(c =>
                                             {
-                                                try
+                                                using (var cxt = new StockScannerContext())
                                                 {
-                                                    cxt.Companies.Attach(tuple.Item1);
-                                                    cxt.Entry(tuple.Item1).State = EntityState.Modified;
-                                                    //tuple.Item1.CompanyStatistics = tuple.Item2;
-                                                    //tuple.Item1.StockQuote = tuple.Item3;
+                                                    try
+                                                    {
+
+                                                        if (c.CompanyStatistics.Company == null)
+                                                        {
+                                                            m_logger.Info("Attaching: {0} ({1}) CompanyStatictics as {2}", c.Symbol, c.CompanyId, EntityState.Added);
+                                                            cxt.Entry(c.CompanyStatistics).State = EntityState.Added;
+                                                        }
+                                                        else
+                                                        {
+                                                            m_logger.Info("Attaching: {0} ({1}) CompanyStatictics as {2}", c.Symbol, c.CompanyId, EntityState.Modified);
+                                                            cxt.Entry(c.CompanyStatistics).State = EntityState.Modified;
+                                                        }
+
+                                                        if (c.StockQuote.Company == null)
+                                                        {
+                                                            m_logger.Info("Attaching: {0} ({1}) StockQuote as {2}", c.Symbol, c.CompanyId, EntityState.Added);
+                                                            cxt.Entry(c.StockQuote).State = EntityState.Added;
+                                                        }
+                                                        else
+                                                        {
+                                                            m_logger.Info("Attaching: {0} ({1}) StockQuote as {2}", c.Symbol, c.CompanyId, EntityState.Modified);
+                                                            cxt.Entry(c.StockQuote).State = EntityState.Modified;
+                                                        }
+                                                    }
+
+                                                    catch (Exception ex)
+                                                    {
+                                                        m_logger.ErrorException(string.Format("Exception whilst attaching company {0}:{1}({2}) \r Company details company Id:{3}, assoc. Company Id:{4} \rStock Quote Company Id:{5}, assoc. Company Id:{6} \rException {7}",
+                                                            c.Symbol,
+                                                            c.Name,
+                                                            c.CompanyId,
+                                                            c.CompanyStatistics.CompanyId,
+                                                            c.CompanyStatistics.Company.CompanyId,
+                                                            c.StockQuote.CompanyId,
+                                                            c.StockQuote.Company.CompanyId,
+                                                            ex.Message),
+                                                            ex);
+                                                    }
+
+                                                    try
+                                                    {
+                                                        cxt.SaveChanges();
+                                                        m_logger.Info("Saved: {0}", c.Symbol);
+                                                    }
+                                                    catch (DbUpdateException ex)
+                                                    {
+                                                        m_logger.ErrorException("DbUpdteException whilst saving company details ", ex);
+                                                    }
+                                                    catch (Exception ex)
+                                                    {
+                                                        m_logger.ErrorException("Exception whilst saving company details ", ex);
+                                                    }
                                                 }
-                                                catch (Exception ex)
-                                                {
-                                                    m_logger.ErrorException(string.Format("Exception whilst attaching company details for {0}:{1}: {2}",
-                                                        tuple.Item1.Name,
-                                                        tuple.Item1.Symbol,
-                                                        ex.Message),
-                                                        ex);
-                                                }
-                                            };
-                                            try
-                                            {
-                                                cxt.SaveChanges();
-                                                m_logger.Info("Saved: {0}", string.Join(", ", dataTupleList.Select(c => c.Item1.Symbol)));
-                                            }
-                                            catch (Exception ex)
-                                            {
-                                                m_logger.ErrorException("Exception whilst saving company details ", ex);
-                                            }
-                                        }
+                                            });
                                     });
                       });
         }
