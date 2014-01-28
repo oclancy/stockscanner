@@ -1,0 +1,19 @@
+﻿<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	x:Class="StockScanner.Themes.Sandbox"
+	x:Name="Window"
+	Title="Sandbox"
+	Width="605" Height="334" Background="{DynamicResource SSWindow}">
+
+	<Grid x:Name="LayoutRoot">
+		<ComboBox HorizontalAlignment="Left" Height="27" Margin="59,44,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource ComboBoxStyle}">
+			<ComboBox.Background>
+				<LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+					<GradientStop Color="#FFDCDCCF" Offset="0"/>
+					<GradientStop Color="#FFD8D80D" Offset="1"/>
+				</LinearGradientBrush>
+			</ComboBox.Background>
+		</ComboBox>
+	</Grid>
+</Window>

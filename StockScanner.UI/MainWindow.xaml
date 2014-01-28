@@ -6,8 +6,17 @@
         xmlns:extwpf="clr-namespace:Xceed.Wpf.Toolkit.PropertyGrid;assembly=xceed.wpf.toolkit"
         xmlns:myconv="clr-namespace:StockScanner.UI.Converters"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
-        Title="MainWindow" Height="650" Width="925">
+        Title="MainWindow" Height="650" Width="925"
+        Background="{DynamicResource SSWindow}">
 
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="DataTemplates\DataTemplates.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=Initialise}"
@@ -46,7 +55,14 @@
                   Name="Sectors"
                   Grid.Column="1"
                   IsSynchronizedWithCurrentItem="True" 
-                  SelectedIndex="0"/>
+                  SelectedIndex="0">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=SectorChangedCommand}"
+                                        PassEventArgsToCommand="True" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
 
         <ComboBox ItemsSource="{Binding ElementName=Sectors,  Path=SelectedItem.Industries }" 
                   DisplayMemberPath="Name" 

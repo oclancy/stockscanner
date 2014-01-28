@@ -27,7 +27,7 @@ namespace StockService
     {
         IStockScannerClient m_callback = null;
 
-        Logger m_logger = LogManager.GetCurrentClassLogger();
+        private static Logger Logger = LogManager.GetCurrentClassLogger();
         
         [Dependency]
         public ICalculatedCompanyDataProvider CalculatedStaticticsProvider { get; set; }
@@ -42,7 +42,7 @@ namespace StockService
 
         public async void GetCompanyData(Company company)
         {
-            string.Format("Getting company data for: {0}", company.Symbol);
+            Logger.Info("Getting company data for: {0} ({1})", company.Symbol, company.CompanyId);
 
             using (var cxt = new StockScannerContext())
             {
@@ -54,7 +54,7 @@ namespace StockService
 
         public async void GetStockData(Company company)
         {
-            string.Format("Getting stock data for: {0}", company.Symbol);
+            Logger.Info("Getting stock data for: {0} ({1})", company.Symbol, company.CompanyId);
 
             using (var cxt = new StockScannerContext())
             {
@@ -66,6 +66,8 @@ namespace StockService
 
         public async void GetSectorData(Market market)
         {
+            Logger.Info("Getting Sector data for: {0} ({1})", market.Name, market.MarketId);
+
             using (var cxt = new StockScannerContext())
             {
                 var market2 = cxt.Markets.FirstOrDefault(m => m.MarketId == market.MarketId);
@@ -75,10 +77,11 @@ namespace StockService
 
         public async void GetCompanies(Industry industry)
         {
+            Logger.Info("Getting companies for: {0} ({1})", industry.Name, industry.IndustryId);
             using (var cxt = new StockScannerContext())
             {
                 var market = cxt.Markets.FirstOrDefault(m => m.MarketId == industry.Sector.Market.MarketId);
-                var sector = market.Sectors.FirstOrDefault(s => s.SectorId == industry.SectorId);
+                var sector = market.Sectors.FirstOrDefault(s => s.SectorId == industry.Sector.SectorId);
                 var ind = sector.Industries.FirstOrDefault(i => i.IndustryId == industry.IndustryId);
                 if(ind != null)
                    m_callback.PushCompanies(ind.Companies);

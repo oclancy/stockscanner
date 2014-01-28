@@ -10,17 +10,22 @@ namespace StockScanner.UI.ViewModel
 {
     public class DetailsViewModel : ViewModelBase
     {
-        private GalaSoft.MvvmLight.Messaging.IMessenger m_messenger;
         private StockScannerService.StockScannerServiceClient Client;
 
-        public DetailsViewModel(GalaSoft.MvvmLight.Messaging.IMessenger m_messenger, StockScannerService.StockScannerServiceClient Client)
+        public override string DisplayName
         {
-            m_messenger.Register<Industry>(this, OnIndustry);
+            get { return "Details"; }
+        }
 
-            m_messenger.Register<Company[]>(this, OnCompany);
+        public DetailsViewModel(GalaSoft.MvvmLight.Messaging.IMessenger messenger, StockScannerService.StockScannerServiceClient Client)
+            : base(messenger)
+        {
+            messenger.Register<Industry>(this, OnIndustry);
 
-            m_messenger.Register<StockQuote>(this, OnStockQuote);
-            m_messenger.Register<CompanyStatistics>(this, OnCompanyStatistics);
+            messenger.Register<Company[]>(this, OnCompany);
+
+            messenger.Register<StockQuote>(this, OnStockQuote);
+            messenger.Register<CompanyStatistics>(this, OnCompanyStatistics);
 
 
             this.Client = Client;

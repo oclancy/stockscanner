@@ -67,7 +67,7 @@
             </ScrollViewer>
 
             <ScrollViewer Grid.Row="1"
-                      Grid.Column="1">
+                          Grid.Column="1" >
 
                 <Grid DataContext="{Binding StockData}">
                     <Grid.ColumnDefinitions>
@@ -82,7 +82,7 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0">Symbol</TextBlock>
-                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Symbol}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Company.Symbol}"/>
                     <TextBlock Grid.Row="1">Bid</TextBlock>
                     <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Bid}"/>
                     <TextBlock Grid.Row="2">Ask</TextBlock>
@@ -96,9 +96,9 @@
     </DataTemplate>
 
 
-    <!--<DataTemplate DataType="{x:Type vm:DividendViewModel}">
+    <DataTemplate DataType="{x:Type vm:DividendViewModel}">
 
-    </DataTemplate>-->
+    </DataTemplate>
 
 
 </ResourceDictionary>

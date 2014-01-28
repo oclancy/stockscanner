@@ -30,9 +30,9 @@ namespace StockScanner.UI.ViewModel
 
         public ICommand ViewChangedCommand { get; private set; }
 
-        public IEnumerable<string> ViewNames { get { return m_views.Keys;  } }
+        public IEnumerable<string> ViewNames { get { return m_views.Select(vm => vm.DisplayName); } }
 
-        private IDictionary<string, INotifyPropertyChanged> m_views = new Dictionary<string, INotifyPropertyChanged>();
+        private IList<ViewModelBase> m_views = new List<ViewModelBase>();
 
         Market m_selectedMarket;
         public Market SelectedMarket
@@ -65,13 +65,14 @@ namespace StockScanner.UI.ViewModel
             set
             {
                 m_selectedViewName = value;
-                View = m_views[m_selectedViewName];
+                View = m_views.First( vm => vm.DisplayName == value);
                 OnPropertyChanged("View");
             }
 
         }
 
         public StockScannerViewModel()
+            :base(null)
         {
             m_lazyLoadClient = new Lazy<StockScannerService.StockScannerServiceClient>(() =>
             {
@@ -92,6 +93,15 @@ namespace StockScanner.UI.ViewModel
 
                 m_messenger.Send<Industry>(industry);
             });
+            
+            SectorChangedCommand = new RelayCommand<SelectionChangedEventArgs>((e) =>
+            {
+                var sector = e.AddedItems.Cast<StockScannerService.Sector>().FirstOrDefault();
+
+                if (sector == null) return;
+
+                m_messenger.Send<Sector>(sector);
+            });
 
             MarketChangedCommand = new RelayCommand<SelectionChangedEventArgs>((e) =>
             {
@@ -100,9 +110,17 @@ namespace StockScanner.UI.ViewModel
                 Client.GetSectorData(market);
             });
 
-            m_views.Add("Company Details", new DetailsViewModel(m_messenger, Client));
-            m_views.Add("Dividends", new DividendViewModel(m_messenger, Client));
-            SelectedViewName = m_views.First().Key;
+            ViewChangedCommand = new RelayCommand<SelectionChangedEventArgs>((e) =>
+            {
+                var viewModel = m_views.First(vm=> vm.DisplayName == e.AddedItems.Cast<string>().First());
+
+                m_messenger.Send<ViewModelBase>(viewModel);
+            });
+
+            m_views.Add(new DetailsViewModel(m_messenger, Client));
+            m_views.Add(new DividendViewModel(m_messenger, Client));
+
+            SelectedViewName = m_views.First().DisplayName;
         }
 
         public StockScannerService.StockScannerServiceClient Client
@@ -134,5 +152,12 @@ namespace StockScanner.UI.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        public override string DisplayName
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public RelayCommand<SelectionChangedEventArgs> SectorChangedCommand { get; set; }
     }
 }
