@@ -12,8 +12,7 @@ namespace Service.Core.Tests
     public class YahooFinanceStockData
     {
         YahooFinanceStockDataProvider m_stockdataprovider = new YahooFinanceStockDataProvider();
-        YahooCompanyDataProvider m_companydataprovider = new YahooCompanyDataProvider();
-
+        
         [TestInitialize]
         public void Init()
         {
@@ -78,10 +77,11 @@ namespace Service.Core.Tests
         }
 
         [TestMethod]
-        public void GetCLPCompanyData()
+        public void GetBATSStockData()
         {
-            CompanyStatistics cs;
-            var y = m_companydataprovider.FetchDataAsync(new Company() { Name = "CLEAR LEISURE", Symbol = "CLP.L" });
+            StockQuote cs;
+            var ind = new Industry() { Sector = new Sector() { Market = new Market() { Symbol = "L" } } };
+            var y = m_stockdataprovider.FetchDataAsync(new Company() { Name = "British American Tobacco", Symbol = "BATS", Industry=ind });
 
             y.Wait();
 
@@ -89,6 +89,24 @@ namespace Service.Core.Tests
             Assert.IsTrue(y.IsCompleted);
             cs = y.Result;
 
+            Assert.IsTrue(cs.Open.HasValue);
+            Assert.IsTrue(cs.Bid.HasValue);
+            Assert.IsTrue(cs.Ask.HasValue);
+            Assert.IsTrue(cs.DailyHigh.HasValue);
+            Assert.IsTrue(cs.DailyLow.HasValue);
+            Assert.IsTrue(cs.YearlyHigh.HasValue);
+            Assert.IsTrue(cs.YearlyLow.HasValue);
+            Assert.IsTrue(cs.PreviousClose.HasValue);
+            Assert.IsTrue(cs.Volume.HasValue);
+            Assert.IsTrue(cs.AverageDailyVolume.HasValue);
+            Assert.IsTrue(cs.MarketCapitalization.HasValue);
+            Assert.IsTrue(cs.PeRatio.HasValue);
+            Assert.IsTrue(cs.EarningsShare.HasValue);
+            Assert.IsTrue(cs.DividendShare.HasValue);
+            Assert.IsTrue(cs.PegRatio.HasValue);
+
         }
+
+
     }
 }

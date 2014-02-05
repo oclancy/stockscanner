@@ -37,7 +37,7 @@ namespace StockService
 
         public StockScannerService()
         {
-            m_callback = OperationContext.Current.GetCallbackChannel<IStockScannerClient>();
+            //m_callback = OperationContext.Current.GetCallbackChannel<IStockScannerClient>();
         }
 
         public async void GetCompanyData(Company company)
@@ -108,14 +108,17 @@ namespace StockService
             {
                 using (var cxt = new StockScannerContext())
                 {
+                    cxt.Database.Connection.Open();
+
                     Parallel.ForEach(sector.Industries, i =>
                         {
                             var cmd = cxt.Database.Connection.CreateCommand();
-                            cmd.CommandText = "exec TopDividends";
                             var industry = cmd.CreateParameter();
+                            cmd.CommandText = "exec TopDividendStocks";
                             industry.DbType = System.Data.DbType.Int64;
                             industry.Direction = System.Data.ParameterDirection.Input;
-                            industry.ParameterName = "@IndustryId";
+                            industry.ParameterName = "IndustryId";
+                            industry.Value = i.IndustryId;
                             cmd.Parameters.Add(industry);
                             var reader = cmd.ExecuteReader();
                             DataTable dt = new DataTable(i.Name);

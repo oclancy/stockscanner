@@ -34,7 +34,7 @@ namespace StockService.Core.Providers
 
             try
             {
-                webReq = WebRequest.CreateHttp(string.Format(BASE_URL, company.Symbol));
+                webReq = WebRequest.CreateHttp(string.Format(BASE_URL, company.Symbol + "." + company.Industry.Sector.Market.Symbol));
                 var t = await webReq.GetResponseAsync();
                 using (var stream = t.GetResponseStream())
                 {
@@ -57,7 +57,7 @@ namespace StockService.Core.Providers
 
         private static void Parse(HtmlDocument doc, CompanyStatistics cs)
         {
-            var retVal = new Dictionary<string, string>();
+            var retVal = new Dictionary<string, List<string>>();
             var root = doc.DocumentNode;
             var tables = root.Descendants("table");
             var values = tables.Where(table => table.Attributes.FirstOrDefault(a => a.Name == "class" && a.Value == "yfnc_datamodoutline1") != null)
@@ -86,7 +86,9 @@ namespace StockService.Core.Providers
             values.ForEach( v =>
             {
                 if(!retVal.ContainsKey(v.Item1)) 
-                    retVal.Add(v.Item1, v.Item2);
+                    retVal.Add(v.Item1, new List<string>(){v.Item2});
+                else
+                    retVal[v.Item1].Add(v.Item2);
             });
 
             CompanyStatistics.FromYahooValues(retVal, ref cs);

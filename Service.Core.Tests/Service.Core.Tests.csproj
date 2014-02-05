@@ -57,7 +57,10 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -78,6 +81,7 @@
     <Compile Include="Providers\YahooStockData.cs" />
     <Compile Include="ServiceBehaviors\StockServiceAdmin.cs" />
     <Compile Include="AsyncTests.cs" />
+    <Compile Include="ServiceBehaviors\StockScannerServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StockService.Core\StockService.Core.csproj">

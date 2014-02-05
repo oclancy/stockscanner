@@ -117,9 +117,12 @@ namespace StockService.Core
         [DataMember]
         [YahooCompanyStatisticValue("Trailing Annual Dividend Yield")]
         public decimal? TrailingAnnualDividendYield { get; set; }
+        [DataMember]
+        [YahooCompanyStatisticValue("Trailing Annual Dividend Yield")]
+        public decimal? TrailingAnnualDividendYieldPerc { get; set; }
 
         
-        internal static void FromYahooValues(Dictionary<string, string> values, ref CompanyStatistics cs)
+        internal static void FromYahooValues(Dictionary<string, List<string>> values, ref CompanyStatistics cs)
         {
             foreach (var pi in cs.GetType().GetProperties())
             {
@@ -127,21 +130,24 @@ namespace StockService.Core
                 if (attr != null)
                 {
                     var yahooFieldId = attr as YahooCompanyStatisticValueAttribute;
-                    string yahooField = values.Keys.FirstOrDefault( k => k.StartsWith( yahooFieldId.IdString) );
-                    if (!string.IsNullOrEmpty(yahooField))
+                    var yahooField = values.Keys.FirstOrDefault( k => k.StartsWith( yahooFieldId.IdString) );
+                    if (yahooField !=null )
                     {
                         decimal tempDble;
                         decimal? yahooFieldValue = (decimal?)null;
-                        string valueAsString = values[yahooField];
+
+                        var valueAsString = values[yahooField].First();
+
                         if (decimal.TryParse(valueAsString, out tempDble))
                         {
                             yahooFieldValue = tempDble;
                         }
-                        else if (char.IsLetter(valueAsString.Last()) || valueAsString.Last() =='%')
+                        else if (char.IsLetter(valueAsString.Last()) || valueAsString.Last() == '%')
                         {
-                            int factor; 
-                            switch(char.ToLower(valueAsString.Last()))
+                            int factor;
+                            switch (char.ToLower(valueAsString.Last()))
                             {
+                                case 't':
                                 case 'k': factor = 1000;
                                     break;
                                 case 'b': factor = 1000000000;
@@ -152,12 +158,14 @@ namespace StockService.Core
                                     break;
                             }
 
-                            if(decimal.TryParse(valueAsString.Substring(0, valueAsString.Length-1), out tempDble))
+                            if (decimal.TryParse(valueAsString.Substring(0, valueAsString.Length - 1), out tempDble))
                                 yahooFieldValue = tempDble * factor;
-
                         }
- 
-                        pi.SetMethod.Invoke(cs, new object[] { yahooFieldValue });
+
+                        if(yahooFieldValue != null)
+                            pi.SetMethod.Invoke(cs, new object[] { yahooFieldValue });
+
+                        values[yahooField].RemoveAt(0);
                     }
                 }
             }

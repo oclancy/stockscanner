@@ -35,7 +35,7 @@ using NLog;
             if (company.StockQuote == null) company.StockQuote = new StockQuote() { CompanyId=company.CompanyId };
             try
             {
-                webReq = WebRequest.CreateHttp(string.Format(BASE_URL, company.Symbol));
+                webReq = WebRequest.CreateHttp(string.Format(BASE_URL, company.Symbol + "." + company.Industry.Sector.Market.Symbol ));
                 var t = await webReq.GetResponseAsync();
                 using (var stream = t.GetResponseStream())
                 {

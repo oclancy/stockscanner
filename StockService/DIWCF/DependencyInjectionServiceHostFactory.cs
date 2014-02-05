@@ -71,8 +71,6 @@ namespace StockService
 
             if (m_container.IsRegistered<DataProviderFactory>()) return;
 
-            //m_container.RegisterInstance<IDictionary<string, Company>>(m_companies);
-            //m_container.RegisterInstance<IDictionary<string, Market>>(m_markets);
             m_container.RegisterInstance< ICalculatedCompanyDataProvider>(new CalculatedStaticticsProvider());
             m_container.RegisterInstance<IDataProviderFactory>(DataProviderFactory);
          }

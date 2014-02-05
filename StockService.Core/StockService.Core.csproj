@@ -65,6 +65,11 @@
   <ItemGroup>
     <Compile Include="ApplyDataContractResolverAttribute.cs" />
     <Compile Include="DTOs\StockScannerContext.cs" />
+    <Compile Include="Migrations\201401202119082_InitialCreate.cs" />
+    <Compile Include="Migrations\201401202119082_InitialCreate.Designer.cs">
+      <DependentUpon>201401202119082_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Providers\CalculatedStaticticsProvider.cs" />
     <Compile Include="DTOs\CalculatedData.cs" />
     <Compile Include="DTOs\CompanyStatistics.cs" />
@@ -100,7 +105,11 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201401202119082_InitialCreate.resx">
+      <DependentUpon>201401202119082_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
