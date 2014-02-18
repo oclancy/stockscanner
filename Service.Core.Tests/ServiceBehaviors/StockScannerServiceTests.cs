@@ -15,12 +15,6 @@ namespace Service.Core.Tests.ServiceBehaviors
             var service = new StockScannerService();
 
             var res = service.GetDividends(new Sector() { Industries = new List<Industry>() { { new Industry() { IndustryId = 1 } } } });
-
-            if (res.Wait(15000))
-            {
-                var table = res.Result;
-            }
-
         }
     }
 }

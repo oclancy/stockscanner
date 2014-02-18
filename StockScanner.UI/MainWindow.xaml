@@ -6,7 +6,7 @@
         xmlns:extwpf="clr-namespace:Xceed.Wpf.Toolkit.PropertyGrid;assembly=xceed.wpf.toolkit"
         xmlns:myconv="clr-namespace:StockScanner.UI.Converters"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
-        Title="MainWindow" Height="650" Width="925"
+        Title="Stock Scanner" Height="650" Width="925"
         Background="{DynamicResource SSWindow}">
 
     <Window.Resources>

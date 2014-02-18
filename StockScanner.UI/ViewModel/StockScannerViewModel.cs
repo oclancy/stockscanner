@@ -119,6 +119,7 @@ namespace StockScanner.UI.ViewModel
 
             m_views.Add(new DetailsViewModel(m_messenger, Client));
             m_views.Add(new DividendViewModel(m_messenger, Client));
+            m_views.Add(new VolumesViewModel(m_messenger, Client));
 
             SelectedViewName = m_views.First().DisplayName;
         }

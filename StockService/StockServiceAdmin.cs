@@ -24,10 +24,11 @@ using System.Data.Entity.Infrastructure;
 namespace StockService
 {
     [ServiceBehavior]
-    public class StockServiceAdmin : IStockServiceAdmin
+    public class StockServiceAdmin : IStockServiceAdmin, IDisposable
     {
         Logger m_logger = LogManager.GetCurrentClassLogger();
         ConcurrentQueue<Company> m_dataToSave = new ConcurrentQueue<Company>();
+
         IDisposable m_saveSubscriber;
         CancellationTokenSource m_src = new CancellationTokenSource();
 
@@ -166,6 +167,20 @@ namespace StockService
                                             });
                                     });
                       });
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (m_saveSubscriber != null) m_saveSubscriber.Dispose();
+            }
         }
     }
 }

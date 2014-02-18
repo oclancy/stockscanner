@@ -1250,6 +1250,9 @@ namespace StockScanner.UI.StockScannerService {
         private System.Nullable<decimal> TrailingAnnualDividendYieldField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> TrailingAnnualDividendYieldPercField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<decimal> TrailingPEField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -1666,6 +1669,19 @@ namespace StockScanner.UI.StockScannerService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> TrailingAnnualDividendYieldPerc {
+            get {
+                return this.TrailingAnnualDividendYieldPercField;
+            }
+            set {
+                if ((this.TrailingAnnualDividendYieldPercField.Equals(value) != true)) {
+                    this.TrailingAnnualDividendYieldPercField = value;
+                    this.RaisePropertyChanged("TrailingAnnualDividendYieldPerc");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Nullable<decimal> TrailingPE {
             get {
                 return this.TrailingPEField;
@@ -1729,10 +1745,16 @@ namespace StockScanner.UI.StockScannerService {
         System.Threading.Tasks.Task GetCompaniesAsync(StockScanner.UI.StockScannerService.Industry industry);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockScannerService/GetDividends", ReplyAction="http://tempuri.org/IStockScannerService/GetDividendsResponse")]
-        System.Data.DataTable GetDividends(StockScanner.UI.StockScannerService.Sector sector);
+        System.Data.DataTable[] GetDividends(StockScanner.UI.StockScannerService.Sector sector);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockScannerService/GetDividends", ReplyAction="http://tempuri.org/IStockScannerService/GetDividendsResponse")]
-        System.Threading.Tasks.Task<System.Data.DataTable> GetDividendsAsync(StockScanner.UI.StockScannerService.Sector sector);
+        System.Threading.Tasks.Task<System.Data.DataTable[]> GetDividendsAsync(StockScanner.UI.StockScannerService.Sector sector);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockScannerService/GetVolumes", ReplyAction="http://tempuri.org/IStockScannerService/GetVolumesResponse")]
+        System.Data.DataTable[] GetVolumes(StockScanner.UI.StockScannerService.Sector sector);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStockScannerService/GetVolumes", ReplyAction="http://tempuri.org/IStockScannerService/GetVolumesResponse")]
+        System.Threading.Tasks.Task<System.Data.DataTable[]> GetVolumesAsync(StockScanner.UI.StockScannerService.Sector sector);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1827,12 +1849,20 @@ namespace StockScanner.UI.StockScannerService {
             return base.Channel.GetCompaniesAsync(industry);
         }
         
-        public System.Data.DataTable GetDividends(StockScanner.UI.StockScannerService.Sector sector) {
+        public System.Data.DataTable[] GetDividends(StockScanner.UI.StockScannerService.Sector sector) {
             return base.Channel.GetDividends(sector);
         }
         
-        public System.Threading.Tasks.Task<System.Data.DataTable> GetDividendsAsync(StockScanner.UI.StockScannerService.Sector sector) {
+        public System.Threading.Tasks.Task<System.Data.DataTable[]> GetDividendsAsync(StockScanner.UI.StockScannerService.Sector sector) {
             return base.Channel.GetDividendsAsync(sector);
+        }
+        
+        public System.Data.DataTable[] GetVolumes(StockScanner.UI.StockScannerService.Sector sector) {
+            return base.Channel.GetVolumes(sector);
+        }
+        
+        public System.Threading.Tasks.Task<System.Data.DataTable[]> GetVolumesAsync(StockScanner.UI.StockScannerService.Sector sector) {
+            return base.Channel.GetVolumesAsync(sector);
         }
     }
 }

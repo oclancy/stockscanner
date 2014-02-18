@@ -37,7 +37,7 @@ namespace StockService
 
         public StockScannerService()
         {
-            //m_callback = OperationContext.Current.GetCallbackChannel<IStockScannerClient>();
+            m_callback = OperationContext.Current.GetCallbackChannel<IStockScannerClient>();
         }
 
         public async void GetCompanyData(Company company)
@@ -101,33 +101,43 @@ namespace StockService
             return CalculatedStaticticsProvider.FetchData(company);
         }
 
-        public async Task<System.Data.DataTable> GetDividends(Sector sector)
+        public IEnumerable<DataTable> GetDividends(Sector sector)
         {
-            DataTable results = new DataTable(sector.Name);
-            await Task.Run(() =>
-            {
-                using (var cxt = new StockScannerContext())
-                {
-                    cxt.Database.Connection.Open();
+            return GetTables(sector, "TopDividendStocks");
+        }
 
-                    Parallel.ForEach(sector.Industries, i =>
-                        {
-                            var cmd = cxt.Database.Connection.CreateCommand();
-                            var industry = cmd.CreateParameter();
-                            cmd.CommandText = "exec TopDividendStocks";
-                            industry.DbType = System.Data.DbType.Int64;
-                            industry.Direction = System.Data.ParameterDirection.Input;
-                            industry.ParameterName = "IndustryId";
-                            industry.Value = i.IndustryId;
-                            cmd.Parameters.Add(industry);
-                            var reader = cmd.ExecuteReader();
-                            DataTable dt = new DataTable(i.Name);
-                            dt.Load(reader);
-                            results.Merge(dt);
-                        });
-                }
-            });
-            return results;
+        public IEnumerable<DataTable> GetVolumes(Sector sector)
+        {
+            return GetTables(sector, "TopVolume");
+        }
+
+        private static IEnumerable<DataTable> GetTables(Sector sector, string proc)
+        {
+            List<DataTable> dts = new List<DataTable>();
+            using (var cxt = new StockScannerContext())
+            {
+                cxt.Database.Connection.Open();
+
+                Parallel.ForEach(sector.Industries, i =>
+                {
+                    var cmd = cxt.Database.Connection.CreateCommand();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    var industry = cmd.CreateParameter();
+                    cmd.CommandText = proc;
+                    industry.DbType = System.Data.DbType.Int64;
+                    industry.Direction = System.Data.ParameterDirection.Input;
+                    industry.ParameterName = "IndustryId";
+                    industry.Value = i.IndustryId;
+                    cmd.Parameters.Add(industry);
+                    var reader = cmd.ExecuteReader();
+                    DataTable dt = new DataTable(i.Name);
+                    dt.Load(reader);
+                    if(dt.Rows.Count>0)
+                        dts.Add(dt);
+                });
+            }
+
+            return dts;
         }
     }
 }

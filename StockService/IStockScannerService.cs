@@ -45,8 +45,9 @@ namespace StockService
         void GetCompanies(Industry industry);
 
         [OperationContract]
-        Task<DataTable> GetDividends(Sector sector);
+        IEnumerable<DataTable> GetDividends(Sector sector);
 
-
+        [OperationContract]
+        IEnumerable<DataTable> GetVolumes(Sector sector);
     }
 }

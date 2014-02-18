@@ -99,15 +99,20 @@
     </ApplicationDefinition>
     <Compile Include="Converters\FinancialDoubleConverter.cs" />
     <Compile Include="Messages\Messages.cs" />
-    <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="Service References\StockScannerService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Settings1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="StockScannerCallbackClient.cs" />
     <Compile Include="ViewModel\DetailsViewModel.cs" />
-    <Compile Include="ViewModel\DividendViewModel.cs" />
+    <Compile Include="ViewModel\Top10ViewModel.cs" />
     <Compile Include="ViewModel\StockScannerViewModel.cs" />
     <Page Include="DataTemplates\DataTemplates.xaml">
       <SubType>Designer</SubType>
@@ -140,31 +145,45 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Service References\StockScannerService\StockScannerService1.disco" />
+    <None Include="Properties\DataSources\System.Data.DataSet.datasource" />
+    <None Include="Service References\StockScannerService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\StockScannerService\configuration.svcinfo" />
+    <None Include="Service References\StockScannerService\configuration91.svcinfo" />
+    <None Include="Service References\StockScannerService\StockScanner.UI.StockScannerService.CalculatedData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\StockScannerService\StockScanner.UI.StockScannerService.Market.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\StockScannerService\StockScannerService.disco" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\DataSources\System.Data.DataTable.datasource" />
-    <None Include="Service References\StockScannerService\StockScanner.UI.StockScannerService.CalculatedData.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\StockScannerService\StockScannerService1.wsdl" />
-    <None Include="Service References\StockScannerService\StockScannerService5.xsd">
+    <None Include="Service References\StockScannerService\StockScannerService.wsdl" />
+    <None Include="Service References\StockScannerService\StockScannerService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\StockScannerService\StockScannerService51.xsd">
+    <None Include="Service References\StockScannerService\StockScannerService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\StockScannerService\StockScannerService52.xsd">
+    <None Include="Service References\StockScannerService\StockScannerService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\StockScannerService\StockScannerService53.xsd">
+    <None Include="Service References\StockScannerService\StockScannerService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\StockScannerService\StockScannerService54.xsd">
+    <None Include="Service References\StockScannerService\StockScannerService4.xsd">
       <SubType>Designer</SubType>
+    </None>
+    <None Include="Settings.settings">
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings1.Designer.cs</LastGenOutput>
     </None>
     <Resource Include="MVVMLight.Nuget.Readme.txt" />
     <Content Include="NLog.config">
@@ -179,27 +198,18 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Service References\StockScannerService\StockScanner.UI.StockScannerService.Market.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\StockScannerService\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\StockScannerService\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\StockScannerService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StockScanner.Themes\StockScanner.Themes.csproj">
       <Project>{79c96dcd-c878-44e5-b535-e7775082bb6e}</Project>
       <Name>StockScanner.Themes</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\StockScannerService\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

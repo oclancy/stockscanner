@@ -15,9 +15,13 @@ namespace StockScanner.UI.ViewModel
 
         protected bool Active { get; private set; }
 
+        protected event EventHandler Activated;
+
         private void OnActivated(ViewModelBase obj)
         {
             Active = obj == this;
+            if (Active  && Activated != null)
+                Activated(this, new EventArgs());
         }
 
         public ViewModelBase(IMessenger m_messenger)

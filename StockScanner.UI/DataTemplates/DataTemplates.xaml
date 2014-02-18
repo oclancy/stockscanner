@@ -6,7 +6,8 @@
                     xmlns:myconv="clr-namespace:StockScanner.UI.Converters"
                     xmlns:system="clr-namespace:System;assembly=mscorlib"
                     xmlns:vm="clr-namespace:StockScanner.UI.ViewModel"
-                    xmlns:dto="clr-namespace:StockScanner.UI.StockScannerService">
+                    xmlns:dto="clr-namespace:StockScanner.UI.StockScannerService"
+                    xmlns:ui="clr-namespace:StockScanner.UI">
     
     
     <DataTemplate DataType="{x:Type vm:DetailsViewModel}">
@@ -96,9 +97,68 @@
     </DataTemplate>
 
 
-    <DataTemplate DataType="{x:Type vm:DividendViewModel}">
+    <DataTemplate DataType="{x:Type vm:Top10ViewModel}" x:Key="Top10Template">
+
+        <ItemsControl ItemsSource="{Binding Dividends}">
+
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.Template>
+                <ControlTemplate TargetType="ItemsControl">
+                    <Border BorderBrush="BlanchedAlmond" BorderThickness="1" CornerRadius="12" >
+                        <ItemsPresenter/>
+                    </Border>
+                </ControlTemplate>
+            </ItemsControl.Template>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Yellow" BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock Text="{Binding TableName}" 
+                                       HorizontalAlignment="Center" 
+                                       FontSize="{Binding Source={x:Static ui:Settings.Default},Path=TextSize}" />
+                            <DataGrid ItemsSource="{Binding}" AutoGenerateColumns="False" IsReadOnly="True">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding Value}" Header=" " Width="SizeToCells"/>
+                                    <DataGridTemplateColumn Header="Name" Width="SizeToCells">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Name}" ToolTip="{Binding Symbol}"/>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+
+            <ItemsControl.ItemContainerStyle>
+                <Style>
+                    <Setter Property="Control.Margin" Value="5"/>
+                    <Style.Triggers>
+                        <Trigger Property="Control.IsMouseOver" Value="True">
+                            <Setter Property="Control.ToolTip" Value="{Binding Symbol}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+        </ItemsControl>
 
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:DividendViewModel}" >
+        <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource Top10Template}"/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:VolumesViewModel}" >
+        <ContentPresenter Content="{Binding}" ContentTemplate="{StaticResource Top10Template}"/>
+    </DataTemplate>
 
 </ResourceDictionary>
